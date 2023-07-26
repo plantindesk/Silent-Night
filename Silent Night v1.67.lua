@@ -19,7 +19,7 @@
 	CPP = CayoPerico:add_submenu("Preps")
 
 			a4 = 1
-	CPP:add_array_item("Primary Target", {"Tequila (900k)", "Necklace (1m)", "Bonds (1.1m)", "Diamond (1.3m)", "Statue (1.9m)"}, function() return a4 end, 
+	CPP:add_array_item("Primary Target", {"Tequila (900k)", "Necklace (1m)", "Bonds (1,1m)", "Diamond (1,3m)", "Statue (1,9m)"}, function() return a4 end, 
 		function(CPpt) if CPpt == 1 then stats.set_int(MPX .. "H4CNF_TARGET", 0) 
 		elseif CPpt == 2 then stats.set_int(MPX .. "H4CNF_TARGET", 1) 
 		elseif CPpt == 3 then stats.set_int(MPX .. "H4CNF_TARGET", 2) 
@@ -354,11 +354,11 @@
 		elseif CPses == 2 then globals.set_int(1575020, 1) globals.set_int(1574589, 1) sleep(0.2) globals.set_int(1574589, 0) end 
 		b10 = CPses end)
 	
-	DCE:add_action("Bypass Fingerprint Hack", function() if FMC and FMC:is_active() then if FMC:get_int(52929) == 4 then FMC:set_int(52929, 5) end end end)
+	DCE:add_action("Bypass Fingerprint Hack (Outdated)", function() if FMC and FMC:is_active() then if FMC:get_int(52929) == 4 then FMC:set_int(52929, 5) end end end)
 		
-	DCE:add_action("Bypass Keypad Hack", function() if FMC and FMC:is_active() then if FMC:get_int(53991) == 4 then FMC:set_int(53991, 5) end end end)
+	DCE:add_action("Bypass Keypad Hack (Outdated)", function() if FMC and FMC:is_active() then if FMC:get_int(53991) == 4 then FMC:set_int(53991, 5) end end end)
 		
-	DCE:add_action("Bypass Drill Vault Door", function() if FMC:is_active() then FMC:set_int(10082 + 7, 4) FMC:set_int(10082 + 7, 6) end end)
+	DCE:add_action("Bypass Drill Vault Door (Outdated)", function() if FMC:is_active() then FMC:set_int(10082 + 7, 4) FMC:set_int(10082 + 7, 6) end end)
 	
 	DCE:add_action("Unlock All POI", function() stats.set_int(MPX .. "H3OPT_POI", -1) 
 												stats.set_int(MPX .. "H3OPT_ACCESSPOINTS", -1) end)
@@ -425,9 +425,9 @@
 	
 	DE = Doomsday:add_submenu("Extra")
 	
-	DE:add_action("Bypass Data Breaches Hack", function() FMC:set_int(1537, 2) end)
+	DE:add_action("Bypass Data Breaches Hack (Outdated)", function() FMC:set_int(1537, 2) end)
 	
-	DE:add_action("Bypass Doomsday Scenario Hack", function() FMC:set_int(1398, 3) end)
+	DE:add_action("Bypass Doomsday Scenario Hack (Outdated)", function() FMC:set_int(1398, 3) end)
 	
 --Credits--
 
@@ -435,5 +435,3 @@
 	
 	Credits:add_action("Developer: SilentSalo", function() end)
 	Credits:add_action("Discord: silentsalo", function() end)
-	
-	
