@@ -675,7 +675,7 @@
 
 ---Money Tool---
 
-	MoneyTool = SilentNight:add_submenu("♠ Money Tool")
+	MoneyTool = SilentNight:add_submenu("♣ Money Tool")
 	
 --Bunker Crash--
 
