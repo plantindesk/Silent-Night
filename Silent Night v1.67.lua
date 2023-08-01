@@ -973,7 +973,7 @@
 	
 --Orbital Refund--
 
-	OrbitalRefund = MoneyTool:add_submenu("Orbital Refund (Semi-Detected)")
+	OrbitalRefund = MoneyTool:add_submenu("Orbital Refund (Detected)")
 	
 			a45 = false 
 		local function OrbitalLoop(Enabled) 
