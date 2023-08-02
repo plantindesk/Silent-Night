@@ -19,6 +19,7 @@
 			FMC = script("fm_mission_controller")
 			FMC20 = script("fm_mission_controller_2020")
 			HIP = script("heist_island_planning")
+			AMN = script("am_mp_nightclub")
 			FMG = 262145 -- basic global
 		
 --Required Keyboard Keys--
@@ -33,7 +34,7 @@
 		if localplayer ~= nil then localplayer:set_position(x, y, z) 
 								   localplayer:set_rotation(yaw, roll, pitch) end end	
 		
----Heist Tool---
+--Heist Tool--
 
 	HeistTool = SilentNight:add_submenu("♠ Heist Tool")
 
@@ -169,56 +170,20 @@
 		a6 = PriTar end)
 		
 			a7 = 1
-	CPP:add_array_item("Fill Compound Storages", {"None", "Gold", "Paintings", "Cocaine", "Weed", "Cash", "All"}, function() return a7 end, 
-		function(FilComSto) if FilComSto == 1 then stats.set_int(MPX .. "H4LOOT_CASH_C", 0) 
-												   stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_WEED_C", 0) 
-												   stats.set_int(MPX .. "H4LOOT_WEED_C_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_PAINT", 0) 
-												   stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_COKE_C", 0) 
-												   stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_GOLD_C", 0) 
-												   stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 0)
-		elseif FilComSto == 2 then stats.set_int(MPX .. "H4LOOT_GOLD_C", 255) stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 255)
-		elseif FilComSto == 3 then stats.set_int(MPX .. "H4LOOT_PAINT", 255) stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", 255)
-		elseif FilComSto == 4 then stats.set_int(MPX .. "H4LOOT_COKE_C", 255) stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 255) 
-		elseif FilComSto == 5 then stats.set_int(MPX .. "H4LOOT_WEED_C", 255) stats.set_int(MPX .. "H4LOOT_WEED_C_SCOPED", 255) 
-		elseif FilComSto == 6 then stats.set_int(MPX .. "H4LOOT_CASH_C", 255) stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 255) 
-		elseif FilComSto == 7 then stats.set_int(MPX .. "H4LOOT_CASH_C", 255) 
-								   stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 255) 
-								   stats.set_int(MPX .. "H4LOOT_WEED_C", 255) 
-								   stats.set_int(MPX .. "H4LOOT_WEED_C_SCOPED", 255) 
-								   stats.set_int(MPX .. "H4LOOT_PAINT", 255) 
-								   stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", 255) 
-								   stats.set_int(MPX .. "H4LOOT_COKE_C", 255) 
-								   stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 255) 
-								   stats.set_int(MPX .. "H4LOOT_GOLD_C", 255) 
-								   stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 255) end 
-		a7 = FilIslSto end)
-	
+	CPP:add_array_item("Fill Compound Storages", {"Gold", "Paintings", "Cocaine", "Weed", "Cash"}, function() return a7 end, 
+		function(FilComSto) if FilComSto == 1 then stats.set_int(MPX .. "H4LOOT_GOLD_C", -1) stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", -1) 
+		elseif FilComSto == 2 then stats.set_int(MPX .. "H4LOOT_PAINT", -1) stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", -1) stats.set_int(MPX .. "H4LOOT_PAINT_V", 403500) 
+		elseif FilComSto == 3 then stats.set_int(MPX .. "H4LOOT_COKE_C", -1) stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", -1) 
+		elseif FilComSto == 4 then stats.set_int(MPX .. "H4LOOT_WEED_C", -1) stats.set_int(MPX .. "H4LOOT_WEED_C_SCOPED", -1) 
+		elseif FilComSto == 5 then stats.set_int(MPX .. "H4LOOT_CASH_C", -1) stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", -1) end 
+		a7 = FilComSto end)
+		
 			a8 = 1
-	CPP:add_array_item("Fill Island Storages", {"None", "Cocaine", "Weed", "Cash", "All"}, function() return a8 end, 
-		function(FilIslSto) if FilIslSto == 1 then stats.set_int(MPX .. "H4LOOT_CASH_I", 0) 
-												   stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_WEED_I", 0) 
-												   stats.set_int(MPX .. "H4LOOT_WEED_I_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_COKE_I", 0) 
-												   stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 0) 
-												   stats.set_int(MPX .. "H4LOOT_GOLD_I", 0) 
-												   stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 0)
-		elseif FilIslSto == 2 then stats.set_int(MPX .. "H4LOOT_GOLD_I", 255) stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 255) 
-		elseif FilIslSto == 3 then stats.set_int(MPX .. "H4LOOT_COKE_I", 167772) stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 167772) 
-		elseif FilIslSto == 4 then stats.set_int(MPX .. "H4LOOT_WEED_I", 17215) stats.set_int(MPX .. "H4LOOT_WEED_I_SCOPED", 17215) 
-		elseif FilIslSto == 5 then stats.set_int(MPX .. "H4LOOT_CASH_I", 215) stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", 215) 
-		elseif FilIslSto == 6 then stats.set_int(MPX .. "H4LOOT_CASH_I", 215) 
-								   stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", 215) 
-								   stats.set_int(MPX .. "H4LOOT_WEED_I", 17215) 
-								   stats.set_int(MPX .. "H4LOOT_WEED_I_SCOPED", 17215) 
-								   stats.set_int(MPX .. "H4LOOT_COKE_I", 167772) 
-								   stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 167772) 
-								   stats.set_int(MPX .. "H4LOOT_GOLD_I", 255) 
-								   stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 255) end 
+	CPP:add_array_item("Fill Island Storages", {"Gold", "Cocaine", "Weed", "Cash"}, function() return a8 end, 
+		function(FilIslSto) if FilIslSto == 1 then stats.set_int(MPX .. "H4LOOT_GOLD_I", -1) stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", -1) 
+		elseif FilIslSto == 2 then stats.set_int(MPX .. "H4LOOT_COKE_I", -1) stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", -1) 
+		elseif FilIslSto == 3 then stats.set_int(MPX .. "H4LOOT_WEED_I", -1) stats.set_int(MPX .. "H4LOOT_WEED_I_SCOPED", -1) 
+		elseif FilIslSto == 4 then stats.set_int(MPX .. "H4LOOT_CASH_I", -1) stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", -1) end 
 		a8 = FilIslSto end)
 	
 			a9 = 1
@@ -255,6 +220,14 @@
 												stats.set_int(MPX .. "H4CNF_HEL_DISRP", 3) end)
 	
 	CPP:add_action("Reset Preps", function() if HIP:is_active() then HIP:set_int(1526, 2) end end) 
+	
+	CPP:add_action("", function() end)
+	
+	CPPNote = CPP:add_submenu("Read Me")
+	
+	CPPNote:add_action("                 After all choices and", function() end)
+	CPPNote:add_action("            pressing «Complete Preps»", function() end)
+	CPPNote:add_action("      leave submarine and come back in", function() end)	
 	
 	CPC = CayoPerico:add_submenu("Cuts") 
 	
@@ -299,7 +272,7 @@
 		if Enabled then globals.set_int(FMG + 29939, 99999) else globals.set_int(FMG + 29939, 1800) end end
 	CPE:add_toggle("Woman's Bag", function() return a14 end, function() a14 = not a14 WomBag(a14) end)	
 		
-	CPE:add_action("Bypass Fingerprint Hack", function() if FMC20:is_active() then if FMC20:get_int(23669) == 4 then FMC20:set_int(23669, 5) end end end)
+	CPE:add_action("Bypass Fingerprint Hack", function() FMC20:set_int(23669, 5) end)
 		
 	CPE:add_action("Bypass Plasma Cutter Cut", function() if FMC20:is_active() then FMC20:set_float(29685 + 3, 100) end end)
 	
@@ -444,14 +417,6 @@
 		
 	CayoPerico:add_action("Instant Finish (solo only)", function() FMC20:set_int(45450, 9) FMC20:set_int(46829, 50) end)
 	
-	CayoPerico:add_action("", function() end)
-	
-	CayoPericoNote = CayoPerico:add_submenu("Read Me")
-	
-	CayoPericoNote:add_action("                 After all choices and", function() end)
-	CayoPericoNote:add_action("            pressing «Complete Preps»", function() end)
-	CayoPericoNote:add_action("      leave submarine and come back in", function() end)
-	
 --Diamond Сasino--
 	
 	DiamondCasino = HeistTool:add_submenu("Diamond Casino (Safe)")
@@ -529,6 +494,14 @@
 	
 	DCP:add_action("Reset Preps", function() stats.set_int(MPX .. "H3OPT_BITSET1", 0) 
 											 stats.set_int(MPX .. "H3OPT_BITSET0", 0) end)
+	
+	DCP:add_action("", function() end)
+	
+	DCPNote = DCP:add_submenu("Read Me")
+	
+	DCPNote:add_action("                 After all choices and", function() end)
+	DCPNote:add_action("            pressing «Complete Preps»", function() end)
+	DCPNote:add_action("                  just wait some time", function() end)	
 	
 	DCC = DiamondCasino:add_submenu("Cuts") 
 	
@@ -618,14 +591,6 @@
 		elseif MinVau == 6 then TP(2509.844238, -250.968552, -72.037170, 0.000000, 0.000000, 0.000000) end
 		a36 = MinVau end)
 	
-	DiamondCasino:add_action("", function() end)
-	
-	DiamondCasinoNote = DiamondCasino:add_submenu("Read Me")
-	
-	DiamondCasinoNote:add_action("                 After all choices and", function() end)
-	DiamondCasinoNote:add_action("            pressing «Complete Preps»", function() end)
-	DiamondCasinoNote:add_action("                  just wait some time", function() end)
-	
 --Doomsday--
 	
 	Doomsday = HeistTool:add_submenu("Doomsday (Safe)") 
@@ -645,6 +610,14 @@
 	DP:add_action("Reset Preps", function() stats.set_int(MPX .. "GANGOPS_FLOW_MISSION_PROG", 240) 
 											stats.set_int(MPX .. "GANGOPS_HEIST_STATUS", 0) 
 											stats.set_int(MPX .. "GANGOPS_FLOW_NOTIFICATIONS", 1557) end) 
+											
+	DP:add_action("", function() end)
+	
+	DPNote = DP:add_submenu("Read Me")
+	
+	DPNote:add_action("                 After all choices and", function() end)
+	DPNote:add_action("            pressing «Complete Preps»", function() end)
+	DPNote:add_action("      leave your base and come back in", function() end)
 													 
 	DC = Doomsday:add_submenu("Cuts") 
 	
@@ -666,12 +639,6 @@
 	DE:add_action("Bypass Doomsday Scenario Hack", function() FMC:set_int(1266 + 135, 3) end)
 	
 	Doomsday:add_action("", function() end) 
-	
-	DoomsdayNote = Doomsday:add_submenu("Read Me")
-	
-	DoomsdayNote:add_action("                 After all choices and", function() end)
-	DoomsdayNote:add_action("            pressing «Complete Preps»", function() end)
-	DoomsdayNote:add_action("      leave your base and come back in", function() end)
 
 ---Money Tool---
 
@@ -683,33 +650,23 @@
 			
 	BunkerCrash:add_action("Start Solo Session", function() globals.set_int(1575020, 8) globals.set_int(1574589, 1) sleep(1) globals.set_int(1574589, 0) end)
 	
-			a40 = false
-		local function RedResDelAndCos(Enabled)
-		if Enabled then globals.set_int(FMG + 19842, 10) 
-						globals.set_int(FMG + 21735, 1000) 
-						globals.set_int(FMG + 21736, 1000) 
-		else globals.set_int(FMG + 19842, 600) 
-			 globals.set_int(FMG + 21735, 15000) 
-			 globals.set_int(FMG + 21736, 15000) end end
-	BunkerCrash:add_toggle("Reduce Resupply Delay n Cost", function() return a40 end, function() a40 = not a40 RedResDelAndCos(a40) end)
-	
-
 	BunkerCrash:add_action("Teleport to Laptop (use inside bunker)", function() TP(907.060000, -3207.460000, -98.490000, -1.500000, -0.000000, 0.000000) 
-																				  sleep(1)
-																				  menu.send_key_press(69)
-																				  sleep(7.5)
-																				  menu.send_key_press(13) end)
+																			    sleep(1)
+																			    menu.send_key_press(69)
+																			    sleep(7.5)
+																			    menu.send_key_press(13) end)
+	
+	BunkerCrash:add_action("Get Supplies", function() globals.set_int(2764608, 121) end)
 									   
 	BunkerCrash:add_action("Trigger Production", function() menu.trigger_bunker_production() end)
 			
-			BunkerPresets = {"Default", "2.5mil (Safe)"}
-			a41 = 1
-	BunkerCrash:add_array_item("Instant Sell [Outdated]", BunkerPresets, function() return a41 end, 
-		function(InsSel) if BunkerPresets[InsSel] == "Default" then globals.set_int(283726, 5000)
-		elseif BunkerPresets[InsSel] == "2.5mil (Safe)" then globals.set_int(283726, 2500000) end
-			a41 = InsSel 
-			sleep(1)
-			GB:set_int(1977, 0) end)
+			a41 = 0
+	BunkerCrash:add_int_range("Instant Sell [Outdated]", 100000, 0, 2500000, function() return a41 end, 
+		function(InsSel) globals.set_int(FMG + 21689, InsSel)
+					   	 a41 = InsSel 
+						 GB:set_int(1206, 15)
+						 sleep(1)
+						 GB:set_int(1980, 0) end)
 	
 	BunkerCrash:add_action("Legal Stats", function() stats.set_int(MPX .. "LIFETIME_BKR_SELL_EARNINGS5", 19995000)
 													 stats.set_int(MPX .. "LIFETIME_BKR_SEL_COMPLETBC5", 1000)
@@ -728,17 +685,16 @@
 	BunkerCrashNote:add_action("          before selecting higher preset;", function() end)
 	BunkerCrashNote:add_action("   always choose to sell in Blaine County;", function() end)
 	BunkerCrashNote:add_action("", function() end)
-	BunkerCrashNote:add_action("                      Empty Session:", function() end)
+	BunkerCrashNote:add_action("                   Start Solo Session:", function() end)
 	BunkerCrashNote:add_action("       Use if you aren't alone in session", function() end)
-	BunkerCrashNote:add_action("", function() end)
-	BunkerCrashNote:add_action("         Reduce Resupply Delay n Cost:", function() end)
-	BunkerCrashNote:add_action("   Use to reduce resupply delay and cost", function() end)
-	BunkerCrashNote:add_action("    to 10 secs and few thousands dollars", function() end) 
 	BunkerCrashNote:add_action("", function() end)
 	BunkerCrashNote:add_action("                  Teleport to Laptop:", function() end)
 	BunkerCrashNote:add_action("   Use to tp to laptop inside your bunker;", function() end)
 	BunkerCrashNote:add_action("              it also automatically sits", function() end)
-	BunkerCrashNote:add_action("            down and opens the menu", function() end)
+	BunkerCrashNote:add_action("            down and opens the menu", function() end)	
+	BunkerCrashNote:add_action("", function() end)
+	BunkerCrashNote:add_action("                      Get Supplies:", function() end)
+	BunkerCrashNote:add_action("               Use to refill your stock", function() end)
 	BunkerCrashNote:add_action("", function() end)
 	BunkerCrashNote:add_action("                 Trigger Production:", function() end)
 	BunkerCrashNote:add_action("         Use once you got some stock,", function() end)
@@ -776,17 +732,9 @@
 	
 --Cash Remover--
 
-	CashRemover = MoneyEditor:add_submenu("Cash Remover (Real) [Outdated]")
+	CashRemover = MoneyEditor:add_submenu("Cash Remover (Real)")
 		
-	NumberList = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
-	
-			a43 = false
-		local function CasRemCooldownKiller()
-		if a43 == true then globals.set_int(FMG + 1283, 0)
-		else globals.set_int(FMG + 12837, 600000) end end
-	CashRemover:add_toggle("Cooldown Killer", function() return a43 end, function() a43 = not a43 CasRemCooldownKiller(a43) end)
-		
-	CashRemover:add_bare_item("", function() return "Current Price: $" .. FormatMoney(globals.get_int(FMG + 12850)) end, function() end, function() end, function() end)
+			NumberList = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
 	
 			DefNum1 = NumberList[1]
 			DefNum1Cur = 1
@@ -848,14 +796,7 @@
 		DefNum10 = NumberList[NewNum10]
 		DefNum10Cur = NewNum10 end)
 		
-	CashRemover:add_bare_item("", function() return "Change Price: $" .. FormatMoney(DefNum1 .. DefNum2 .. DefNum3 .. DefNum4 .. DefNum5 .. DefNum6 .. DefNum7 .. DefNum8 .. DefNum9 .. DefNum10) end, function() globals.set_int(FMG + 12850, DefNum1 .. DefNum2 .. DefNum3 .. DefNum4 .. DefNum5 .. DefNum6 .. DefNum7 .. DefNum8 .. DefNum9 .. DefNum10) end, function() globals.set_int(38979, 0) end, function() end)
-	
-	CashRemover:add_action("", function() end)
-	
-	CashRemoverNote = CashRemover:add_submenu("Read Me")
-	
-	CashRemoverNote:add_action("        To remove your money, activate", function() end) 
-	CashRemoverNote:add_action("  ghost organization via interaction menu", function() end)
+	CashRemover:add_bare_item("", function() return "Remove Cash: $" .. FormatMoney(DefNum1 .. DefNum2 .. DefNum3 .. DefNum4 .. DefNum5 .. DefNum6 .. DefNum7 .. DefNum8 .. DefNum9 .. DefNum10) end, function() globals.set_int(2764426 + 36, DefNum1 .. DefNum2 .. DefNum3 .. DefNum4 .. DefNum5 .. DefNum6 .. DefNum7 .. DefNum8 .. DefNum9 .. DefNum10) end, function() end, function() end)
 	
 --Total Earned--
 	
@@ -867,61 +808,61 @@
 	
 			DefNum11 = NumberList[1]
 			DefNum11Cur = 1
-	TotalEarned:add_array_item("Char #1", NumberList, function() return DefNum11 end, function(NewNum11)
+	TotalEarned:add_array_item("Char #1", NumberList, function() return DefNum11Cur end, function(NewNum11)
 		DefNum11 = NumberList[NewNum11]
 		DefNum11Cur = NewNum11 end)
 	
 			DefNum12 = NumberList[1]
 			DefNum12Cur = 1
-	TotalEarned:add_array_item("Char #2", NumberList, function() return DefNum12 end, function(NewNum12)
+	TotalEarned:add_array_item("Char #2", NumberList, function() return DefNum12Cur end, function(NewNum12)
 		DefNum12 = NumberList[NewNum12]
 		DefNum12Cur = NewNum12 end)
 
 			DefNum13 = NumberList[1]
 			DefNum13Cur = 1
-	TotalEarned:add_array_item("Char #3", NumberList, function() return DefNum13 end, function(NewNum13)
+	TotalEarned:add_array_item("Char #3", NumberList, function() return DefNum13Cur end, function(NewNum13)
 		DefNum13 = NumberList[NewNum13]
 		DefNum13Cur = NewNum13 end)
 	
 			DefNum14 = NumberList[1]
 			DefNum14Cur = 1
-	TotalEarned:add_array_item("Char #4", NumberList, function() return DefNum14 end, function(NewNum14)
+	TotalEarned:add_array_item("Char #4", NumberList, function() return DefNum14Cur end, function(NewNum14)
 		DefNum14 = NumberList[NewNum14]
 		DefNum14Cur = NewNum14 end)
 	
 			DefNum15 = NumberList[1]
 			DefNum15Cur = 1
-	TotalEarned:add_array_item("Char #5", NumberList, function() return DefNum15 end, function(NewNum15)
+	TotalEarned:add_array_item("Char #5", NumberList, function() return DefNum15Cur end, function(NewNum15)
 		DefNum15 = NumberList[NewNum15]
 		DefNum15Cur = NewNum15 end)
 	
 			DefNum16 = NumberList[1]
 			DefNum16Cur = 1
-	TotalEarned:add_array_item("Char #6", NumberList, function() return DefNum16 end, function(NewNum16)
+	TotalEarned:add_array_item("Char #6", NumberList, function() return DefNum16Cur end, function(NewNum16)
 		DefNum16 = NumberList[NewNum16]
 		DefNum16Cur = NewNum16 end)
 	
 			DefNum17 = NumberList[1]
 			DefNum17Cur = 1
-	TotalEarned:add_array_item("Char #7", NumberList, function() return DefNum17 end, function(NewNum17)
+	TotalEarned:add_array_item("Char #7", NumberList, function() return DefNum17Cur end, function(NewNum17)
 		DefNum17 = NumberList[NewNum17]
 		DefNum17Cur = NewNum17 end)
 	
 			DefNum18 = NumberList[1]
 			DefNum18Cur = 1
-	TotalEarned:add_array_item("Char #8", NumberList, function() return DefNum18 end, function(NewNum18)
+	TotalEarned:add_array_item("Char #8", NumberList, function() return DefNum18Cur end, function(NewNum18)
 		DefNum18 = NumberList[NewNum18]
 		DefNum18Cur = NewNum18 end)
 		
 			DefNum19 = NumberList[1]
 			DefNum19Cur = 1
-	TotalEarned:add_array_item("Char #9", NumberList, function() return DefNum19 end, function(NewNum19)
+	TotalEarned:add_array_item("Char #9", NumberList, function() return DefNum19Cur end, function(NewNum19)
 		DefNum19 = NumberList[NewNum19]
 		DefNum19Cur = NewNum19 end)
 
 			DefNum20 = NumberList[1]
 			DefNum20Cur = 1
-	TotalEarned:add_array_item("Char #10", NumberList, function() return DefNum20 end, function(NewNum20)
+	TotalEarned:add_array_item("Char #10", NumberList, function() return DefNum20Cur end, function(NewNum20)
 		DefNum20 = NumberList[NewNum20]
 		DefNum20Cur = NewNum20 end)
 		
@@ -942,34 +883,52 @@
 	TotalEarnedNote:add_action("   To save the new statistics, you need to", function() end)
 	TotalEarnedNote:add_action("    earn or spend somehow some money", function() end)
 	
---Nightclub Safe Abuse--
+--Night Loop--
 
-	NightclubSafeAbuse = MoneyTool:add_submenu("Nightclub Safe Abuse (Safe)")
+	NightLoop = MoneyTool:add_submenu("Night Loop (Safe)")
 
+			a64 = 1 
+			DefDelay3 = 0.6
+	NightLoop:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"}, function() return a64 end, 
+		function(DelayType3) if DelayType3 == 1 then DefDelay3 = 0.6 
+		elseif DelayType3 == 2 then DelayType3 = 0.8 
+		elseif DelayType3 == 3 then DelayType3 = 1
+		elseif DelayType3 == 4 then DelayType3 = 1.2 end
+		a64 = DelayType3 end)
+
+			PlayerID = localplayer:get_player_id()
+			SafeValue = 1853988 + 1 + (PlayerID * 867) + 267 + 354 + 5
+			SafeAmount = 300000
+			SafeCollection = 199 + 532 + 1
+			SafeCapacity = 24227 
+			IncomeStart = 24204
+			IncomeEnd = 24223
 			a44 = false
-		local function SafeLoop()
-		while a44 do stats.set_int(MPX .. "CLUB_POPULARITY", 1000)
-					 stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-					 sleep(1.5)
-					 stats.set_int(MPX .. "CLUB_POPULARITY", 1000)
-					 stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-					 sleep(1.5)
-					 stats.set_int(MPX .. "CLUB_POPULARITY", 1000)
-					 stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-					 sleep(1.5)
-					 stats.set_int(MPX .. "CLUB_POPULARITY", 1000)
-					 stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-					 sleep(1.5)
-					 stats.set_int(MPX .. "CLUB_POPULARITY", 1000)
-					 stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-					 sleep(4) end end
-	NightclubSafeAbuse:add_toggle("$250k/10s (AFK)", function() return a44 end, function() a44 = not a44 SafeLoop() end)
+		local function NightLoop1()
+			if not localplayer then return end
+			while a44 do
+				for i = IncomeStart, IncomeEnd do
+					globals.set_int(FMG + i, SafeAmount) 
+				end
+				globals.set_int(FMG + SafeCapacity, SafeAmount)
+				stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
+				sleep(DefDelay3) 
+				if globals.get_int(SafeValue) ~= 0 then
+					AMN:set_int(SafeCollection, 1)
+					sleep(DefDelay3)
+				end 
+			end
+		end
+	NightLoop:add_toggle("$300k/1s (AFK)", function() return a44 end, function() a44 = not a44 NightLoop1() end)
 	
-	NightclubSafeAbuse:add_action("", function() end)
+	NightLoop:add_action("", function() end)
 	
-	NightclubSafeAbuseNote = NightclubSafeAbuse:add_submenu("Read Me")
+	NightLoopNote = NightLoop:add_submenu("Read Me")
 	
-	NightclubSafeAbuseNote:add_action("    Open the nightclub safe and activate", function() end)
+	NightLoopNote:add_action("  Come inside your nightclub and activate", function() end)
+	NightLoopNote:add_action("", function() end)	
+	NightLoopNote:add_action("                            Delay:", function() end)
+	NightLoopNote:add_action("  Change this if you aren't getting money", function() end)
 	
 --Orbital Refund--
 
@@ -1281,11 +1240,11 @@
 			a53 = 1 
 			DefDelay2 = 0.5
 	ManualMode:add_array_item("Delays", {"Default", "Fast", "Medium", "Slow"}, function() return a53 end,
-		function(DelayType) if DelayType == 1 then DefDelay2 = 0.5
-		elseif DelayType == 2 then DefDelay2 = 1 
-		elseif DelayType == 3 then DefDelay2 = 2
-		elseif DelayType == 4 then DefDelay2 = 3 end
-		a53 = DelayType end)
+		function(DelayType2) if DelayType2 == 1 then DefDelay2 = 0.5
+		elseif DelayType2 == 2 then DefDelay2 = 1 
+		elseif DelayType2 == 3 then DefDelay2 = 2
+		elseif DelayType2 == 4 then DefDelay2 = 3 end
+		a53 = DelayType2 end)
 	
 			a54 = false
 		local function CargoCooldownKiller()
@@ -1398,6 +1357,8 @@
 
 	CharactersStats = UnlockTool:add_submenu("Character's Stats (Safe)")
 	
+--Achievements--
+
 	Achievements = CharactersStats:add_submenu("Achievements")
 			
 			a57 = false
@@ -1494,6 +1455,8 @@
 	AchievementsNote:add_action(" Unlocks all achievements auto; ≈10 mins;", function() end)
 	AchievementsNote:add_action("               to turn off the option,", function() end)
 	AchievementsNote:add_action("     close the menu via «Menu Settings»", function() end)
+
+--Awards--
 	
 	Awards = CharactersStats:add_submenu("Awards")
 	
@@ -4450,7 +4413,9 @@
 	
 	AwardsNote:add_action("    	 Unlocking «After Hours» awards will ", function() end)
 	AwardsNote:add_action("  cause a transaction error multiple times;", function() end)
-	AwardsNote:add_action("       Some awards can be temporarily", function() end)
+	AwardsNote:add_action("        some awards can be temporarily", function() end)
+	
+--Characteristics--	
 	
 	Characteristics = CharactersStats:add_submenu("Characteristics")
 	
@@ -4496,6 +4461,8 @@
 	CharacteristicsNote:add_action("", function() end)
 	CharacteristicsNote:add_action("    After changing one stat wait ≈5 secs", function() end)
 	
+--Collectibles--
+	
 	Collectibles = CharactersStats:add_submenu("Collectibles [Outdated]")
 	
 	TCollectibles = Collectibles:add_submenu("Unlock All (Temporarily)")
@@ -4518,8 +4485,10 @@
 	
 	PCollectiblesNote:add_action("     First, find the item you want, select", function() end)
 	PCollectiblesNote:add_action("    an option, and then pick up the item", function() end)
+
+--Rank--
 	
-	Rank = CharactersStats:add_submenu("Rank")
+	Rank = CharactersStats:add_submenu("Rank [Outdated]")
 		
 			RankNames = {"120 (Unlock All)", "250", "500", "666 (Bro, You're In Hell)", "777 (Casino Master)", "999", "8000 (True Modder)"}
 			RankValues = {120, 250, 500, 666, 777, 999, 8000}
@@ -4560,6 +4529,8 @@
 ---Facilities Unlocks---
 
 	FacilitiesUnlocks = UnlockTool:add_submenu("Facilities Unlocks (Safe)")
+
+--Arena War--
 	
 	ArenaWar = FacilitiesUnlocks:add_submenu("Arena War")
 	
@@ -4649,6 +4620,8 @@
 	ArenaWarNote:add_action("   If you've used Arena War awards unlock", function() end)
 	ArenaWarNote:add_action(" before, all unlocks will be temporary only", function() end)
 	
+--Bunker--	
+	
 	BunkerUnlocks = FacilitiesUnlocks:add_submenu("Bunker")
 		
 	BunkerUnlocks:add_action("Unlock All (Temporarily)", function()
@@ -4664,8 +4637,7 @@
 
 	PBunkerUnlocks = BunkerUnlocks:add_submenu("Unlock All (Permanently)")
 
-			a62 = false
-	PBunkerUnlocks:add_toggle("Reduce Resupply Delay n Cost", function() return a62 end, function() a62 = not a62 RedResDelAndCos(a62) end)	
+	PBunkerUnlocks:add_action("Get Supplies", function() globals.set_int(2764608, 121) end)
 		
 			a63 = 1
 	PBunkerUnlocks:add_array_item("Research", {"Speed Up", "Reset Speed"}, function() return a63 end, 
@@ -4690,6 +4662,8 @@
 	
 	PBunkerUnlocksNote:add_action("         Set staff equally, activate and", function() end)
 	PBunkerUnlocksNote:add_action(" then all researches will unlock one by one", function() end)
+
+--LS Car Meet--
 					
 	LSCarMeet = FacilitiesUnlocks:add_submenu("LS Car Meet")
 	
@@ -4707,6 +4681,8 @@
 	LSCarMeetNote:add_action("", function() end)
 	LSCarMeetNote:add_action("    If you've used LS Tuner awards unlock", function() end)
 	LSCarMeetNote:add_action(" before, all unlocks will be temporary only", function() end)
+
+--LS Customs--	
 	
 	LSCustoms = FacilitiesUnlocks:add_submenu("LS Customs")
 	
@@ -4743,6 +4719,8 @@
 												  stats.set_int(MPX .. "AWD_FMWINSEARACE", 25)
 												  stats.set_int(MPX .. "MOST_FLIPS_IN_ONE_JUMP", 5)
 												  stats.set_int(MPX .. "MOST_SPINS_IN_ONE_JUMP", 5) end)
+
+--Custom Modifications--
 
 	CustomModifications = LSCustoms:add_submenu("Custom Modifications")
 		
@@ -4861,8 +4839,8 @@
 	Credits = SilentNight:add_submenu("♥ Credits")
 	
 	Credits:add_action("Developer: Silent", function() end)
-	Credits:add_action("Supervisor: Killa`B", function() end)
-	Credits:add_action("Helpers #1: Slon, Professor", function() end)
-	Credits:add_action("Helpers #2: Zeiger, Amnesia, Pewpew", function() end)
+	Credits:add_action("Helpers #1: Mr.Robot, Slon", function() end)
+	Credits:add_action("Helpers #2: Killa`B, Zeiger", function() end)
+	Credits:add_action("Helpers #3: Amnesia, Pewpew", function() end)
 	Credits:add_action("", function() end)
 	Credits:add_action("Discord: silentsalo", function() end)
