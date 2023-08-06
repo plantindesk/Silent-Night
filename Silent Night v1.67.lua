@@ -131,7 +131,7 @@
 	
 	Apartment = HeistTool:add_submenu("Apartment (Safe)") 
 	
-	Apartment:add_action("Complete Preps (any heist)", function() stats.set_int(MPX .. "HEIST_PLANNING_STAGE", -1) end) 
+	Apartment:add_action("Complete Preps (any heist)", function() stats.set_int(MPX .. "HEIST_PLANNING_STAGE", -1) end)
 																 
 	AC = Apartment:add_submenu("Cuts") 
 	
@@ -153,7 +153,8 @@
 			a68 = false
 		local function PrisonBreak15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+				globals.set_int(19364399, 100 - (2142 * 3))
+				for i = 1936400, 1936402 do
 					globals.set_int(i, 2142)
 				end
 			else globals.set_int(1938365 + 3008 + 1, 55)
@@ -167,7 +168,8 @@
 			a69 = false
 		local function HumaneLabs15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+				globals.set_int(19364399, 100 - (1587 * 3))
+				for i = 1936400, 1936402 do
 					globals.set_int(i, 1587)
 				end
 			else globals.set_int(1938365 + 3008 + 1, 55)
@@ -181,8 +183,9 @@
 			a70 = false
 		local function SeriesAFunding15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
-					globals.set_int(i, 1587)
+				globals.set_int(19364399, 100 - (2121 * 3))
+				for i = 1936400, 1936402 do
+					globals.set_int(i, 2121)
 				end
 			else globals.set_int(1938365 + 3008 + 1, 55)
 				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
@@ -195,8 +198,9 @@
 			a71 = false
 		local function ThePacificStandard15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
-					globals.set_int(i, 1587)
+				globals.set_int(19364399, 100 - (1000 * 3))
+				for i = 1936400, 1936402 do
+					globals.set_int(i, 1000)
 				end
 			else globals.set_int(1938365 + 3008 + 1, 55)
 				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
@@ -4784,8 +4788,7 @@
 		
 	Rank:add_bare_item("", 
 		function()
-			if PI == 0 then Character = 1 else Character = 2 end
-			CurrentRP = globals.get_int(1853988 + Character + 205 + 1)
+			CurrentRP = globals.get_int(1853988 + 1 + localplayer:get_player_id() * 867 + 205 + 1)
 			CurrentRank = 0
 			for i = 1, 8000 do 
 				if CurrentRP < RPtoRank[i] then break 
@@ -5194,7 +5197,7 @@
 	
 	Credits:add_action("Developer: Silent", function() end)
 	Credits:add_action("Helpers #1: Mr. Robot, Slon", function() end)
-	Credits:add_action("Helpers #2: Killa`B, Zeiger", function() end)
+	Credits:add_action("Helpers #2: Killa`B, L7NEG, Zeiger", function() end)
 	Credits:add_action("Helpers #3: Amnesia, Pewpew", function() end)
 	Credits:add_action("", function() end)
 	Credits:add_action("Discord: silentsalo", function() end)
