@@ -31,8 +31,12 @@
 		FormatMoney = function (n) n = tostring(n) return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "") end
 		
 		local function TP(x, y, z, yaw, roll, pitch) 
-		if localplayer ~= nil then localplayer:set_position(x, y, z) 
-								   localplayer:set_rotation(yaw, roll, pitch) end end	
+			if not localplayer then return end 
+			if localplayer ~= nil then 
+				localplayer:set_position(x, y, z) 
+				localplayer:set_rotation(yaw, roll, pitch) 
+			end 
+		end	
 		
 --Heist Tool--
 
@@ -43,7 +47,7 @@
 	Agency = HeistTool:add_submenu("Agency (Safe)") 
 	
 			a1 = 1
-			AgencyContracts = {"None", "The Nightclub", "The Marina", "Nightlife Leak", "The Country Club", "Guest List", "High Society Leak", "Davis", "The Ballas", "The South Central Leak", "Studio Time", "Don't Fuck With Dre"}
+			AgencyContracts = {"Select", "The Nightclub", "The Marina", "Nightlife Leak", "The Country Club", "Guest List", "High Society Leak", "Davis", "The Ballas", "The South Central Leak", "Studio Time", "Don't Fuck With Dre"}
 	Agency:add_array_item("VIP Contract", AgencyContracts, function() return a1 end, 
 		function(VIPCon) if VIPCon == 1 then a1 = 1
 		elseif VIPCon == 2 then stats.set_int(MPX .. "FIXER_STORY_BS", 3)
@@ -65,7 +69,11 @@
 
 			a2 = false
 		local function AgencyMaxPayout(Enabled) 
-		if Enabled then globals.set_int(FMG + 32351, 2400000) else globals.set_int(FMG + 32351, 1000000) end end
+			if not localplayer then return end 
+			if Enabled then globals.set_int(FMG + 32351, 2500000) 
+			else globals.set_int(FMG + 32351, 1000000) 
+			end 
+		end
 	Agency:add_toggle("Max Payout (after start)", function() return a2 end, function() a2 = not a2 AgencyMaxPayout(a2) end)
 	
 	Agency:add_action("Instant Finish (solo only) [Outdated]", function() FMC20:set_int(38397, 51338752) 
@@ -86,7 +94,7 @@
 	AutoShop = HeistTool:add_submenu("Auto Shop (Safe)")
 	
 			a3 = 1
-	AutoShop:add_array_item("Auto Shop Mission", {"None", "Union Depository", "Superdollar Deal", "Bank Contract", "ECU Job", "Prison Contract", "Agency Deal", "Lost Contract", "Data Contract"}, function() return a3 end, 
+	AutoShop:add_array_item("Auto Shop Mission", {"Select", "Union Depository", "Superdollar Deal", "Bank Contract", "ECU Job", "Prison Contract", "Agency Deal", "Lost Contract", "Data Contract"}, function() return a3 end, 
 		function(AutShoMis) if AutShoMis == 1 then a3 = 1
 		elseif AutShoMis == 2 then stats.set_int(MPX .. "TUNER_CURRENT", 0)
 		elseif AutShoMis == 3 then stats.set_int(MPX .. "TUNER_CURRENT", 1)
@@ -101,7 +109,7 @@
 	AutoShop:add_action("Complete Preps", function() if stats.get_int(MPX .. "TUNER_CURRENT") == 1 then stats.set_int(MPX .. "TUNER_GEN_BS", 4351) else stats.set_int(MPX .. "TUNER_GEN_BS", 12543) end end) 
 		
 			a4 = 0
-	AutoShop:add_int_range("Set Payout (after start)", 250000, 0, 1000000, function() return a4 end, 
+	AutoShop:add_int_range("Set Payout (after start)", 500000, 0, 2000000, function() return a4 end, 
 		function(SetPay) for i = FMG + 31602, FMG + 31610 do globals.set_int(i, SetPay) end
 		globals.set_float(FMG + 31599, 0) 
 		a4 = SetPay end)
@@ -126,6 +134,84 @@
 	Apartment:add_action("Complete Preps (any heist)", function() stats.set_int(MPX .. "HEIST_PLANNING_STAGE", -1) end) 
 																 
 	AC = Apartment:add_submenu("Cuts") 
+	
+	AC15Mil = AC:add_submenu("15mil payout (beta)")
+			
+			a67 = false
+		local function Freeca15mil(Enabled)
+			if Enabled then 
+				for i = 1936399, 1936400 do
+					globals.set_int(i, 7453)
+					globals.set_int(1936401, 100 - (7453 * 2))
+				end
+			else globals.set_int(1938365 + 3008 + 1, 85)
+				 globals.set_int(1938365 + 3008 + 2, 15)
+			end
+		end
+	AC15Mil:add_toggle("The Freeca Job (Normal)", function() return a67 end, function() a67 = not a67 Freeca15mil(a67) end)
+			
+			a68 = false
+		local function PrisonBreak15mil(Enabled)
+			if Enabled then 
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 2142)
+				end
+			else globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+			end
+		end
+	AC15Mil:add_toggle("The Prison Break (Normal)", function() return a68 end, function() a68 = not a68 PrisonBreak15mil(a68) end)
+	
+			a69 = false
+		local function HumaneLabs15mil(Enabled)
+			if Enabled then 
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 1587)
+				end
+			else globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+			end
+		end
+	AC15Mil:add_toggle("The Humane Labs Raid (Normal)", function() return a69 end, function() a69 = not a69 HumaneLabs15mil(a69) end)
+	
+			a70 = false
+		local function SeriesAFunding15mil(Enabled)
+			if Enabled then 
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 1587)
+				end
+			else globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+			end
+		end
+	AC15Mil:add_toggle("Series A Funding (Normal)", function() return a70 end, function() a70 = not a70 SeriesAFunding15mil(a70) end)
+	
+			a71 = false
+		local function ThePacificStandard15mil(Enabled)
+			if Enabled then 
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 1587)
+				end
+			else globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+			end
+		end
+	AC15Mil:add_toggle("The Pacific Standard (Normal)", function() return a71 end, function() a71 = not a71 ThePacificStandard15mil(a71) end)
+	
+	AC15Mil:add_action("", function() end)
+	
+	AC15MilNote = AC15Mil:add_submenu("Read Me")
+	
+	AC15MilNote:add_action("            Activate within 1st 30 secs", function() end)
+	AC15MilNote:add_action("   after the cutsene ends (on cuts screen)", function() end)
 	
 			a5 = 1
 	AC:add_array_item("Presets", {"85 All", "100 All"}, function() return a5 end, 
@@ -152,9 +238,17 @@
 	
 	ApartmentNote = Apartment:add_submenu("Read Me")
 	
-	ApartmentNote:add_action("                    Complete Preps:", function() end) 
+	ApartmentNote:add_action("           Complete Preps (for fleeca):", function() end) 
 	ApartmentNote:add_action("    Pay for the preparation, start the first", function() end) 
-	ApartmentNote:add_action("        mission before using the option", function() end) 
+	ApartmentNote:add_action("   mission and as soon as you are sent to", function() end) 
+	ApartmentNote:add_action("  scout, change the session, come back to", function() end)
+	ApartmentNote:add_action("  planning room, press «Complete Preps»", function() end)
+	ApartmentNote:add_action(" near white board and press «E» and leave", function() end)
+	ApartmentNote:add_action("", function() end)
+	ApartmentNote:add_action("       Complete Preps (for other heists):", function() end) 
+	ApartmentNote:add_action("  Start the mission and leave after the 1st", function() end) 
+	ApartmentNote:add_action("   cutscene ends, press «Complete Preps»", function() end)
+	ApartmentNote:add_action("         near white board and press «E»", function() end)
 	
 --Cayo Perico--
 
@@ -163,12 +257,13 @@
 	CPP = CayoPerico:add_submenu("Preps")
 
 			a6 = 1
-	CPP:add_array_item("Primary Target", {"Tequila (900k)", "Necklace (1m)", "Bonds (1,1m)", "Diamond (1,3m)", "Statue (1,9m)"}, function() return a6 end, 
-		function(PriTar) if PriTar == 1 then stats.set_int(MPX .. "H4CNF_TARGET", 0) 
-		elseif PriTar == 2 then stats.set_int(MPX .. "H4CNF_TARGET", 1) 
-		elseif PriTar == 3 then stats.set_int(MPX .. "H4CNF_TARGET", 2) 
-		elseif PriTar == 4 then stats.set_int(MPX .. "H4CNF_TARGET", 3) 
-		elseif PriTar == 5 then stats.set_int(MPX .. "H4CNF_TARGET", 5) end 
+	CPP:add_array_item("Primary Target", {"Select", "Tequila (900k)", "Necklace (1m)", "Bonds (1,1m)", "Diamond (1,3m)", "Statue (1,9m)"}, function() return a6 end, 
+		function(PriTar) if PriTar == 1 then a6 = 1
+		elseif PriTar == 2 then stats.set_int(MPX .. "H4CNF_TARGET", 0) 
+		elseif PriTar == 3 then stats.set_int(MPX .. "H4CNF_TARGET", 1) 
+		elseif PriTar == 4 then stats.set_int(MPX .. "H4CNF_TARGET", 2) 
+		elseif PriTar == 5 then stats.set_int(MPX .. "H4CNF_TARGET", 3) 
+		elseif PriTar == 6 then stats.set_int(MPX .. "H4CNF_TARGET", 5) end 
 		a6 = PriTar end)
 		
 			a7 = 1
@@ -276,32 +371,35 @@
 			     stats.set_int(MPX .. "H4LOOT_PAINT_C_SCOPED", 0)
 			end
 		end
-	CPP:add_toggle("Add Paintings", function() return a65 end, function() a65 = not a65 AddPaintings() end)
+	CPP:add_toggle("Add Paintings", function() return a65 end, function() a65 = not a65 AddPaintings(a65) end)
 	
 			a9 = 1
-	CPP:add_array_item("Difficulty", {"Normal", "Hard"}, function() return a9 end, 
-		function(Dif) if Dif == 1 then stats.set_int(MPX .. "H4_PROGRESS", 126823) 
-		elseif Dif == 2 then stats.set_int(MPX .. "H4_PROGRESS", 131055) end 
+	CPP:add_array_item("Difficulty", {"Select", "Normal", "Hard"}, function() return a9 end, 
+		function(Dif) if Dif == 1 then a9 = 1
+		elseif Dif == 2 then stats.set_int(MPX .. "H4_PROGRESS", 126823) 
+		elseif Dif == 3 then stats.set_int(MPX .. "H4_PROGRESS", 131055) end 
 		a9 = Dif end)
 		
 			a10 = 1
-	CPP:add_array_item("Approach", {"Kosatka", "Alkonost", "Velum", "Stealth Annihilator", "Patrol Boat", "Longfin", "All Ways"}, function() return a10 end, 
-		function(Air) if Air == 1 then stats.set_int(MPX .. "H4_MISSIONS", 65283) 
-		elseif Air == 2 then stats.set_int(MPX .. "H4_MISSIONS", 65413) 
-		elseif Air == 3 then stats.set_int(MPX .. "H4_MISSIONS", 65289) 
-		elseif Air == 4 then stats.set_int(MPX .. "H4_MISSIONS", 65425) 
-		elseif Air == 5 then stats.set_int(MPX .. "H4_MISSIONS", 65313) 
-		elseif Air == 6 then stats.set_int(MPX .. "H4_MISSIONS", 65345)
-		elseif Air == 7 then stats.set_int(MPX .. "H4_MISSIONS", 65535) end 
+	CPP:add_array_item("Approach", {"Select", "Kosatka", "Alkonost", "Velum", "Stealth Annihilator", "Patrol Boat", "Longfin", "All Ways"}, function() return a10 end, 
+		function(Air) if Air == 1 then a10 = 1
+		elseif Air == 2 then stats.set_int(MPX .. "H4_MISSIONS", 65283) 
+		elseif Air == 3 then stats.set_int(MPX .. "H4_MISSIONS", 65413) 
+		elseif Air == 4 then stats.set_int(MPX .. "H4_MISSIONS", 65289) 
+		elseif Air == 5 then stats.set_int(MPX .. "H4_MISSIONS", 65425) 
+		elseif Air == 6 then stats.set_int(MPX .. "H4_MISSIONS", 65313) 
+		elseif Air == 7 then stats.set_int(MPX .. "H4_MISSIONS", 65345)
+		elseif Air == 8 then stats.set_int(MPX .. "H4_MISSIONS", 65535) end 
 		a10 = Air end)	
 		
 			a11 = 1
-	CPP:add_array_item("Weapons", {"Aggressor", "Conspirator", "Crackshot", "Saboteur", "Marksman"}, function() return a11 end, 
-		function(Wea) if Wea == 1 then stats.set_int(MPX .. "H4CNF_WEAPONS", 1) 
-		elseif Wea == 2 then stats.set_int(MPX .. "H4CNF_WEAPONS", 2) 
-		elseif Wea == 3 then stats.set_int(MPX .. "H4CNF_WEAPONS", 3) 
-		elseif Wea == 4 then stats.set_int(MPX .. "H4CNF_WEAPONS", 4) 
-		elseif Wea == 5 then stats.set_int(MPX .. "H4CNF_WEAPONS", 5) end 
+	CPP:add_array_item("Weapons", {"Select", "Aggressor", "Conspirator", "Crackshot", "Saboteur", "Marksman"}, function() return a11 end, 
+		function(Wea) if Wea == 1 then a11 = 1
+		elseif Wea == 2 then stats.set_int(MPX .. "H4CNF_WEAPONS", 1) 
+		elseif Wea == 3 then stats.set_int(MPX .. "H4CNF_WEAPONS", 2) 
+		elseif Wea == 4 then stats.set_int(MPX .. "H4CNF_WEAPONS", 3) 
+		elseif Wea == 5 then stats.set_int(MPX .. "H4CNF_WEAPONS", 4) 
+		elseif Wea == 6 then stats.set_int(MPX .. "H4CNF_WEAPONS", 5) end 
 		a11 = Wea end)
 		
 	CPP:add_action("Complete Preps", function() stats.set_int(MPX .. "H4CNF_UNIFORM", -1) 
@@ -364,11 +462,11 @@
 		if Enabled then globals.set_int(FMG + 29939, 99999) else globals.set_int(FMG + 29939, 1800) end end
 	CPE:add_toggle("Woman's Bag", function() return a14 end, function() a14 = not a14 WomBag(a14) end)	
 		
-	CPE:add_action("Bypass Fingerprint Hack", function() FMC20:set_int(23669, 5) end)
+	CPE:add_action("Bypass Fingerprint Hack", function() if FMC20:get_int(23669) == 4 then FMC20:set_int(23669, 5) end end)
 		
-	CPE:add_action("Bypass Plasma Cutter Cut", function() if FMC20:is_active() then FMC20:set_float(29685 + 3, 100) end end)
+	CPE:add_action("Bypass Plasma Cutter Cut", function() FMC20:set_float(29685 + 3, 100) end)
 	
-	CPE:add_action("Bypass Sewer Tunnel Cut", function() if FMC20:is_active() then if FMC20:get_int(28446) >= 3 or FMC20:get_int(28446) <= 6 then FMC20:set_int(28446, 6) end end end)
+	CPE:add_action("Bypass Sewer Tunnel Cut", function() if FMC20:get_int(28446) >= 3 or FMC20:get_int(28446) <= 6 then FMC20:set_int(28446, 6) end end)
 		   
 	CPE:add_action("Unlock All POI", function() stats.set_int(MPX .. "H4CNF_BS_GEN", -1) 
 												stats.set_int(MPX .. "H4CNF_BS_ENTR", 63) 
@@ -516,64 +614,70 @@
 	DCP = DiamondCasino:add_submenu("Preps")
 	
 			a26 = 1
-	DCP:add_array_item("Target", {"Cash", "Arts", "Gold", "Diamonds"}, function() return a26 end, 
-		function(Tar) if Tar == 1 then stats.set_int(MPX .. "H3OPT_TARGET", 0) 
-		elseif Tar == 2 then stats.set_int(MPX .. "H3OPT_TARGET", 2) 
-		elseif Tar == 3 then stats.set_int(MPX .. "H3OPT_TARGET", 1) 
-		elseif Tar == 4 then stats.set_int(MPX .. "H3OPT_TARGET", 3) end 
+	DCP:add_array_item("Target", {"Select", "Cash", "Arts", "Gold", "Diamonds"}, function() return a26 end, 
+		function(Tar) if Tar == 1 then a26 = 1
+		elseif Tar == 2 then stats.set_int(MPX .. "H3OPT_TARGET", 0) 
+		elseif Tar == 3 then stats.set_int(MPX .. "H3OPT_TARGET", 2) 
+		elseif Tar == 4 then stats.set_int(MPX .. "H3OPT_TARGET", 1) 
+		elseif Tar == 5 then stats.set_int(MPX .. "H3OPT_TARGET", 3) end 
 		a26 = Tar end)
 	
 			a27 = 1
-	DCP:add_array_item("Approach", {"Silent n Sneaky (Normal)", "Big Con (Normal)", "Aggressive (Normal)", "Silent n Sneaky (Hard)", "Big Con (Hard)", "Aggressive (Hard)"}, function() return a27 end, 
-		function(App) if App == 1 then stats.set_int(MPX .. "H3_LAST_APPROACH", 3) stats.set_int(MPX .. "H3_HARD_APPROACH", 2) stats.set_int(MPX .. "H3_APPROACH", 1) stats.set_int(MPX .. "H3OPT_APPROACH", 1)
-		elseif App == 2 then stats.set_int(MPX .. "H3_LAST_APPROACH", 3) stats.set_int(MPX .. "H3_HARD_APPROACH", 1) stats.set_int(MPX .. "H3_APPROACH", 2) stats.set_int(MPX .. "H3OPT_APPROACH", 2)
-		elseif App == 3 then stats.set_int(MPX .. "H3_LAST_APPROACH", 1) stats.set_int(MPX .. "H3_HARD_APPROACH", 2) stats.set_int(MPX .. "H3_APPROACH", 3) stats.set_int(MPX .. "H3OPT_APPROACH", 3)
-		elseif App == 4 then stats.set_int(MPX .. "H3_LAST_APPROACH", 2) stats.set_int(MPX .. "H3_HARD_APPROACH", 1) stats.set_int(MPX .. "H3_APPROACH", 3) stats.set_int(MPX .. "H3OPT_APPROACH", 1)
-		elseif App == 5 then stats.set_int(MPX .. "H3_LAST_APPROACH", 1) stats.set_int(MPX .. "H3_HARD_APPROACH", 2) stats.set_int(MPX .. "H3_APPROACH", 3) stats.set_int(MPX .. "H3OPT_APPROACH", 2)
-		elseif App == 6 then stats.set_int(MPX .. "H3_LAST_APPROACH", 2) stats.set_int(MPX .. "H3_HARD_APPROACH", 3) stats.set_int(MPX .. "H3_APPROACH", 1) stats.set_int(MPX .. "H3OPT_APPROACH", 3) end 
+	DCP:add_array_item("Approach", {"Select", "Silent n Sneaky (Normal)", "Big Con (Normal)", "Aggressive (Normal)", "Silent n Sneaky (Hard)", "Big Con (Hard)", "Aggressive (Hard)"}, function() return a27 end, 
+		function(App) if App == 1 then a27 = 1
+		elseif App == 2 then stats.set_int(MPX .. "H3_LAST_APPROACH", 3) stats.set_int(MPX .. "H3_HARD_APPROACH", 2) stats.set_int(MPX .. "H3_APPROACH", 1) stats.set_int(MPX .. "H3OPT_APPROACH", 1)
+		elseif App == 3 then stats.set_int(MPX .. "H3_LAST_APPROACH", 3) stats.set_int(MPX .. "H3_HARD_APPROACH", 1) stats.set_int(MPX .. "H3_APPROACH", 2) stats.set_int(MPX .. "H3OPT_APPROACH", 2)
+		elseif App == 4 then stats.set_int(MPX .. "H3_LAST_APPROACH", 1) stats.set_int(MPX .. "H3_HARD_APPROACH", 2) stats.set_int(MPX .. "H3_APPROACH", 3) stats.set_int(MPX .. "H3OPT_APPROACH", 3)
+		elseif App == 5 then stats.set_int(MPX .. "H3_LAST_APPROACH", 2) stats.set_int(MPX .. "H3_HARD_APPROACH", 1) stats.set_int(MPX .. "H3_APPROACH", 3) stats.set_int(MPX .. "H3OPT_APPROACH", 1)
+		elseif App == 6 then stats.set_int(MPX .. "H3_LAST_APPROACH", 1) stats.set_int(MPX .. "H3_HARD_APPROACH", 2) stats.set_int(MPX .. "H3_APPROACH", 3) stats.set_int(MPX .. "H3OPT_APPROACH", 2)
+		elseif App == 7 then stats.set_int(MPX .. "H3_LAST_APPROACH", 2) stats.set_int(MPX .. "H3_HARD_APPROACH", 3) stats.set_int(MPX .. "H3_APPROACH", 1) stats.set_int(MPX .. "H3OPT_APPROACH", 3) end 
 		a27 = App end)
 		
 			a28 = 1
-	DCP:add_array_item("Gunman", {"Karl Abolaji (5%)", "Gustavo Mota (9%)", "Charlie Reed (7%)", "Chester McCoy (10%)", "Patrick McReary (8%)"}, function() return a28 end, 
-		function(Gun) if Gun == 1 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 1) 
-		elseif Gun == 2 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 2) 
+	DCP:add_array_item("Gunman", {"Select", "Karl Abolaji (5%)", "Charlie Reed (7%)", "Patrick McReary (8%)", "Gustavo Mota (9%)", "Chester McCoy (10%)"}, function() return a28 end, 
+		function(Gun) if Gun == 1 then a28 = 1
+		elseif Gun == 2 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 1) 
 		elseif Gun == 3 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 3) 
-		elseif Gun == 4 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 4) 
-		elseif Gun == 5 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 5) end 
+		elseif Gun == 4 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 5) 
+		elseif Gun == 5 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 2) 
+		elseif Gun == 6 then stats.set_int(MPX .. "H3OPT_CREWWEAP", 4) end 
 		a28 = Gun end)
 		
 			a29 = 1
-	DCP:add_array_item("Driver", {"Karim Deniz (5%)", "Taliana Martinez (7%)", "Eddie Toh (9%)", "Zach Nelson (6%)", "Chester McCoy (10%)"}, function() return a29 end, 
-		function(Dri) if Dri == 1 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 1) 
-		elseif Dri == 2 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 2) 
-		elseif Dri == 3 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 3) 
-		elseif Dri == 4 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 4) 
-		elseif Dri == 5 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 5) end 
+	DCP:add_array_item("Driver", {"Select", "Karim Deniz (5%)", "Zach Nelson (6%)", "Taliana Martinez (7%)", "Eddie Toh (9%)", "Chester McCoy (10%)"}, function() return a29 end, 
+		function(Dri) if Dri == 1 then a29 = 1
+		elseif Dri == 2 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 1) 
+		elseif Dri == 3 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 4) 
+		elseif Dri == 4 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 2) 
+		elseif Dri == 5 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 3) 
+		elseif Dri == 6 then stats.set_int(MPX .. "H3OPT_CREWDRIVER", 5) end 
 		a29 = Dri end)
 	
 			a30 = 1
-	DCP:add_array_item("Hacker", {"Rickie Lukens (3%)", "Christian Feltz (7%)", "Yohan Blair (5%)", "Avi Schwartzman (10%)", "Page Harris (9%)"}, function() return a30 end, 
-		function(Hac) if Hac == 1 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 1) 
-		elseif Hac == 2 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 2) 
+	DCP:add_array_item("Hacker", {"Select", "Rickie Lukens (3%)", "Yohan Blair (5%)", "Christian Feltz (7%)", "Page Harris (9%)", "Avi Schwartzman (10%)"}, function() return a30 end, 
+		function(Hac) if Hac == 1 then a30 = 1
+		elseif Hac == 2 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 1) 
 		elseif Hac == 3 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 3) 
-		elseif Hac == 4 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 5) 
-		elseif Hac == 5 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 4) end 
+		elseif Hac == 4 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 2) 
+		elseif Hac == 5 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 5) 
+		elseif Hac == 6 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 4) end 
 		a30 = Hac end)
 	
 			a31 = 1
-	DCP:add_array_item("Masks", {"Geometic Set", "Hunter Set", "Oni Half Mask Set", "Emoji Set", "Ornate Skull Set", "Lucky Fruit Set", "Guerilla Set", "Clown Set", "Animal Set", "Riot Set", "Oni Full Mask Set", "Hockey Set" }, function() return a31 end, 
-		function(Mas) if Mas == 1 then stats.set_int(MPX .. "H3OPT_MASKS", 1) 
-		elseif Mas == 2 then stats.set_int(MPX .. "H3OPT_MASKS", 2) 
-		elseif Mas == 3 then stats.set_int(MPX .. "H3OPT_MASKS", 3) 
-		elseif Mas == 4 then stats.set_int(MPX .. "H3OPT_MASKS", 4) 
-		elseif Mas == 5 then stats.set_int(MPX .. "H3OPT_MASKS", 5) 
-		elseif Mas == 6 then stats.set_int(MPX .. "H3OPT_MASKS", 6) 
-		elseif Mas == 7 then stats.set_int(MPX .. "H3OPT_MASKS", 7) 
-		elseif Mas == 8 then stats.set_int(MPX .. "H3OPT_MASKS", 8) 
-		elseif Mas == 9 then stats.set_int(MPX .. "H3OPT_MASKS", 9) 
-		elseif Mas == 10 then stats.set_int(MPX .. "H3OPT_MASKS", 10)
-		elseif Mas == 11 then stats.set_int(MPX .. "H3OPT_MASKS", 11) 
-		elseif Mas == 12 then stats.set_int(MPX .. "H3OPT_MASKS", 12) end
+	DCP:add_array_item("Masks", {"Select", "Geometic Set", "Hunter Set", "Oni Half Mask Set", "Emoji Set", "Ornate Skull Set", "Lucky Fruit Set", "Guerilla Set", "Clown Set", "Animal Set", "Riot Set", "Oni Full Mask Set", "Hockey Set" }, function() return a31 end, 
+		function(Mas) if Mas == 1 then a31 = 1
+		elseif Mas == 2 then stats.set_int(MPX .. "H3OPT_MASKS", 1) 
+		elseif Mas == 3 then stats.set_int(MPX .. "H3OPT_MASKS", 2) 
+		elseif Mas == 4 then stats.set_int(MPX .. "H3OPT_MASKS", 3) 
+		elseif Mas == 5 then stats.set_int(MPX .. "H3OPT_MASKS", 4) 
+		elseif Mas == 6 then stats.set_int(MPX .. "H3OPT_MASKS", 5) 
+		elseif Mas == 7 then stats.set_int(MPX .. "H3OPT_MASKS", 6) 
+		elseif Mas == 8 then stats.set_int(MPX .. "H3OPT_MASKS", 7) 
+		elseif Mas == 9 then stats.set_int(MPX .. "H3OPT_MASKS", 8) 
+		elseif Mas == 10 then stats.set_int(MPX .. "H3OPT_MASKS", 9) 
+		elseif Mas == 11 then stats.set_int(MPX .. "H3OPT_MASKS", 10)
+		elseif Mas == 12 then stats.set_int(MPX .. "H3OPT_MASKS", 11) 
+		elseif Mas == 13 then stats.set_int(MPX .. "H3OPT_MASKS", 12) end
 		a31 = Mas end)	
 	
 	DCP:add_action("Complete Preps", function() stats.set_int(MPX .. "H3OPT_DISRUPTSHIP", 3) 
@@ -639,11 +743,11 @@
 		else menu.remove_hotkey(hecker_hotkey) end end
 	DCE:add_toggle("Hecker", function() return a37 end, function() a37 = not a37 Hecker(a37) end)
 	
-	DCE:add_action("Bypass Fingerprint Hack", function() FMC:set_int(52964, 5) end)
+	DCE:add_action("Bypass Fingerprint Hack", function() if FMC:get_int(52964) == 4 then FMC:set_int(52964, 5) end end)
 		
-	DCE:add_action("Bypass Keypad Hack", function() FMC:set_int(54026, 5) end)
+	DCE:add_action("Bypass Keypad Hack", function() if FMC:get_int(54026) ~= 4 then FMC:set_int(54026, 5) end end)
 		
-	DCE:add_action("Bypass Drill Vault Door", function() FMC:set_int(10101 + 7, 4) sleep(0.2) FMC:set_int(10101 + 7, 6) end)
+	DCE:add_action("Bypass Drill Vault Door", function() FMC:set_int(10101 + 7, FMC:get_int(10101 + 37)) end)
 	
 	DCE:add_action("Unlock All POI", function() stats.set_int(MPX .. "H3OPT_POI", -1) 
 												stats.set_int(MPX .. "H3OPT_ACCESSPOINTS", -1) end)
@@ -657,6 +761,9 @@
 	
 	DCENote:add_action("                           Hecker:", function() end)
 	DCENote:add_action(" Pressing «H» will trigger bypass any hack", function() end)
+	DCENote:add_action("", function() end)
+	DCENote:add_action("                For the first robbery:", function() end)
+	DCENote:add_action("           Use «Unlock All POI» option", function() end)
 												   
 	DCTP = DiamondCasino:add_submenu("Teleports")		
 	
@@ -690,7 +797,7 @@
 	DP = Doomsday:add_submenu("Preps")
 	
 			a38 = 1
-	DP:add_array_item("Doomsday Act", {"None", "Data Breaches", "Bogdan Problem", "Doomsday Scenario"}, function() return a38 end, 
+	DP:add_array_item("Doomsday Act", {"Select", "Data Breaches", "Bogdan Problem", "Doomsday Scenario"}, function() return a38 end, 
 		function(DooAct) if DooAct == 1 then a38 = 1
 		elseif DooAct == 2 then stats.set_int(MPX .. "GANGOPS_FLOW_MISSION_PROG", 503) stats.set_int(MPX .. "GANGOPS_HEIST_STATUS", 229383) stats.set_int(MPX .. "GANGOPS_FLOW_NOTIFICATIONS", 1557) 
 		elseif DooAct == 3 then stats.set_int(MPX .. "GANGOPS_FLOW_MISSION_PROG", 240) stats.set_int(MPX .. "GANGOPS_HEIST_STATUS", 229378) stats.set_int(MPX .. "GANGOPS_FLOW_NOTIFICATIONS", 1557) 
@@ -915,81 +1022,94 @@
 				   DefNum10 = NumberList[1]
 		end, function() end, function() end)
 	
---Total Earned--
+--Story Characters--
+
+	StoryCharacters = MoneyEditor:add_submenu("Story Characters (Real)")
 	
-	TotalEarned = MoneyEditor:add_submenu("Total Earned n Spent (Stats)")
+	StoryCharacters:add_int_range("Michael's Cash", 1000000, 0, 2147483646, function() return stats.get_int("SP0_TOTAL_CASH") end,
+		function(MicCas) stats.set_int("SP0_TOTAL_CASH", MicCas) end)
+		
+	StoryCharacters:add_int_range("Franklin's Cash", 1000000, 0, 2147483646, function() return stats.get_int("SP1_TOTAL_CASH") end,
+		function(MicCas) stats.set_int("SP1_TOTAL_CASH", MicCas) end)
+
+	StoryCharacters:add_int_range("Trevor's Cash", 1000000, 0, 2147483646, function() return stats.get_int("SP2_TOTAL_CASH") end,
+		function(MicCas) stats.set_int("SP2_TOTAL_CASH", MicCas) end)		
 	
-	TotalEarned:add_bare_item("", function() return "Current Total Earned: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_EVC")) end, function() end, function() end, function() end)
+--Total Earned n Spent--
 	
-	TotalEarned:add_bare_item("", function() return "Current Total Spent: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_SVC")) end, function() end, function() end, function() end)
+	Totals = MoneyEditor:add_submenu("Total Earned n Spent (Stats)")
+	
+	Totals:add_bare_item("", function() return "Current Total Earned: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_EVC")) end, function() end, function() end, function() end)
+	
+	Totals:add_bare_item("", function() return "Current Total Spent: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_SVC")) end, function() end, function() end, function() end)
 	
 			DefNum11 = NumberList[1]
 			DefNum11Cur = 1
-	TotalEarned:add_array_item("Char #1", NumberList, function() return DefNum11Cur end, function(NewNum11)
+	Totals:add_array_item("Char #1", NumberList, function() return DefNum11Cur end, function(NewNum11)
 		DefNum11 = NumberList[NewNum11]
 		DefNum11Cur = NewNum11 end)
 	
 			DefNum12 = NumberList[1]
 			DefNum12Cur = 1
-	TotalEarned:add_array_item("Char #2", NumberList, function() return DefNum12Cur end, function(NewNum12)
+	Totals:add_array_item("Char #2", NumberList, function() return DefNum12Cur end, function(NewNum12)
 		DefNum12 = NumberList[NewNum12]
 		DefNum12Cur = NewNum12 end)
 
 			DefNum13 = NumberList[1]
 			DefNum13Cur = 1
-	TotalEarned:add_array_item("Char #3", NumberList, function() return DefNum13Cur end, function(NewNum13)
+	Totals:add_array_item("Char #3", NumberList, function() return DefNum13Cur end, function(NewNum13)
 		DefNum13 = NumberList[NewNum13]
 		DefNum13Cur = NewNum13 end)
 	
 			DefNum14 = NumberList[1]
 			DefNum14Cur = 1
-	TotalEarned:add_array_item("Char #4", NumberList, function() return DefNum14Cur end, function(NewNum14)
+	Totals:add_array_item("Char #4", NumberList, function() return DefNum14Cur end, function(NewNum14)
 		DefNum14 = NumberList[NewNum14]
 		DefNum14Cur = NewNum14 end)
 	
 			DefNum15 = NumberList[1]
 			DefNum15Cur = 1
-	TotalEarned:add_array_item("Char #5", NumberList, function() return DefNum15Cur end, function(NewNum15)
+	Totals:add_array_item("Char #5", NumberList, function() return DefNum15Cur end, function(NewNum15)
 		DefNum15 = NumberList[NewNum15]
 		DefNum15Cur = NewNum15 end)
 	
 			DefNum16 = NumberList[1]
 			DefNum16Cur = 1
-	TotalEarned:add_array_item("Char #6", NumberList, function() return DefNum16Cur end, function(NewNum16)
+	Totals:add_array_item("Char #6", NumberList, function() return DefNum16Cur end, function(NewNum16)
 		DefNum16 = NumberList[NewNum16]
 		DefNum16Cur = NewNum16 end)
 	
 			DefNum17 = NumberList[1]
 			DefNum17Cur = 1
-	TotalEarned:add_array_item("Char #7", NumberList, function() return DefNum17Cur end, function(NewNum17)
+	Totals:add_array_item("Char #7", NumberList, function() return DefNum17Cur end, function(NewNum17)
 		DefNum17 = NumberList[NewNum17]
 		DefNum17Cur = NewNum17 end)
 	
 			DefNum18 = NumberList[1]
 			DefNum18Cur = 1
-	TotalEarned:add_array_item("Char #8", NumberList, function() return DefNum18Cur end, function(NewNum18)
+	Totals:add_array_item("Char #8", NumberList, function() return DefNum18Cur end, function(NewNum18)
 		DefNum18 = NumberList[NewNum18]
 		DefNum18Cur = NewNum18 end)
 		
 			DefNum19 = NumberList[1]
 			DefNum19Cur = 1
-	TotalEarned:add_array_item("Char #9", NumberList, function() return DefNum19Cur end, function(NewNum19)
+	Totals:add_array_item("Char #9", NumberList, function() return DefNum19Cur end, function(NewNum19)
 		DefNum19 = NumberList[NewNum19]
 		DefNum19Cur = NewNum19 end)
 
 			DefNum20 = NumberList[1]
 			DefNum20Cur = 1
-	TotalEarned:add_array_item("Char #10", NumberList, function() return DefNum20Cur end, function(NewNum20)
+	Totals:add_array_item("Char #10", NumberList, function() return DefNum20Cur end, function(NewNum20)
 		DefNum20 = NumberList[NewNum20]
 		DefNum20Cur = NewNum20 end)
 		
-	TotalEarned:add_bare_item("", 
+	Totals:add_bare_item("", 
 		function() 
 			CashToChange = tonumber(DefNum11 .. DefNum12 .. DefNum13 .. DefNum14 .. DefNum15 .. DefNum16 .. DefNum17 .. DefNum18 .. DefNum19 .. DefNum20)
 			if CashToChange == 0 then CashToChange = "0" end
 		return "Changed Value: $" .. FormatMoney(CashToChange) end, function() end, function() end, function() end)
 	
-	TotalEarned:add_action("Change Total Earned", 
+	Totals:add_action("Change Total Earned", 
 		function() 
 			stats.set_int("MPPLY_TOTAL_EVC", CashToChange) 
 			sleep(1)
@@ -1015,7 +1135,7 @@
 		    DefNum20 = NumberList[1]
 		end)
 	
-	TotalEarned:add_action("Change Total Spent", 
+	Totals:add_action("Change Total Spent", 
 		function() 
 			stats.set_int("MPPLY_TOTAL_SVC", CashToChange) 
 			sleep(1)
@@ -1041,16 +1161,16 @@
 		    DefNum20 = NumberList[1]
 		end)
 	
-	TotalEarned:add_action("Make Earned n Spent The Same", function() stats.set_int("MPPLY_TOTAL_EVC", stats.get_int("MPPLY_TOTAL_SVC")) end)
+	Totals:add_action("Make Earned n Spent The Same", function() stats.set_int("MPPLY_TOTAL_EVC", stats.get_int("MPPLY_TOTAL_SVC")) end)
 	
-	TotalEarned:add_action("Make Spent n Earned The Same", function() stats.set_int("MPPLY_TOTAL_SVC", stats.get_int("MPPLY_TOTAL_EVC")) end)
+	Totals:add_action("Make Spent n Earned The Same", function() stats.set_int("MPPLY_TOTAL_SVC", stats.get_int("MPPLY_TOTAL_EVC")) end)
 	
-	TotalEarned:add_action("", function() end)
+	Totals:add_action("", function() end)
 	
-	TotalEarnedNote = TotalEarned:add_submenu("Read Me")
+	TotalsNote = Totals:add_submenu("Read Me")
 	
-	TotalEarnedNote:add_action("   To save the new statistics, you need to", function() end)
-	TotalEarnedNote:add_action("    earn or spend somehow some money", function() end)
+	TotalsNote:add_action("   To save the new statistics, you need to", function() end)
+	TotalsNote:add_action("    earn or spend somehow some money", function() end)
 	
 --Night Loop--
 
@@ -1060,13 +1180,11 @@
 			DefDelay3 = 0.6
 	NightLoop:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"}, function() return a64 end, 
 		function(DelayType3) if DelayType3 == 1 then DefDelay3 = 0.6 
-		elseif DelayType3 == 2 then DelayType3 = 0.8 
-		elseif DelayType3 == 3 then DelayType3 = 1
-		elseif DelayType3 == 4 then DelayType3 = 1.2 end
+		elseif DelayType3 == 2 then DefDelay3 = 0.8 
+		elseif DelayType3 == 3 then DefDelay3 = 1
+		elseif DelayType3 == 4 then DefDelay3 = 1.2 end
 		a64 = DelayType3 end)
-
-			PlayerID = localplayer:get_player_id()
-			SafeValue = 1853988 + 1 + (PlayerID * 867) + 267 + 354 + 5
+			
 			SafeAmount = 300000
 			SafeCollection = 199 + 532 + 1
 			SafeCapacity = 24227 
@@ -1076,6 +1194,8 @@
 		local function NightLoop1()
 			if not localplayer then return end
 			while a44 do
+				PlayerID = localplayer:get_player_id()
+				SafeValue = 1853988 + 1 + (PlayerID * 867) + 267 + 354 + 5
 				for i = IncomeStart, IncomeEnd do
 					globals.set_int(FMG + i, SafeAmount) 
 				end
@@ -1137,7 +1257,7 @@
 	
 			a47 = 1
 			DefWarehouse = 1 
-	AFKMode:add_array_item("Warehouse Type", {"None", "Small (16)", "Medium (42)", "Large (111)"}, function() return a47 end,
+	AFKMode:add_array_item("Warehouse Type", {"Select", "Small (16)", "Medium (42)", "Large (111)"}, function() return a47 end,
 		function(WarehouseType) if WarehouseType == 1 then DefWarehouse = 0 
 		elseif WarehouseType == 2 then DefWarehouse = 1 
 		elseif WarehouseType == 3 then DefWarehouse = 2 
@@ -1335,8 +1455,8 @@
 
 			a51 = false 
 		local function CratesLoop() 
-		while a51 == true do for i = 12, 16 do stats.set_bool_masked(MPX .. "FIXERPSTAT_BOOL1", true, i, MPX) end end end
-	GetCrates:add_toggle("Crates Loop", function() return a51 end, function() a51 = not a51 CratesLoop(a51) end)
+		while a51 do for i = 12, 16 do stats.set_bool_masked(MPX .. "FIXERPSTAT_BOOL1", true, i, MPX) end end end
+	GetCrates:add_toggle("Crates Loop", function() return a51 end, function() a51 = not a51 CratesLoop() end)
 
 			a52 = 1
 	GetCrates:add_int_range("Instant Buy", 1, 1, 111, function() return a52 end, 
@@ -1507,7 +1627,7 @@
 	ManualModeNote:add_action("", function() end)
 	ManualModeNote:add_action("                        Instant Sell:", function() end)
 	ManualModeNote:add_action("        Always choose to sell one crate;", function() end)
-	ManualModeNote:add_action("      Start the sale mission first, activate", function() end)
+	ManualModeNote:add_action("      start the sale mission first, activate", function() end)
 	ManualModeNote:add_action("            after leaving the warehouse", function() end) 
 	ManualModeNote:add_action("", function() end)
 	ManualModeNote:add_action("               Bypass Entrance Delay:", function() end)
@@ -3479,7 +3599,7 @@
 			stats.set_bool(MPX .. "AWD_ELEVENELEVEN", true)
 			stats.set_bool(MPX .. "AWD_GOFOR11TH", true)
 			stats.set_masked_int(MPX.."SU20PSTAT_INT", 1, 35, 8)
-		for i = 0, 1 do for j = 0, 63 do stats.set_bool_masked(MPX.."SU20PSTAT_BOOL"..i, true, j, MPX) 
+		for i = 0, 1 do for j = 0, 63 do stats.set_bool_masked(MPX .. "SU20PSTAT_BOOL" .. i, true, j, MPX) 
 										 stats.set_bool_masked(MPX.."SU20TATTOOSTAT_BOOL"..i, true, j, MPX) end end end)
 
 	Awards1b1:add_action("Cayo Perico", function()
@@ -4712,7 +4832,7 @@
 			if NewRank == 0 then NewRank = " " 
 			end
 		return "Set Rank: " .. NewRank end, 
-		function() stats.set_int(MPX .. "CHAR_SET_RP_GIFT_ADMIN", RPtoRank[NewRank])
+		function() stats.set_int(MPX .. "CHAR_SET_RP_GIFT_ADMIN", RPtoRank[NewRank] + 100)
 			       sleep(2) 
 			       globals.set_int(1575020, 8) 
 			       globals.set_int(1574589, 1) 
@@ -4735,11 +4855,35 @@
 	
 	RankNote:add_action("             High level = More reports", function() end)
 	
+			a66 = false
+		local function SilentNSneaky(Enabled)
+			PlayerID = localplayer:get_player_id()
+			HideMe = 1853988 + 1 + (PlayerID * 867) + 205
+			if Enabled then globals.set_int(HideMe, 8) 
+			else globals.set_int(HideMe, 9) 
+			end	
+		end			
+	CharactersStats:add_toggle("Hide Me", function() return a66 end, function() a66 = not a66 SilentNSneaky(a66) end)
+			
 			a60 = false
 		local function SexChanger(Enabled)
 			if Enabled then stats.set_int(MPX .. "ALLOW_GENDER_CHANGE", 52) globals.set_int(281050, 0)
-			else stats.set_int(MPX .. "ALLOW_GENDER_CHANGE", 0) end end
+			else stats.set_int(MPX .. "ALLOW_GENDER_CHANGE", 0) 
+			end 
+		end
 	CharactersStats:add_toggle("Sex Changer", function() return a60 end, function() a60 = not a60 SexChanger(a60) end)
+	
+	CharactersStats:add_action("", function() end)
+	
+	CharactersStatsNote = CharactersStats:add_submenu("Read Me")
+	
+	CharactersStatsNote:add_action("                          Hide Me:", function() end)
+	CharactersStatsNote:add_action("            Hides you from player list;", function() end)
+	CharactersStatsNote:add_action("    also removes your blip from the map", function() end)
+	CharactersStatsNote:add_action("", function() end)
+	CharactersStatsNote:add_action("                       Sex Changer:", function() end)
+	CharactersStatsNote:add_action("     Unlocks «Change Sex» option while", function() end)
+	CharactersStatsNote:add_action("                editing your character", function() end)
 	
 ---Facilities Unlocks---
 
@@ -4749,16 +4893,17 @@
 	
 	ArenaWar = FacilitiesUnlocks:add_submenu("Arena War")
 	
-			ArenaWarVehicles = {"Taxi", "HVY Dozer", "Clown Van", "Trashmaster", "HVY Barracks Semi", "HVY Mixer", "Space Docker", "Tractor"}
+			ArenaWarVehicles = {"Select", "Taxi", "HVY Dozer", "Clown Van", "Trashmaster", "HVY Barracks Semi", "HVY Mixer", "Space Docker", "Tractor"}
 			a61 = 1
-	ArenaWar:add_array_item("Unlock Vehicle", ArenaWarVehicles, function() return a61 end, function(AreWarVeh)
-		if ArenaWarVehicles[AreWarVeh] == "Taxi" then do stats.set_int(MPX .. "ARENAWARS_AP_TIER", 24)
-														 stats.set_int(MPX .. "ARENAWARS_AP", 230)
-														 sleep(2) 
-														 globals.set_int(1575020, 8) 
-														 globals.set_int(1574589, 1) 
-														 sleep(1) 
-														 globals.set_int(1574589, 0) end 
+	ArenaWar:add_array_item("Unlock Vehicle", ArenaWarVehicles, function() return a61 end, 
+		function(AreWarVeh) if AreWarVeh == 1 then a61 = 1
+		elseif ArenaWarVehicles[AreWarVeh] == "Taxi" then do stats.set_int(MPX .. "ARENAWARS_AP_TIER", 24)
+															 stats.set_int(MPX .. "ARENAWARS_AP", 230)
+															 sleep(2) 
+															 globals.set_int(1575020, 8) 
+															 globals.set_int(1574589, 1) 
+															 sleep(1) 
+															 globals.set_int(1574589, 0) end 
 		elseif ArenaWarVehicles[AreWarVeh] == "HVY Dozer" then do stats.set_int(MPX .. "ARENAWARS_AP_TIER", 49)
 																  stats.set_int(MPX .. "ARENAWARS_AP", 460) 
 																  sleep(2) 
@@ -4884,7 +5029,7 @@
 	
 	LSCarMeet:add_action("Unlock All", function() for i = FMG + 31835, FMG + 31862 do globals.set_float(i, 100000) end end)
 	
-	LSCarMeet:add_action("Unlock Prize Car", function() stats.set_bool(MPX .. "CARMEET_PV_CHLLGE_CMPLT", true) stats.set_bool(MPX .. " CARMEET_PV_CLMED", false) end)
+	LSCarMeet:add_action("Unlock Podium Prize", function() stats.set_bool(MPX .. "CARMEET_PV_CHLLGE_CMPLT", true) stats.set_bool(MPX .. "CARMEET_PV_CLMED", false) end)
 	
 	LSCarMeet:add_action("", function() end)
 	
@@ -5043,20 +5188,12 @@
 	
 	LSCustomsNote:add_action("         Some colors may not be saved", function() end)
 	
-	CharactersStats:add_action("", function() end)
-	
-	CharactersStatsNote = CharactersStats:add_submenu("Read Me")
-	
-	CharactersStatsNote:add_action("                       Sex Changer:", function() end)
-	CharactersStatsNote:add_action("     Unlocks «Change Sex» option while", function() end)
-	CharactersStatsNote:add_action("                editing your character", function() end)
-	
 --Credits--
 	
 	Credits = SilentNight:add_submenu("♥ Credits")
 	
 	Credits:add_action("Developer: Silent", function() end)
-	Credits:add_action("Helpers #1: Mr.Robot, Slon", function() end)
+	Credits:add_action("Helpers #1: Mr. Robot, Slon", function() end)
 	Credits:add_action("Helpers #2: Killa`B, Zeiger", function() end)
 	Credits:add_action("Helpers #3: Amnesia, Pewpew", function() end)
 	Credits:add_action("", function() end)
