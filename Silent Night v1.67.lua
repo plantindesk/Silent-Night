@@ -140,12 +140,18 @@
 			a67 = false
 		local function Freeca15mil(Enabled)
 			if Enabled then 
-				for i = 1936399, 1936400 do
-					globals.set_int(i, 7453)
-					globals.set_int(1936401, 100 - (7453 * 2))
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 2 do
+				globals.set_int(i, 7453)
 				end
-			else globals.set_int(1938365 + 3008 + 1, 85)
-				 globals.set_int(1938365 + 3008 + 2, 15)
+				sleep(1)
+				for i = 1936399, 1936400 do
+				globals.set_int(i, 7453)
+				end
+				globals.set_int(1936401, 100 - (7453 * 2))
+			else globals.set_int(1938365 + 3008 + 1, 60)
+				 globals.set_int(1938365 + 3008 + 2, 40)
+				 globals.set_int(1936399, 60)
+				 globals.set_int(1936400, 40)
 			end
 		end
 	AC15Mil:add_toggle("The Freeca Job (Normal)", function() return a67 end, function() a67 = not a67 Freeca15mil(a67) end)
@@ -153,12 +159,21 @@
 			a68 = false
 		local function PrisonBreak15mil(Enabled)
 			if Enabled then 
-				globals.set_int(19364399, 100 - (2142 * 3))
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 2142)
+				end
+				sleep(1)
 				for i = 1936400, 1936402 do
 					globals.set_int(i, 2142)
 				end
-			else globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(19364399, 100 - (2142 * 3))
+			else 
+				globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(1936399, 55)
 				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+				for i = 1936400, 1936402 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -168,12 +183,21 @@
 			a69 = false
 		local function HumaneLabs15mil(Enabled)
 			if Enabled then 
-				globals.set_int(19364399, 100 - (1587 * 3))
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 1587)
+				end
+				sleep(1)
 				for i = 1936400, 1936402 do
 					globals.set_int(i, 1587)
 				end
-			else globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(19364399, 100 - (1587 * 3))
+			else 
+				globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(1936399, 55)
 				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+				for i = 1936400, 1936402 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -183,12 +207,21 @@
 			a70 = false
 		local function SeriesAFunding15mil(Enabled)
 			if Enabled then 
-				globals.set_int(19364399, 100 - (2121 * 3))
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 2121)
+				end
+				sleep(1)
 				for i = 1936400, 1936402 do
 					globals.set_int(i, 2121)
 				end
-			else globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(19364399, 100 - (2121 * 3))
+			else 
+				globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(1936399, 55)
 				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+				for i = 1936400, 1936402 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -198,12 +231,21 @@
 			a71 = false
 		local function ThePacificStandard15mil(Enabled)
 			if Enabled then 
-				globals.set_int(19364399, 100 - (1000 * 3))
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+					globals.set_int(i, 1000)
+				end
+				sleep(1)
 				for i = 1936400, 1936402 do
 					globals.set_int(i, 1000)
 				end
-			else globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(19364399, 100 - (1000 * 3))
+			else 
+				globals.set_int(1938365 + 3008 + 1, 55)
+				globals.set_int(1936399, 55)
 				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+					globals.set_int(i, 15)
+				end
+				for i = 1936400, 1936402 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -288,7 +330,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 0)
-								   stats.set_int(MPX .. "H4LOOT_CASH_V", 469431)
+								   stats.set_int(MPX .. "H4LOOT_CASH_V", 90000)
 		elseif FilComSto == 3 then stats.set_int(MPX .. "H4LOOT_CASH_C", 0)
 								   stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_WEED_C", 255)
@@ -297,7 +339,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 0)
-								   stats.set_int(MPX .. "H4LOOT_WEED_V", 625908) 
+								   stats.set_int(MPX .. "H4LOOT_WEED_V", 147870) 
 		elseif FilComSto == 4 then stats.set_int(MPX .. "H4LOOT_CASH_C", 0)
 								   stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_WEED_C", 0)
@@ -306,7 +348,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 255)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 0)
-								   stats.set_int(MPX .. "H4LOOT_COKE_V", 938863) 
+								   stats.set_int(MPX .. "H4LOOT_COKE_V", 200095) 
 		elseif FilComSto == 5 then stats.set_int(MPX .. "H4LOOT_CASH_C", 0)
 								   stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_WEED_C", 0)
@@ -315,7 +357,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C", 255)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 255)
-								   stats.set_int(MPX .. "H4LOOT_GOLD_V", 1251817) end 
+								   stats.set_int(MPX .. "H4LOOT_GOLD_V", 330350) end 
 		a7 = FilComSto end)
 		
 			a8 = 1
@@ -336,7 +378,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 0)
-								   stats.set_int(MPX .. "H4LOOT_CASH_V", 446931)
+								   stats.set_int(MPX .. "H4LOOT_CASH_V", 90000)
 		elseif FilIslSto == 3 then stats.set_int(MPX .. "H4LOOT_CASH_I", 0)
 								   stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_WEED_I", 16777215)
@@ -345,7 +387,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 0)
-								   stats.set_int(MPX .. "H4LOOT_WEED_V", 625908)
+								   stats.set_int(MPX .. "H4LOOT_WEED_V", 147870)
 		elseif FilIslSto == 4 then stats.set_int(MPX .. "H4LOOT_CASH_I", 0)
 								   stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_WEED_I", 0)
@@ -354,7 +396,7 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 16777215)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 0)
-								   stats.set_int(MPX .. "H4LOOT_COKE_V", 938863)
+								   stats.set_int(MPX .. "H4LOOT_COKE_V", 200095)
 		elseif FilIslSto == 5 then stats.set_int(MPX .. "H4LOOT_CASH_I", 0)
 								   stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_WEED_I", 0)
@@ -363,14 +405,14 @@
 								   stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", 0)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I", 16777215)
 								   stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 16777215)
-								   stats.set_int(MPX .. "H4LOOT_GOLD_V", 1251817) end 
+								   stats.set_int(MPX .. "H4LOOT_GOLD_V", 330350) end 
 		a8 = FilIslSto end)
 	
 			a65 = false
 		local function AddPaintings(Enabled)
 			if Enabled then stats.set_int(MPX .. "H4LOOT_PAINT_C", 127)
 							stats.set_int(MPX .. "H4LOOT_PAINT_C_SCOPED", 127)
-							stats.set_int(MPX .. "H4LOOT_PAINT_V", 938863)
+							stats.set_int(MPX .. "H4LOOT_PAINT_V", 189500)
 			else stats.set_int(MPX .. "H4LOOT_PAINT_C", 0)
 			     stats.set_int(MPX .. "H4LOOT_PAINT_C_SCOPED", 0)
 			end
@@ -767,7 +809,7 @@
 	DCENote:add_action(" Pressing «H» will trigger bypass any hack", function() end)
 	DCENote:add_action("", function() end)
 	DCENote:add_action("                For the first robbery:", function() end)
-	DCENote:add_action("           Use «Unlock All POI» option", function() end)
+	DCENote:add_action("                 Use «Unlock» options", function() end)
 												   
 	DCTP = DiamondCasino:add_submenu("Teleports")		
 	
@@ -4977,7 +5019,7 @@
 	ArenaWarNote:add_action("", function() end)
 	ArenaWarNote:add_action("     If you receive an Alert, press Enter", function() end)
 	ArenaWarNote:add_action("", function() end)
-	ArenaWarNote:add_action("    Wait for the carange to begin, suicide", function() end)
+	ArenaWarNote:add_action("    Wait for the carnage to begin, suicide", function() end)
 	ArenaWarNote:add_action("     and spin the wheel until you get AP", function() end)
 	ArenaWarNote:add_action("", function() end)
 	ArenaWarNote:add_action("   If you've used Arena War awards unlock", function() end)
@@ -5198,6 +5240,6 @@
 	Credits:add_action("Developer: Silent", function() end)
 	Credits:add_action("Helpers #1: Mr. Robot, Slon", function() end)
 	Credits:add_action("Helpers #2: Killa`B, L7NEG, Zeiger", function() end)
-	Credits:add_action("Helpers #3: Amnesia, Pewpew", function() end)
+	Credits:add_action("Helpers #3: Big Smoke, Amnesia, Pewpew", function() end)
 	Credits:add_action("", function() end)
 	Credits:add_action("Discord: silentsalo", function() end)
