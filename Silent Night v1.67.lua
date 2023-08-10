@@ -140,18 +140,19 @@
 			a67 = false
 		local function Freeca15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 2 do
+				globals.set_int(1936397 + 1 + 3, 100 - (7453 * 2))
+				for i = 1936397 + 1 + 1, 1936397 + 1 + 2 do
 				globals.set_int(i, 7453)
 				end
 				sleep(1)
-				for i = 1936399, 1936400 do
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 2 do
 				globals.set_int(i, 7453)
 				end
-				globals.set_int(1936401, 100 - (7453 * 2))
-			else globals.set_int(1938365 + 3008 + 1, 60)
-				 globals.set_int(1938365 + 3008 + 2, 40)
-				 globals.set_int(1936399, 60)
-				 globals.set_int(1936400, 40)
+			else 
+				globals.set_int(1936399, 60)
+				globals.set_int(1936400, 40)
+				globals.set_int(1938365 + 3008 + 1, 60)
+				globals.set_int(1938365 + 3008 + 2, 40)
 			end
 		end
 	AC15Mil:add_toggle("The Freeca Job (Normal)", function() return a67 end, function() a67 = not a67 Freeca15mil(a67) end)
@@ -159,21 +160,21 @@
 			a68 = false
 		local function PrisonBreak15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+				globals.set_int(19364397 + 1 + 1, 100 - (2142 * 3))
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 2142)
 				end
 				sleep(1)
-				for i = 1936400, 1936402 do
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
 					globals.set_int(i, 2142)
 				end
-				globals.set_int(19364399, 100 - (2142 * 3))
 			else 
-				globals.set_int(1938365 + 3008 + 1, 55)
-				globals.set_int(1936399, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+				globals.set_int(1936397 + 1 + 1, 55)
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 15)
 				end
-				for i = 1936400, 1936402 do
+				globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -183,21 +184,21 @@
 			a69 = false
 		local function HumaneLabs15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+				globals.set_int(19364397 + 1 + 1, 100 - (1587 * 3))
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 1587)
 				end
 				sleep(1)
-				for i = 1936400, 1936402 do
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
 					globals.set_int(i, 1587)
 				end
-				globals.set_int(19364399, 100 - (1587 * 3))
 			else 
-				globals.set_int(1938365 + 3008 + 1, 55)
-				globals.set_int(1936399, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+				globals.set_int(1936397 + 1 + 1, 55)
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 15)
 				end
-				for i = 1936400, 1936402 do
+				globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -207,21 +208,21 @@
 			a70 = false
 		local function SeriesAFunding15mil(Enabled)
 			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+				globals.set_int(19364397 + 1 + 1, 100 - (2121 * 3))
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 2121)
 				end
 				sleep(1)
-				for i = 1936400, 1936402 do
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
 					globals.set_int(i, 2121)
 				end
-				globals.set_int(19364399, 100 - (2121 * 3))
 			else 
-				globals.set_int(1938365 + 3008 + 1, 55)
-				globals.set_int(1936399, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+				globals.set_int(1936397 + 1 + 1, 55)
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 15)
 				end
-				for i = 1936400, 1936402 do
+				globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -230,22 +231,22 @@
 	
 			a71 = false
 		local function ThePacificStandard15mil(Enabled)
-			if Enabled then 
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
+			if Enabled then
+				globals.set_int(19364397 + 1 + 1, 100 - (1000 * 3))
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 1000)
 				end
 				sleep(1)
-				for i = 1936400, 1936402 do
+				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
 					globals.set_int(i, 1000)
 				end
-				globals.set_int(19364399, 100 - (1000 * 3))
 			else 
-				globals.set_int(1938365 + 3008 + 1, 55)
-				globals.set_int(1936399, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
+				globals.set_int(1936397 + 1 + 1, 55)
+				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
 					globals.set_int(i, 15)
 				end
-				for i = 1936400, 1936402 do
+				globals.set_int(1938365 + 3008 + 1, 55)
+				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
 					globals.set_int(i, 15)
 				end
 			end
@@ -476,7 +477,8 @@
 	CPC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1978495 + 825 + 56 + 1) end, function(Cut) globals.set_int(1978495 + 825 + 56 + 1, Cut) end) 
 	CPC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1978495 + 825 + 56 + 2) end, function(Cut) globals.set_int(1978495 + 825 + 56 + 2, Cut) end) 
 	CPC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(1978495 + 825 + 56 + 3) end, function(Cut) globals.set_int(1978495 + 825 + 56 + 3, Cut) end) 
-	CPC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1978495 + 825 + 56 + 4) end, function(Cut) globals.set_int(1978495 + 825 + 56 + 4, Cut) end) 					   
+	CPC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1978495 + 825 + 56 + 4) end, function(Cut) globals.set_int(1978495 + 825 + 56 + 4, Cut) end)
+	CPC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(2684820 + 6606) end, function(Cut) globals.set_int(2684820 + 6606, Cut) end)
 	
 	CPE = CayoPerico:add_submenu("Extra")
 	
@@ -753,10 +755,11 @@
 		elseif Pre == 2 then for i = 1971696 + 2325 + 1, 1971696 + 2325 + 4 do globals.set_int(i, 100) end
 		a32 = Pre end end)
 		
-	DCC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 1) end, function(DCv7) globals.set_int(1971696 + 2325 + 1, DCv7) end) 
-	DCC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 2) end, function(DCv7) globals.set_int(1971696 + 2325 + 2, DCv7) end) 
-	DCC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 3) end, function(DCv7) globals.set_int(1971696 + 2325 + 3, DCv7) end) 
-	DCC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 4) end, function(DCv7) globals.set_int(1971696 + 2325 + 4, DCv7) end) 
+	DCC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 1) end, function(Cut) globals.set_int(1971696 + 2325 + 1, Cut) end) 
+	DCC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 2) end, function(Cut) globals.set_int(1971696 + 2325 + 2, Cut) end) 
+	DCC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 3) end, function(Cut) globals.set_int(1971696 + 2325 + 3, Cut) end) 
+	DCC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 4) end, function(Cut) globals.set_int(1971696 + 2325 + 4, Cut) end) 
+	DCC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(2684820 + 6606) end, function(Cut) globals.set_int(2684820 + 6606, Cut) end)
 	
 	DCE = DiamondCasino:add_submenu("Extra")
 	
