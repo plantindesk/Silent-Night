@@ -108,11 +108,19 @@
 	
 	AutoShop:add_action("Complete Preps", function() if stats.get_int(MPX .. "TUNER_CURRENT") == 1 then stats.set_int(MPX .. "TUNER_GEN_BS", 4351) else stats.set_int(MPX .. "TUNER_GEN_BS", 12543) end end) 
 		
-			a4 = 0
-	AutoShop:add_int_range("Set Payout (after start)", 500000, 0, 2000000, function() return a4 end, 
-		function(SetPay) for i = FMG + 31602, FMG + 31610 do globals.set_int(i, SetPay) end
-		globals.set_float(FMG + 31599, 0) 
-		a4 = SetPay end)
+			a4 = false
+		local function AutoShopMaxPayout(Enabled) 
+			if not localplayer then 
+			return end 
+			if Enabled then 
+				for i = FMG + 31602, FMG + 31610 do globals.set_int(i, 2000000)
+				end
+			else 
+				for i = FMG + 31602, FMG + 31610 do globals.set_int(i, 250000)
+				end
+			end 
+		end
+	AutoShop:add_toggle("Max Payout (after start)", function() return a4 end, function() a4 = not a4 AutoShopMaxPayout(a4) end)
 	
 	AutoShop:add_action("Instant Finish (solo only)", function() FMC20:set_int(45450 + 1, 51338977)
 																 FMC20:set_int(45450 + 1378 + 1, 101) end)
@@ -135,141 +143,205 @@
 																 
 	AC = Apartment:add_submenu("Cuts") 
 	
-	AC15Mil = AC:add_submenu("15mil payout (beta)")
+	AC15mil = AC:add_submenu("15mil Payout")
+			
+			a73 = 1
+			CashReceivers = 1
+	AC15mil:add_array_item("Cash Receivers", {"All", "Only Crew", "Only Me"}, function() return a73 end,
+		function(WhoRecCas) 
+			if WhoRecCas == 1 then 
+				CashReceivers = 1
+			elseif WhoRecCas == 2 then
+				CashReceivers = 2
+			elseif WhoRecCas == 3 then
+				CashReceivers = 3
+			end
+			a73 = WhoRecCas
+		end)
 			
 			a67 = false
 		local function Freeca15mil(Enabled)
-			if Enabled then 
-				globals.set_int(1936397 + 1 + 3, 100 - (7453 * 2))
-				for i = 1936397 + 1 + 1, 1936397 + 1 + 2 do
-				globals.set_int(i, 7453)
+			if Enabled then
+				if CashReceivers == 1 then
+					globals.set_int(1936397 + 1 + 3, 100 - (7453 * 2))
+					globals.set_int(1936397 + 1 + 1, 7453)
+					globals.set_int(1936397 + 1 + 2, 7453)
+					globals.set_int(1938365 + 3008 + 1, 7453)
+				elseif CashReceivers == 2 then
+					globals.set_int(1936397 + 1 + 3, 100 - (7453 * 2))
+					globals.set_int(1936397 + 1 + 1, 7453)
+					globals.set_int(1936397 + 1 + 2, 7453)
+				elseif CashReceivers == 3 then
+					globals.set_int(1938365 + 3008 + 1, 7453)
 				end
-				sleep(1)
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 2 do
-				globals.set_int(i, 7453)
-				end
-			else 
+			else
 				globals.set_int(1936399, 60)
 				globals.set_int(1936400, 40)
 				globals.set_int(1938365 + 3008 + 1, 60)
-				globals.set_int(1938365 + 3008 + 2, 40)
 			end
 		end
-	AC15Mil:add_toggle("The Freeca Job (Normal)", function() return a67 end, function() a67 = not a67 Freeca15mil(a67) end)
+	AC15mil:add_toggle("The Freeca Job (Normal)", function() return a67 end, function() a67 = not a67 Freeca15mil(a67) end)
 			
 			a68 = false
 		local function PrisonBreak15mil(Enabled)
 			if Enabled then 
-				globals.set_int(19364397 + 1 + 1, 100 - (2142 * 3))
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 2142)
+				if CashReceivers == 1 then
+					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 4))
+					globals.set_int(1936397 + 1 + 2, 2142)
+					globals.set_int(1936397 + 1 + 3, 2142)
+					globals.set_int(1936397 + 1 + 4, 2142)
+					sleep(5)
+					globals.set_int(1938365 + 3008 + 1, 2142)
+				elseif CashReceivers == 2 then
+					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 4))
+					globals.set_int(1936397 + 1 + 2, 2142)
+					globals.set_int(1936397 + 1 + 3, 2142)
+					globals.set_int(1936397 + 1 + 4, 2142)
+				elseif CashReceivers == 3 then
+					globals.set_int(1938365 + 3008 + 1, 2142)
 				end
-				sleep(1)
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
-					globals.set_int(i, 2142)
-				end
-			else 
+			else
 				globals.set_int(1936397 + 1 + 1, 55)
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 15)
-				end
+				globals.set_int(1936397 + 1 + 2, 15)
+				globals.set_int(1936397 + 1 + 3, 15)
+				globals.set_int(1936397 + 1 + 4, 15)
 				globals.set_int(1938365 + 3008 + 1, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
-					globals.set_int(i, 15)
-				end
 			end
 		end
-	AC15Mil:add_toggle("The Prison Break (Normal)", function() return a68 end, function() a68 = not a68 PrisonBreak15mil(a68) end)
+	AC15mil:add_toggle("The Prison Break (Normal)", function() return a68 end, function() a68 = not a68 PrisonBreak15mil(a68) end)
 	
 			a69 = false
 		local function HumaneLabs15mil(Enabled)
 			if Enabled then 
-				globals.set_int(19364397 + 1 + 1, 100 - (1587 * 3))
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 1587)
+				if CashReceivers == 1 then
+					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 4))
+					globals.set_int(1936397 + 1 + 2, 1587)
+					globals.set_int(1936397 + 1 + 3, 1587)
+					globals.set_int(1936397 + 1 + 4, 1587)
+					globals.set_int(1938365 + 3008 + 1, 1587)
+				elseif CashReceivers == 2 then
+					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 4))
+					globals.set_int(1936397 + 1 + 2, 1587)
+					globals.set_int(1936397 + 1 + 3, 1587)
+					globals.set_int(1936397 + 1 + 4, 1587)
+				elseif CashReceivers == 3 then
+					globals.set_int(1938365 + 3008 + 1, 1587)
 				end
-				sleep(1)
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
-					globals.set_int(i, 1587)
-				end
-			else 
+			else
 				globals.set_int(1936397 + 1 + 1, 55)
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 15)
-				end
+				globals.set_int(1936397 + 1 + 2, 15)
+				globals.set_int(1936397 + 1 + 3, 15)
+				globals.set_int(1936397 + 1 + 4, 15)
 				globals.set_int(1938365 + 3008 + 1, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
-					globals.set_int(i, 15)
-				end
 			end
 		end
-	AC15Mil:add_toggle("The Humane Labs Raid (Normal)", function() return a69 end, function() a69 = not a69 HumaneLabs15mil(a69) end)
-	
+	AC15mil:add_toggle("The Humane Labs Raid (Normal)", function() return a69 end, function() a69 = not a69 HumaneLabs15mil(a69) end)
+			
 			a70 = false
-		local function SeriesAFunding15mil(Enabled)
+		local function SeriesA15mil(Enabled)	
 			if Enabled then 
-				globals.set_int(19364397 + 1 + 1, 100 - (2121 * 3))
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 2121)
+				if CashReceivers == 1 then
+					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 4))
+					globals.set_int(1936397 + 1 + 2, 2121)
+					globals.set_int(1936397 + 1 + 3, 2121)
+					globals.set_int(1936397 + 1 + 4, 2121)
+					globals.set_int(1938365 + 3008 + 1, 2121)
+				elseif CashReceivers == 2 then
+					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 4))
+					globals.set_int(1936397 + 1 + 2, 2121)
+					globals.set_int(1936397 + 1 + 3, 2121)
+					globals.set_int(1936397 + 1 + 4, 2121)
+				elseif CashReceivers == 3 then
+					globals.set_int(1938365 + 3008 + 1, 2121)
 				end
-				sleep(1)
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
-					globals.set_int(i, 2121)
-				end
-			else 
+			else
 				globals.set_int(1936397 + 1 + 1, 55)
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 15)
-				end
+				globals.set_int(1936397 + 1 + 2, 15)
+				globals.set_int(1936397 + 1 + 3, 15)
+				globals.set_int(1936397 + 1 + 4, 15)
 				globals.set_int(1938365 + 3008 + 1, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
-					globals.set_int(i, 15)
-				end
 			end
 		end
-	AC15Mil:add_toggle("Series A Funding (Normal)", function() return a70 end, function() a70 = not a70 SeriesAFunding15mil(a70) end)
-	
+	AC15mil:add_toggle("Series A Funding (Normal)", function() return a70 end, function() a70 = not a70 SeriesA15mil(a70) end)
+			
 			a71 = false
-		local function ThePacificStandard15mil(Enabled)
-			if Enabled then
-				globals.set_int(19364397 + 1 + 1, 100 - (1000 * 3))
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 1000)
+		local function PacificStandard15mil(Enabled)	
+			if Enabled then 
+				if CashReceivers == 1 then
+					globals.set_int(1936397 + 1 + 1, 100 - (1000 * 4))
+					globals.set_int(1936397 + 1 + 2, 1000)
+					globals.set_int(1936397 + 1 + 3, 1000)
+					globals.set_int(1936397 + 1 + 4, 1000)
+					sleep(10)
+					globals.set_int(1938365 + 3008 + 1, 1000)
+				elseif CashReceivers == 2 then
+					globals.set_int(1936397 + 1 + 1, 100 - (1000 * 4))
+					globals.set_int(1936397 + 1 + 2, 1000)
+					globals.set_int(1936397 + 1 + 3, 1000)
+					globals.set_int(1936397 + 1 + 4, 1000)
+				elseif CashReceivers == 3 then
+					globals.set_int(1938365 + 3008 + 1, 1000)
 				end
-				sleep(1)
-				for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do
-					globals.set_int(i, 1000)
-				end
-			else 
+			else
 				globals.set_int(1936397 + 1 + 1, 55)
-				for i = 19364397 + 1 + 2, 19364397 + 1 + 4 do
-					globals.set_int(i, 15)
-				end
+				globals.set_int(1936397 + 1 + 2, 15)
+				globals.set_int(1936397 + 1 + 3, 15)
+				globals.set_int(1936397 + 1 + 4, 15)
 				globals.set_int(1938365 + 3008 + 1, 55)
-				for i = 1938365 + 3008 + 2, 1938365 + 3008 + 4 do
-					globals.set_int(i, 15)
-				end
 			end
 		end
-	AC15Mil:add_toggle("The Pacific Standard (Normal)", function() return a71 end, function() a71 = not a71 ThePacificStandard15mil(a71) end)
+	AC15mil:add_toggle("The Pacific Standard Job (Normal)", function() return a71 end, function() a71 = not a71 PacificStandard15mil(a71) end)
 	
-	AC15Mil:add_action("", function() end)
+	AC15mil:add_action("", function() end)
 	
-	AC15MilNote = AC15Mil:add_submenu("Read Me")
+	AC15milNote = AC15mil:add_submenu("Read Me")
 	
-	AC15MilNote:add_action("            Activate within 1st 30 secs", function() end)
-	AC15MilNote:add_action("   after the cutsene ends (on cuts screen)", function() end)
+	AC15milNote:add_action("                     Cash Receivers:", function() end)
+	AC15milNote:add_action("       Choose who'll receive the money", function() end)
+	AC15milNote:add_action("", function() end)
+
+	AC15milNote:add_action("    You have to do all stuff below before", function() end)
+	AC15milNote:add_action("      timer in right down corner hits 4:30", function() end)
+	AC15milNote:add_action("   after the cutsene ends (on cuts screen);", function() end)
+	AC15milNote:add_action("    after activation you have ≈10 secs to", function() end)
+	AC15milNote:add_action("    select your ingame cut, press «Enter»", function() end)
+	AC15milNote:add_action("          and then press «Esc» to force", function() end)
+	AC15milNote:add_action("    cuts to change; after this you need to", function() end)
+	AC15milNote:add_action("     wait till your cut changes to positive", function() end)
 	
 			a5 = 1
 	AC:add_array_item("Presets", {"85 All", "100 All"}, function() return a5 end, 
-		function(Pre) if Pre == 1 then for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do globals.set_int(i, 85) end
-		elseif Pre == 2 then for i = 1938365 + 3008 + 1, 1938365 + 3008 + 4 do globals.set_int(i, 100) end end
-		a5 = Pre end)
+		function(Pre) 
+			if Pre == 1 then 
+				globals.set_int(1936397 + 1 + 1, 100 - (85 * 4))
+				globals.set_int(1936397 + 1 + 2, 85)
+				globals.set_int(1936397 + 1 + 3, 85)
+				globals.set_int(1936397 + 1 + 4, 85)
+			elseif Pre == 2 then 
+				globals.set_int(1936397 + 1 + 1, 100 - (100 * 4))
+				globals.set_int(1936397 + 1 + 2, 100)
+				globals.set_int(1936397 + 1 + 3, 100)
+				globals.set_int(1936397 + 1 + 4, 100) 
+			end
+			a5 = Pre 
+		end)
 	
-	AC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1938365 + 3008 + 1) end, function(Cut) globals.set_int(1938365 + 3008 + 1, Cut) end) 
-	AC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1938365 + 3008 + 2) end, function(Cut) globals.set_int(1938365 + 3008 + 2, Cut) end) 
-	AC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(1938365 + 3008 + 3) end, function(Cut) globals.set_int(1938365 + 3008 + 3, Cut) end) 
-	AC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1938365 + 3008 + 4) end, function(Cut) globals.set_int(1938365 + 3008 + 4, Cut) end)
+	AC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1936397 + 1 + 1) end, function(Cut) globals.set_int(1936397 + 1 + 1, 100 - (Cut * 4)) end) 
+	AC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1936397 + 1 + 2) end, function(Cut) globals.set_int(1936397 + 1 + 2, Cut) end) 
+	AC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(1936397 + 1 + 3) end, function(Cut) globals.set_int(1936397 + 1 + 3, Cut) end) 
+	AC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1936397 + 1 + 4) end, function(Cut) globals.set_int(1936397 + 1 + 4, Cut) end)
+	AC:add_action("Set Negative to Positive (own)", function() globals.set_int(1938365 + 3008 + 1, -1 * (-100 + globals.get_int(1936397 + 1 + 1)) / 4) end)
+	
+	AC:add_action("", function() end)
+	
+	ACNote = AC:add_submenu("Read Me")
+	
+	ACNote:add_action("         Choose cuts within 1st 30 secs", function() end)
+	ACNote:add_action("   after the cutsene ends (on cuts screen);", function() end)
+	ACNote:add_action("       after that select your ingame cut,", function() end)
+	ACNote:add_action("      press «Enter» and then press «Esc»", function() end)
+	ACNote:add_action("              to force cuts to change;", function() end)
+	ACNote:add_action("    after this change your cut to positive", function() end)	
 	
 	AE = Apartment:add_submenu("Extra")
 	
@@ -277,9 +349,9 @@
 	
 	AE:add_action("Bypass Fleeca Drill", function() FMC:set_float(10061 + 11, 100) end)
 	
-	Apartment:add_action("Instant Finish", function() FMC:set_int(19710, 12) 
-													  FMC:set_int(28331 + 1, 99999) 
-													  FMC:set_int(31587 + 69, 1) end) 
+	Apartment:add_action("Instant Finish (self only)", function() FMC:set_int(19710, 12) 
+																  FMC:set_int(28331 + 1, 99999) 
+																  FMC:set_int(31587 + 69, 99999) end) 
 	
 	Apartment:add_action("", function() end)
 	
@@ -470,8 +542,8 @@
 	
 			a12 = 1
 	CPC:add_array_item("Presets", {"85 All", "100 All"}, function() return a12 end, 
-		function(Pre) if Pre == 1 then for i = 1978495 + 825 + 56 + 1, 1978495 + 825 + 56 + 4 do globals.set_int(i, 85) end 
-		elseif Pre == 2 then for i = 1978495 + 825 + 56 + 1, 1978495 + 825 + 56 + 4 do globals.set_int(i, 100) end end 
+		function(Pre) if Pre == 1 then for i = 1978495 + 825 + 56 + 1, 1978495 + 825 + 56 + 4 do globals.set_int(i, 85) globals.set_int(2684820 + 6606, 85) end 
+		elseif Pre == 2 then for i = 1978495 + 825 + 56 + 1, 1978495 + 825 + 56 + 4 do globals.set_int(i, 100) globals.set_int(2684820 + 6606, 100) end end 
 		a12 = Pre end)
 		
 	CPC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1978495 + 825 + 56 + 1) end, function(Cut) globals.set_int(1978495 + 825 + 56 + 1, Cut) end) 
@@ -708,7 +780,7 @@
 		elseif Hac == 3 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 3) 
 		elseif Hac == 4 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 2) 
 		elseif Hac == 5 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 5) 
-		elseif Hac == 6 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 4) end 
+		elseif Hac == 6 then stats.set_int(MPX .. "H3OPT_CREWHACKER", 4) end
 		a30 = Hac end)
 	
 			a31 = 1
@@ -751,9 +823,9 @@
 	
 			a32 = 1
 	DCC:add_array_item("Presets", {"85 All", "100 All"}, function() return a32 end, 
-		function(Pre) if Pre == 1 then for i = 1971696 + 2325 + 1, 1971696 + 2325 + 4 do globals.set_int(i, 85) end 
-		elseif Pre == 2 then for i = 1971696 + 2325 + 1, 1971696 + 2325 + 4 do globals.set_int(i, 100) end
-		a32 = Pre end end)
+		function(Pre) if Pre == 1 then for i = 1971696 + 2325 + 1, 1971696 + 2325 + 4 do globals.set_int(i, 85) globals.set_int(2684820 + 6606, 85) end 
+		elseif Pre == 2 then for i = 1971696 + 2325 + 1, 1971696 + 2325 + 4 do globals.set_int(i, 100) globals.set_int(2684820 + 6606, 100) end end
+		a32 = Pre end)
 		
 	DCC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 1) end, function(Cut) globals.set_int(1971696 + 2325 + 1, Cut) end) 
 	DCC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1971696 + 2325 + 2) end, function(Cut) globals.set_int(1971696 + 2325 + 2, Cut) end) 
@@ -763,24 +835,8 @@
 	
 	DCE = DiamondCasino:add_submenu("Extra")
 	
-	DCCL = DCE:add_submenu("Cooldown Killer")
-	
-	DCCL:add_action("Kill Cooldown", function() stats.set_int(MPX .. "H3_COMPLETEDPOSIX", -1) 
-											    stats.set_int("MPPLY_H3_COOLDOWN", -1) end)		
-
-		a33 = 1
-	DCCL:add_array_item("Session", {"Go Offline", "Go Online"}, function() return a33 end, 
-		function(Ses) if Ses == 1 then menu.disconnect_session() sleep(0.01) menu.send_key_press(13)
-		elseif Ses == 2 then globals.set_int(1575020, 8) globals.set_int(1574589, 1) sleep(0.2) globals.set_int(1574589, 0) end 
-		a33 = Ses end)
-	
-	DCCL:add_action("", function() end)
-	
-	DCCLNote = DCCL:add_submenu("Read Me")
-	
-	DCCLNote:add_action("         Choose a cooldown, go offline", function() end)
-	DCCLNote:add_action("                and come back online", function() end)
-	
+	DCE:add_action("Cooldown Killer", function() stats.set_int(MPX .. "H3_COMPLETEDPOSIX", -1) 
+											     stats.set_int("MPPLY_H3_COOLDOWN", -1) end)
 	
 			local function Pad() 
 		FMC:set_int(52964, 5)
@@ -808,11 +864,14 @@
 	
 	DCENote = DCE:add_submenu("Read Me")
 	
+	DCENote:add_action("                    Cooldown Killer:", function() end)
+	DCENote:add_action("    Use outside arcade, wait up to 5 mins", function() end)
+	DCENote:add_action("", function() end)
 	DCENote:add_action("                           Hecker:", function() end)
 	DCENote:add_action(" Pressing «H» will trigger bypass any hack", function() end)
 	DCENote:add_action("", function() end)
 	DCENote:add_action("                For the first robbery:", function() end)
-	DCENote:add_action("                 Use «Unlock» options", function() end)
+	DCENote:add_action("               Use «Unlock» options", function() end)
 												   
 	DCTP = DiamondCasino:add_submenu("Teleports")		
 	
@@ -879,6 +938,7 @@
 	DC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(1967630 + 812 + 50 + 2) end, function(Cut) globals.set_int(1967630 + 812 + 50 + 2, Cut) end) 
 	DC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(1967630 + 812 + 50 + 3) end, function(Cut) globals.set_int(1967630 + 812 + 50 + 3, Cut) end) 
 	DC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(1967630 + 812 + 50 + 4) end, function(Cut) globals.set_int(1967630 + 812 + 50 + 4, Cut) end)
+	DC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(2684820 + 6606) end, function(Cut) globals.set_int(2684820 + 6606, Cut) end)
 	
 	DE = Doomsday:add_submenu("Extra")
 	
@@ -1229,9 +1289,9 @@
 			DefDelay3 = 0.6
 	NightLoop:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"}, function() return a64 end, 
 		function(DelayType3) if DelayType3 == 1 then DefDelay3 = 0.6 
-		elseif DelayType3 == 2 then DefDelay3 = 0.8 
-		elseif DelayType3 == 3 then DefDelay3 = 1
-		elseif DelayType3 == 4 then DefDelay3 = 1.2 end
+		elseif DelayType3 == 2 then DefDelay3 = 0.9 
+		elseif DelayType3 == 3 then DefDelay3 = 1.2
+		elseif DelayType3 == 4 then DefDelay3 = 1.5 end
 		a64 = DelayType3 end)
 			
 			SafeAmount = 300000
@@ -5241,8 +5301,8 @@
 	Credits = SilentNight:add_submenu("♥ Credits")
 	
 	Credits:add_action("Developer: Silent", function() end)
-	Credits:add_action("Helpers #1: Mr. Robot, Slon", function() end)
-	Credits:add_action("Helpers #2: Killa`B, L7NEG, Zeiger", function() end)
-	Credits:add_action("Helpers #3: Big Smoke, Amnesia, Pewpew", function() end)
+	Credits:add_action("Helpers #1: Mr. Robot, Big Smoke", function() end)
+	Credits:add_action("Helpers #2: Killa`B, Slon, L7NEG", function() end)
+	Credits:add_action("Helpers #3: Amnesia, Pewpew, Zeiger", function() end)
 	Credits:add_action("", function() end)
 	Credits:add_action("Discord: silentsalo", function() end)
