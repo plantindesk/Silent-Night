@@ -190,7 +190,7 @@
 					globals.set_int(1936397 + 1 + 2, 2142)
 					globals.set_int(1936397 + 1 + 3, 2142)
 					globals.set_int(1936397 + 1 + 4, 2142)
-					sleep(5)
+					sleep(10)
 					globals.set_int(1938365 + 3008 + 1, 2142)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 4))
@@ -218,6 +218,7 @@
 					globals.set_int(1936397 + 1 + 2, 1587)
 					globals.set_int(1936397 + 1 + 3, 1587)
 					globals.set_int(1936397 + 1 + 4, 1587)
+					sleep(10)
 					globals.set_int(1938365 + 3008 + 1, 1587)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 4))
@@ -245,6 +246,7 @@
 					globals.set_int(1936397 + 1 + 2, 2121)
 					globals.set_int(1936397 + 1 + 3, 2121)
 					globals.set_int(1936397 + 1 + 4, 2121)
+					sleep(10)
 					globals.set_int(1938365 + 3008 + 1, 2121)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 4))
