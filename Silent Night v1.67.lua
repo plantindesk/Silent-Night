@@ -299,7 +299,7 @@
 	AC15milNote:add_action("                     Cash Receivers:", function() end)
 	AC15milNote:add_action("       Choose who'll receive the money", function() end)
 	AC15milNote:add_action("", function() end)
-
+	AC15milNote:add_action("                          For «All»:", function() end)		
 	AC15milNote:add_action("    You have to do all stuff below before", function() end)
 	AC15milNote:add_action("      timer in right down corner hits 4:30", function() end)
 	AC15milNote:add_action("   after the cutsene ends (on cuts screen);", function() end)
@@ -308,6 +308,16 @@
 	AC15milNote:add_action("          and then press «Esc» to force", function() end)
 	AC15milNote:add_action("    cuts to change; after this you need to", function() end)
 	AC15milNote:add_action("     wait till your cut changes to positive", function() end)
+	AC15milNote:add_action("", function() end)
+	AC15milNote:add_action("                    For «Only Crew»:", function() end)	
+	AC15milNote:add_action("             Activate within 1st 30 secs", function() end)
+	AC15milNote:add_action("   after the cutsene ends (on cuts screen);", function() end)
+	AC15milNote:add_action("       after that select your ingame cut,", function() end)
+	AC15milNote:add_action("      press «Enter» and then press «Esc»", function() end)
+	AC15milNote:add_action("              to force cuts to change", function() end)
+	AC15milNote:add_action("", function() end)
+	AC15milNote:add_action("                    For «Only Me»:", function() end)	
+	AC15milNote:add_action("         Activate option on cuts screen", function() end)	
 	
 			a5 = 1
 	AC:add_array_item("Presets", {"85 All", "100 All"}, function() return a5 end, 
