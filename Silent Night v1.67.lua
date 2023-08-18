@@ -163,14 +163,21 @@
 		local function Freeca15mil(Enabled)
 			if Enabled then
 				if CashReceivers == 1 then
-					globals.set_int(1936397 + 1 + 3, 100 - (7453 * 2))
-					globals.set_int(1936397 + 1 + 1, 7453)
+					globals.set_int(1936397 + 1 + 1, 100 - (7453 * 2))
 					globals.set_int(1936397 + 1 + 2, 7453)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
+					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 7453)
 				elseif CashReceivers == 2 then
-					globals.set_int(1936397 + 1 + 3, 100 - (7453 * 2))
-					globals.set_int(1936397 + 1 + 1, 7453)
+					globals.set_int(1936397 + 1 + 1, 100 - (7453 * 2))
 					globals.set_int(1936397 + 1 + 2, 7453)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
 				elseif CashReceivers == 3 then
 					globals.set_int(1938365 + 3008 + 1, 7453)
 				end
@@ -190,13 +197,21 @@
 					globals.set_int(1936397 + 1 + 2, 2142)
 					globals.set_int(1936397 + 1 + 3, 2142)
 					globals.set_int(1936397 + 1 + 4, 2142)
-					sleep(10)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
+					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 2142)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 4))
 					globals.set_int(1936397 + 1 + 2, 2142)
 					globals.set_int(1936397 + 1 + 3, 2142)
 					globals.set_int(1936397 + 1 + 4, 2142)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
 				elseif CashReceivers == 3 then
 					globals.set_int(1938365 + 3008 + 1, 2142)
 				end
@@ -218,13 +233,21 @@
 					globals.set_int(1936397 + 1 + 2, 1587)
 					globals.set_int(1936397 + 1 + 3, 1587)
 					globals.set_int(1936397 + 1 + 4, 1587)
-					sleep(10)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
+					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 1587)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 4))
 					globals.set_int(1936397 + 1 + 2, 1587)
 					globals.set_int(1936397 + 1 + 3, 1587)
 					globals.set_int(1936397 + 1 + 4, 1587)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
 				elseif CashReceivers == 3 then
 					globals.set_int(1938365 + 3008 + 1, 1587)
 				end
@@ -246,13 +269,21 @@
 					globals.set_int(1936397 + 1 + 2, 2121)
 					globals.set_int(1936397 + 1 + 3, 2121)
 					globals.set_int(1936397 + 1 + 4, 2121)
-					sleep(10)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
+					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 2121)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 4))
 					globals.set_int(1936397 + 1 + 2, 2121)
 					globals.set_int(1936397 + 1 + 3, 2121)
 					globals.set_int(1936397 + 1 + 4, 2121)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
 				elseif CashReceivers == 3 then
 					globals.set_int(1938365 + 3008 + 1, 2121)
 				end
@@ -274,13 +305,21 @@
 					globals.set_int(1936397 + 1 + 2, 1000)
 					globals.set_int(1936397 + 1 + 3, 1000)
 					globals.set_int(1936397 + 1 + 4, 1000)
-					sleep(10)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
+					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 1000)
 				elseif CashReceivers == 2 then
 					globals.set_int(1936397 + 1 + 1, 100 - (1000 * 4))
 					globals.set_int(1936397 + 1 + 2, 1000)
 					globals.set_int(1936397 + 1 + 3, 1000)
 					globals.set_int(1936397 + 1 + 4, 1000)
+					sleep(1)
+					menu.send_key_press(13)
+					sleep(1)
+					menu.send_key_press(27)
 				elseif CashReceivers == 3 then
 					globals.set_int(1938365 + 3008 + 1, 1000)
 				end
@@ -302,21 +341,16 @@
 	AC15milNote:add_action("       Choose who'll receive the money", function() end)
 	AC15milNote:add_action("", function() end)
 	AC15milNote:add_action("                          For «All»:", function() end)		
-	AC15milNote:add_action("    You have to do all stuff below before", function() end)
-	AC15milNote:add_action("      timer in right down corner hits 4:30", function() end)
+	AC15milNote:add_action("             Activate within 1st 30 secs", function() end)
 	AC15milNote:add_action("   after the cutsene ends (on cuts screen);", function() end)
-	AC15milNote:add_action("    after activation you have ≈10 secs to", function() end)
-	AC15milNote:add_action("    select your ingame cut, press «Enter»", function() end)
-	AC15milNote:add_action("          and then press «Esc» to force", function() end)
-	AC15milNote:add_action("    cuts to change; after this you need to", function() end)
+	AC15milNote:add_action("   before that select your cut on a board;", function() end)
 	AC15milNote:add_action("     wait till your cut changes to positive", function() end)
 	AC15milNote:add_action("", function() end)
 	AC15milNote:add_action("                    For «Only Crew»:", function() end)	
 	AC15milNote:add_action("             Activate within 1st 30 secs", function() end)
 	AC15milNote:add_action("   after the cutsene ends (on cuts screen);", function() end)
-	AC15milNote:add_action("       after that select your ingame cut,", function() end)
-	AC15milNote:add_action("      press «Enter» and then press «Esc»", function() end)
-	AC15milNote:add_action("              to force cuts to change", function() end)
+	AC15milNote:add_action("   before that select your cut on a board;", function() end)
+	AC15milNote:add_action("    wait till your cut changes to negative", function() end)
 	AC15milNote:add_action("", function() end)
 	AC15milNote:add_action("                    For «Only Me»:", function() end)	
 	AC15milNote:add_action("         Activate option on cuts screen", function() end)	
@@ -1305,6 +1339,9 @@
 		elseif DelayType3 == 3 then DefDelay3 = 1.2
 		elseif DelayType3 == 4 then DefDelay3 = 1.5 end
 		a64 = DelayType3 end)
+		
+			BypassTransError = false
+	NightLoop:add_toggle("Bypass Transaction Error", function()	return BypassTransError end, function() BypassTransError = not BypassTransError end)
 			
 			SafeAmount = 300000
 			SafeCollection = 199 + 532 + 1
@@ -1324,6 +1361,11 @@
 				stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
 				sleep(DefDelay3) 
 				if globals.get_int(SafeValue) ~= 0 then
+					if BypassTransError == true then
+						globals.set_int(4536677, 0)
+						globals.set_int(4536678, 0)
+						globals.set_int(4536679, 0)
+					end
 					AMN:set_int(SafeCollection, 1)
 					sleep(DefDelay3)
 				end 
@@ -1339,6 +1381,9 @@
 	NightLoopNote:add_action("", function() end)	
 	NightLoopNote:add_action("                            Delay:", function() end)
 	NightLoopNote:add_action("  Change this if you aren't getting money", function() end)
+	NightLoopNote:add_action("", function() end)
+	NightLoopNote:add_action("              Bypass Transaction Error:", function() end)
+	NightLoopNote:add_action(" Toggle this if you're still getting an error", function() end)
 	
 --Orbital Refund--
 
@@ -1664,19 +1709,43 @@
 			 globals.set_int(FMG + 15729, 1800000) end end
 	ManualMode:add_toggle("Cooldown Killer", function() return a54 end, function() a54 = not a54 CargoCooldownKiller(a54) end)
 
-			CargoPrices = {"Min", "Half", "Max", "Max Legal"}
-			CargoValues = {10000, 3000000, 6000000, 3330000}
+			CargoPrices = {"Select", "Min", "Half", "Max", "Max Legal"}
+			CargoValues = {0, 10000, 3000000, 6000000, 3330000}
 			a55 = 1 
 	ManualMode:add_array_item("Set Price", CargoPrices, function() return a55 end,
-		function(SetPri) if CargoPrices[SetPri] == "Min" then for i = 0, 4 do 
-				if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) do globals.set_int(FMG + 15963, 10000) end end end 
-			elseif CargoPrices[SetPri] == "Half" then for i = 0, 4 do 
-				if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) do globals.set_int(FMG + 15963, 3000000) end end end 
-			elseif CargoPrices[SetPri] == "Max" then for i = 0, 4 do 
-				if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) do globals.set_int(FMG + 15963, 6000000) end end end 
-			elseif CargoPrices[SetPri] == "Max Legal" then for i = 0, 4 do 
-				if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) do globals.set_int(FMG + 15963, 3330000) end end end end
-			a55 = SetPri end)
+		function(SetPri) 
+			if CargoPrices[SetPri] == "Select" then 
+				a55 = 1
+			elseif CargoPrices[SetPri] == "Min" then 
+				for i = 0, 4 do 
+					if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then 
+						stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) 
+						globals.set_int(FMG + 15963, 10000) 
+					end 
+				end
+			elseif CargoPrices[SetPri] == "Half" then 
+				for i = 0, 4 do 
+					if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then 
+						stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) 
+						globals.set_int(FMG + 15963, 3000000) 
+					end 
+				end
+			elseif CargoPrices[SetPri] == "Max" then 
+				for i = 0, 4 do 
+					if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then 
+						stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) 
+						globals.set_int(FMG + 15963, 6000000)  
+					end 
+				end 
+			elseif CargoPrices[SetPri] == "Max Legal" then 
+				for i = 0, 4 do 
+					if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then 
+						stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) 
+						globals.set_int(FMG + 15963, 3330000) end
+					end 
+				end
+			a55 = SetPri
+		end)
 			
 	--ManualMode:add_array_item("Set Price", CargoPrices, function() return d9 end,
 		--function(SetPri) if CargoPrices[SetPri] == "Min" and stats.get_int(MPX .. "LIFETIME_SELL_COMPLETE") == 0 then for i = 0, 4 do 
@@ -1697,7 +1766,14 @@
 				--if stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) > 0 then stats.set_int(MPX .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX .. "CONTOTALFORWHOUSE" .. i) - 1) do globals.set_int(FMG + 15963, 3330000) end end end end 
 			--a55 = SetPri end)
 
-	ManualMode:add_bare_item("", function() return "Price per Crate: $" .. FormatMoney(CargoValues[a55]) end, function() return "Price per Crate: $" .. FormatMoney(CargoValues[a55]) end, function() end, function() end)
+	ManualMode:add_bare_item("", 
+		function() 
+			if CargoValues[a55] == 0 then 
+				return "Price per Crate:"
+			else
+				return "Price per Crate: $" .. FormatMoney(CargoValues[a55]) 
+			end 
+		end, function() end, function() end, function() end)
 
 	ManualMode:add_action("Instant Sell", function() if NoRP == false then globals.set_float(FMG + 1, 1) else globals.set_float(FMG + 1, 0) end 
 		if NoCrateBack == false then if GCS:is_active() then for i = 12, 16 do stats.set_bool_masked(MPX .. "FIXERPSTAT_BOOL1", true, i, MPX) end
@@ -4873,21 +4949,33 @@
 	
 --Collectibles--
 	
-	Collectibles = CharactersStats:add_submenu("Collectibles [Outdated]")
+	Collectibles = CharactersStats:add_submenu("Collectibles")
 	
 	TCollectibles = Collectibles:add_submenu("Unlock All (Temporarily)")
 	
-	TCollectibles:add_action("Action Figures", function() globals.set_int(2788408, 100) end)
-	TCollectibles:add_action("Movie Props", function() globals.set_int(2788693, 10) end)
-	TCollectibles:add_action("Playing Cards", function() globals.set_int(2788409, 54) end)
-	TCollectibles:add_action("Signal Jammers", function() globals.set_int(2788410, 50) end)
+	TCollectibles:add_bare_item("", function() return "Action Figures (" .. globals.get_int(2765084 + 209) .. "/100)" end, function() globals.set_int(2765084 + 209, 100) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "LD Organics (" .. globals.get_int(2765084 + 593) .. "/100)" end, function() globals.set_int(2765084 + 593, 100) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Playing Cards (" .. globals.get_int(2765084 + 210) .. "/54)" end, function() globals.set_int(2765084 + 210, 54) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Signal Jammers (" .. globals.get_int(2765084 + 211) .. "/50)" end, function() globals.set_int(2765084 + 211, 50) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Treasure Chests (" .. globals.get_int(2765084 + 506) .. "/30)" end, function() globals.set_int(2765084 + 506, 30) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Snowmen (" .. globals.get_int(2765084 + 600) .. "/25)" end, function() globals.set_int(2765084 + 600, 25) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Buried Stashes (" .. globals.get_int(2765084 + 553) .. "/10)" end, function() globals.set_int(2765084 + 553, 10) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Hidden Caches (" .. globals.get_int(2765084 + 504) .. "/10)" end, function() globals.set_int(2765084 + 504, 10) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Jack o Lantern (" .. globals.get_int(2765084 + 591) .. "/10)" end, function() globals.set_int(2765084 + 591, 10) end, function() end, function() end)
+	TCollectibles:add_bare_item("", function() return "Movie Props (" .. globals.get_int(2765084 + 494) .. "/10)" end, function() globals.set_int(2765084 + 494, 10) end, function() end, function() end)
 	
 	PCollectibles = Collectibles:add_submenu("Unlock All (Permanently)")
 	
-	PCollectibles:add_action("Action Figures", function() globals.set_int(2788408, 99) end)
-	PCollectibles:add_action("Movie Props", function() globals.set_int(2788693, 9) end)
-	PCollectibles:add_action("Playing Cards", function() globals.set_int(2788409, 53) end)
-	PCollectibles:add_action("Signal Jammers", function() globals.set_int(2788410, 49) end)
+	PCollectibles:add_bare_item("", function() return "Action Figures (" .. globals.get_int(2765084 + 209) .. "/100)" end, function() globals.set_int(2765084 + 209, 99) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "LD Organics (" .. globals.get_int(2765084 + 593) .. "/100)" end, function() globals.set_int(2765084 + 593, 99) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Playing Cards (" .. globals.get_int(2765084 + 210) .. "/54)" end, function() globals.set_int(2765084 + 210, 53) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Signal Jammers (" .. globals.get_int(2765084 + 211) .. "/50)" end, function() globals.set_int(2765084 + 211, 49) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Treasure Chests (" .. globals.get_int(2765084 + 506) .. "/30)" end, function() globals.set_int(2765084 + 506, 29) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Snowmen (" .. globals.get_int(2765084 + 600) .. "/25)" end, function() globals.set_int(2765084 + 600, 24) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Buried Stashes (" .. globals.get_int(2765084 + 553) .. "/10)" end, function() globals.set_int(2765084 + 553, 9) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Hidden Caches (" .. globals.get_int(2765084 + 504) .. "/10)" end, function() globals.set_int(2765084 + 504, 9) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Jack o Lantern (" .. globals.get_int(2765084 + 591) .. "/10)" end, function() globals.set_int(2765084 + 591, 9) end, function() end, function() end)
+	PCollectibles:add_bare_item("", function() return "Movie Props (" .. globals.get_int(2765084 + 494) .. "/10)" end, function() globals.set_int(2765084 + 494, 9) end, function() end, function() end)
 	
 	PCollectibles:add_action("", function() end)
 	
@@ -4974,16 +5062,6 @@
 	RankNote = Rank:add_submenu("Read Me")
 	
 	RankNote:add_action("             High level = More reports", function() end)
-	
-			a66 = false
-		local function SilentNSneaky(Enabled)
-			PlayerID = localplayer:get_player_id()
-			HideMe = 1853988 + 1 + (PlayerID * 867) + 205
-			if Enabled then globals.set_int(HideMe, 8) 
-			else globals.set_int(HideMe, 9) 
-			end	
-		end			
-	CharactersStats:add_toggle("Hide Me", function() return a66 end, function() a66 = not a66 SilentNSneaky(a66) end)
 			
 			a60 = false
 		local function SexChanger(Enabled)
@@ -4997,10 +5075,6 @@
 	
 	CharactersStatsNote = CharactersStats:add_submenu("Read Me")
 	
-	CharactersStatsNote:add_action("                          Hide Me:", function() end)
-	CharactersStatsNote:add_action("            Hides you from player list;", function() end)
-	CharactersStatsNote:add_action("    also removes your blip from the map", function() end)
-	CharactersStatsNote:add_action("", function() end)
 	CharactersStatsNote:add_action("                       Sex Changer:", function() end)
 	CharactersStatsNote:add_action("     Unlocks «Change Sex» option while", function() end)
 	CharactersStatsNote:add_action("                editing your character", function() end)
@@ -5013,7 +5087,24 @@
 	
 	ArenaWar = FacilitiesUnlocks:add_submenu("Arena War")
 	
-			ArenaWarVehicles = {"Select", "Taxi", "HVY Dozer", "Clown Van", "Trashmaster", "HVY Barracks Semi", "HVY Mixer", "Space Docker", "Tractor"}
+	ArenaWar:add_action("Unlock Trade Prices for Headlights", 
+		function()
+			for i = 18, 29 do
+				stats.set_bool_masked(MPX .. "ARENAWARSPSTAT_BOOL0", true, i)
+			end
+		end)
+	
+	ArenaWar:add_action("Unlock Trade Prices for Vehicles", 
+		function()
+			for i = 1, 16 do
+				stats.set_bool_masked(MPX .. "ARENAWARSPSTAT_BOOL0", true, i)
+			end
+			for i = 11, 19 do
+				stats.set_bool_masked(MPX .. "ARENAWARSPSTAT_BOOL2", true, i)
+			end
+		end)
+
+		ArenaWarVehicles = {"Select", "Taxi", "HVY Dozer", "Clown Van", "Trashmaster", "HVY Barracks Semi", "HVY Mixer", "Space Docker", "Tractor"}
 			a61 = 1
 	ArenaWar:add_array_item("Unlock Vehicle", ArenaWarVehicles, function() return a61 end, 
 		function(AreWarVeh) if AreWarVeh == 1 then a61 = 1
@@ -5090,9 +5181,9 @@
 	ArenaWarNote:add_action("", function() end)
 	ArenaWarNote:add_action("                        Navigate to:", function() end)
 	ArenaWarNote:add_action("    Online -> Jobs -> Rockstar Created ->", function() end)
-	ArenaWarNote:add_action("         -> Arena War -> Start Any Job", function() end)
+	ArenaWarNote:add_action("        -> Arena War -> Start Wreck It I", function() end)
 	ArenaWarNote:add_action("", function() end)
-	ArenaWarNote:add_action("     If you receive an Alert, press Enter", function() end)
+	ArenaWarNote:add_action("      If you receive an Alert, press Enter", function() end)
 	ArenaWarNote:add_action("", function() end)
 	ArenaWarNote:add_action("    Wait for the carnage to begin, suicide", function() end)
 	ArenaWarNote:add_action("     and spin the wheel until you get AP", function() end)
@@ -5149,6 +5240,13 @@
 	
 	LSCarMeet:add_action("Unlock All", function() for i = FMG + 31835, FMG + 31862 do globals.set_float(i, 100000) end end)
 	
+	LSCarMeet:add_action("Unlock Trade Prices for Headlights", 
+		function()
+			for i = 18, 29 do
+				stats.set_bool_masked(MPX .. "ARENAWARSPSTAT_BOOL0", true, i)
+			end
+		end)
+	
 	LSCarMeet:add_action("Unlock Podium Prize", function() stats.set_bool(MPX .. "CARMEET_PV_CHLLGE_CMPLT", true) stats.set_bool(MPX .. "CARMEET_PV_CLMED", false) end)
 	
 	LSCarMeet:add_action("", function() end)
@@ -5201,6 +5299,14 @@
 												  stats.set_int(MPX .. "AWD_FMWINSEARACE", 25)
 												  stats.set_int(MPX .. "MOST_FLIPS_IN_ONE_JUMP", 5)
 												  stats.set_int(MPX .. "MOST_SPINS_IN_ONE_JUMP", 5) end)
+
+	LSCustoms:add_action("Unlock Hidden Liveries", 
+		function() 
+			stats.set_int("MPPLY_XMASLIVERIES", -1) 
+			for i = 1, 20 do 
+				stats.set_int("MPPLY_XMASLIVERIES" .. i, -1) 
+			end
+		end)
 
 --Custom Modifications--
 
@@ -5307,6 +5413,61 @@
 	LSCustomsNote = LSCustoms:add_submenu("Read Me")
 	
 	LSCustomsNote:add_action("         Some colors may not be saved", function() end)
+	
+--Misc--
+
+	Misc = UnlockTool:add_submenu("Misc (Safe)")
+	
+					a66 = false
+		local function SilentNSneaky(Enabled)
+			PlayerID = localplayer:get_player_id()
+			HideMe = 1853988 + 1 + (PlayerID * 867) + 205
+			if Enabled then globals.set_int(HideMe, 8) 
+			else globals.set_int(HideMe, 9) 
+			end	
+		end			
+	Misc:add_toggle("Hide Me", function() return a66 end, function() a66 = not a66 SilentNSneaky(a66) end)	
+	
+	Misc:add_action("Unlock All Tattoos", 
+		function() 
+			stats.set_int(MPX .. "TATTOO_FM_CURRENT_32", -1) 
+			for i = 0, 47 do 
+				stats.set_int(MPX .. "TATTOO_FM_UNLOCKS_" .. i, -1)
+			end 
+		end)
+	
+	Misc:add_action("Unlock All Flight School Gold Medals", 
+		function() 
+			stats.set_int("MPPLY_NUM_CAPTURES_CREATED", 100) 
+			for i = 0, 9 do 
+				stats.set_int("MPPLY_PILOT_SCHOOL_MEDAL_" .. i , -1) 
+				stats.set_int(MPX .. "PILOT_SCHOOL_MEDAL_" .. i, -1) 
+				stats.set_bool(MPX .. "PILOT_ASPASSEDLESSON_" .. i, true) 
+			end 
+		end)
+		
+	Misc:add_action("Unlock All Shooting Range Rewards", 
+		function() 
+			stats.set_int(MPX .. "SR_HIGHSCORE_1", 690)
+			stats.set_int(mpx .. "SR_HIGHSCORE_2", 1860) 
+			stats.set_int(mpx .. "SR_HIGHSCORE_3", 2690) 
+			stats.set_int(mpx .. "SR_HIGHSCORE_4", 2660) 
+			stats.set_int(mpx .. "SR_HIGHSCORE_5", 2650) 
+			stats.set_int(mpx .. "SR_HIGHSCORE_6", 450) 
+			stats.set_int(mpx .. "SR_TARGETS_HIT", 269) 
+			stats.set_int(mpx .. "SR_WEAPON_BIT_SET", -1) 
+			stats.set_bool(mpx .. "SR_TIER_1_REWARD", true) 
+			stats.set_bool(mpx .. "SR_TIER_3_REWARD", true) 
+			stats.set_bool(mpx .. "SR_INCREASE_THROW_CAP", true) 
+		end)
+	
+	Misc:add_action("", function() end)
+	
+	MiscNote = Misc:add_submenu("Read Me")
+	
+	MiscNote:add_action("                          Hide Me:", function() end)
+	MiscNote:add_action("            Hides you from player list;", function() end)
+	MiscNote:add_action("    also removes your blip from the map", function() end)
 	
 --Credits--
 	
