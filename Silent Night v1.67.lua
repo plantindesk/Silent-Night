@@ -1359,7 +1359,7 @@
 				end
 				globals.set_int(FMG + SafeCapacity, SafeAmount)
 				stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-				sleep(DefDelay3) 
+				sleep(DefDelay3)
 				if globals.get_int(SafeValue) ~= 0 then
 					if BypassTransError == true then
 						globals.set_int(4536677, 0)
@@ -1566,10 +1566,13 @@
 				else LoopStop = 0 end end end end end end end end
 				LoopStop = 0 end 
 	AFKMode:add_toggle("Toggle AFK Mode", function() return a50 end, function() a50 = not a50 AfkMode(a50) end)
-					
-			CurrentCash = stats.get_int("MPPLY_TOTAL_EVC")
-			SaveCash = CurrentCash
-	AFKMode:add_bare_item("", function() return "Money Made: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_EVC") - SaveCash) end, function() end, function() end, function() end)
+			
+			CurrentCash = stats.get_int(MPX .. "LIFETIME_CONTRA_EARNINGS")
+			SaveCash = CurrentCash		
+	AFKMode:add_bare_item("", 
+		function() 
+			return "Money Made: $" .. FormatMoney(stats.get_int(MPX .. "LIFETIME_CONTRA_EARNINGS") - SaveCash)
+		end, function() end, function() end, function() end)
 	
 	AFKMode:add_action("", function() end)
 	
@@ -3237,7 +3240,7 @@
 			stats.set_int(MPX .. "SNIPERRFL_ENEMY_KILLS", 500)
 			stats.set_int(MPX .. "HVYSNIPER_ENEMY_KILLS", 500) end)
 	
-	Awards1b1:add_action("ArenaWarVehicles", function()
+	Awards1b1:add_action("Arena War", function()
 			stats.set_int(MPX .. "AWD_50_VEHICLES_BLOWNUP", 500)
 			stats.set_int(MPX .. "CARS_EXPLODED", 500)
 			stats.set_int(MPX .. "AWD_CAR_EXPORT", 100)
@@ -5308,6 +5311,12 @@
 			end
 		end)
 
+	LSCustoms:add_action("Unlock Taxi Liveries",
+		function() 
+			stats.set_int(MPX .. "AWD_TAXIDRIVER", 50) 
+			stats.set_masked_int(MPX .. "DLC22022PSTAT_INT536", 10, 16, 8)
+		end)
+
 --Custom Modifications--
 
 	CustomModifications = LSCustoms:add_submenu("Custom Modifications")
@@ -5428,6 +5437,8 @@
 		end			
 	Misc:add_toggle("Hide Me", function() return a66 end, function() a66 = not a66 SilentNSneaky(a66) end)	
 	
+	Misc:add_action("Max Nightclub Popularity", function() stats.set_int(MPX .. "CLUB_POPULARITY", 1000) end)
+	
 	Misc:add_action("Unlock All Tattoos", 
 		function() 
 			stats.set_int(MPX .. "TATTOO_FM_CURRENT_32", -1) 
@@ -5436,7 +5447,7 @@
 			end 
 		end)
 	
-	Misc:add_action("Unlock All Flight School Gold Medals", 
+	Misc:add_action("Unlock Flight School Gold Medals", 
 		function() 
 			stats.set_int("MPPLY_NUM_CAPTURES_CREATED", 100) 
 			for i = 0, 9 do 
@@ -5446,19 +5457,19 @@
 			end 
 		end)
 		
-	Misc:add_action("Unlock All Shooting Range Rewards", 
+	Misc:add_action("Unlock Shooting Range Rewards", 
 		function() 
 			stats.set_int(MPX .. "SR_HIGHSCORE_1", 690)
-			stats.set_int(mpx .. "SR_HIGHSCORE_2", 1860) 
-			stats.set_int(mpx .. "SR_HIGHSCORE_3", 2690) 
-			stats.set_int(mpx .. "SR_HIGHSCORE_4", 2660) 
-			stats.set_int(mpx .. "SR_HIGHSCORE_5", 2650) 
-			stats.set_int(mpx .. "SR_HIGHSCORE_6", 450) 
-			stats.set_int(mpx .. "SR_TARGETS_HIT", 269) 
-			stats.set_int(mpx .. "SR_WEAPON_BIT_SET", -1) 
-			stats.set_bool(mpx .. "SR_TIER_1_REWARD", true) 
-			stats.set_bool(mpx .. "SR_TIER_3_REWARD", true) 
-			stats.set_bool(mpx .. "SR_INCREASE_THROW_CAP", true) 
+			stats.set_int(MPX .. "SR_HIGHSCORE_2", 1860) 
+			stats.set_int(MPX .. "SR_HIGHSCORE_3", 2690) 
+			stats.set_int(MPX .. "SR_HIGHSCORE_4", 2660) 
+			stats.set_int(MPX .. "SR_HIGHSCORE_5", 2650) 
+			stats.set_int(MPX .. "SR_HIGHSCORE_6", 450) 
+			stats.set_int(MPX .. "SR_TARGETS_HIT", 269) 
+			stats.set_int(MPX .. "SR_WEAPON_BIT_SET", -1) 
+			stats.set_bool(MPX .. "SR_TIER_1_REWARD", true) 
+			stats.set_bool(MPX .. "SR_TIER_3_REWARD", true) 
+			stats.set_bool(MPX .. "SR_INCREASE_THROW_CAP", true) 
 		end)
 	
 	Misc:add_action("", function() end)
