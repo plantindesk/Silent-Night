@@ -493,6 +493,217 @@
 
 	CayoPerico = HeistTool:add_submenu("Cayo Perico (Safe)")
 
+	CPDS = CayoPerico:add_submenu("Data Saver")
+
+	CPDS:add_bare_item("",
+		function()
+			GetPriTar1 = stats.get_int(MPX .. "H4CNF_TARGET")
+			CurPriTar1 = ""
+			if not CurDif1 == "None" and GetPriTar1 == 0 then
+				CurPriTar1 = "Tequila"
+			elseif GetPriTar1 == 1 then
+				CurPriTar1 = "Necklace"
+			elseif GetPriTar1 == 2 then
+				CurPriTar1 = "Bonds"
+			elseif GetPriTar1 == 3 then
+				CurPriTar1 = "Diamond"
+			elseif GetPriTar1 == 4 then
+				CurPriTar1 = "Statue"
+			else
+				CurPriTar1 = "None"
+			end
+			return "Primary Target: " .. CurPriTar1
+		end, null, null, null)
+
+	CPDS:add_bare_item("",
+		function()
+			GetComCash = stats.get_int(MPX .. "H4LOOT_CASH_C")
+			GetComWeed = stats.get_int(MPX .. "H4LOOT_WEED_C")
+			GetComCoke = stats.get_int(MPX .. "H4LOOT_COKE_C")
+			GetComGold = stats.get_int(MPX .. "H4LOOT_GOLD_C")
+			GetComArts = stats.get_int(MPX .. "H4LOOT_PAINT")
+			CurComCash = ""
+			CurComWeed = ""
+			CurComCoke = ""
+			CurComGold = ""
+			CurComArts = ""
+			if GetComCash > 0 then
+				CurComCash = "Cash; "
+			end
+			if GetComWeed > 0 then
+				CurComWeed = "Weed; "
+			end
+			if GetComCoke > 0 then
+				CurComCoke = "Coke; "
+			end
+			if GetComGold > 0 then
+				CurComGold = "Gold; "
+			end
+			if GetComArts > 0 then
+				CurComArts = "Arts"
+			end
+			if GetComCash == 0 and GetComWeed == 0 and GetComCoke == 0 and GetComGold == 0 and GetComArts == 0 then
+				CurComCash = "N"
+				CurComWeed = "o"
+				CurComCoke = "n"
+				CurComGold = "e"
+				CurComArts = ""
+			end
+			return "Compound: " .. CurComCash .. CurComWeed .. CurComCoke .. CurComGold .. CurComArts
+		end, null, null, null)
+
+	CPDS:add_bare_item("",
+		function()
+			GetIslCash = stats.get_int(MPX .. "H4LOOT_CASH_I")
+			GetIslWeed = stats.get_int(MPX .. "H4LOOT_WEED_I")
+			GetIslCoke = stats.get_int(MPX .. "H4LOOT_COKE_I")
+			GetIslGold = stats.get_int(MPX .. "H4LOOT_GOLD_I")
+			CurIslCash = ""
+			CurIslWeed = ""
+			CurIslCoke = ""
+			CurIslGold = ""
+			if GetIslCash > 0 then
+				CurIslCash = "Cash; "
+			end
+			if GetIslWeed > 0 then
+				CurIslWeed = "Weed; "
+			end
+			if GetIslCoke > 0 then
+				CurIslCoke = "Coke; "
+			end
+			if GetIslGold > 0 then
+				CurIslGold = "Gold"
+			end
+			if GetIslCash == 0 and GetIslWeed == 0 and GetIslCoke == 0 and GetIslGold == 0 then
+				CurIslCash = "N"
+				CurIslWeed = "o"
+				CurIslCoke = "n"
+				CurIslGold = "e"
+			end
+			return "Island: " .. CurIslCash .. CurIslWeed .. CurIslCoke .. CurIslGold
+		end, null, null, null)
+
+	CPDS:add_bare_item("",
+		function()
+			GetDif1 = stats.get_int(MPX .. "H4_PROGRESS")
+			CurDif1 = ""
+			if GetDif1 == 126823 then
+				CurDif1 = "Normal"
+			elseif GetDif1 == 131055 then
+				CurDif1 = "Hard"
+			else
+				CurDif1 = "None"
+			end
+			return "Difficulty: " .. CurDif1
+		end, null, null, null)
+
+	CPDS:add_bare_item("",
+		function()
+			GetApp1 = stats.get_int(MPX .. "H4_MISSIONS")
+			CurApp1 = ""
+			if GetApp1 == 65283 then
+				CurApp1 = "Kosatka"
+			elseif GetApp1 == 65413 then
+				CurApp1 = "Alkonost"
+			elseif GetApp1 == 65289 then
+				CurApp1 = "Velum"
+			elseif GetApp1 == 65425 then
+				CurApp1 = "Stealth Annihilator"
+			elseif GetApp1 == 65313 then
+				CurApp1 = "Patrol Boat"
+			elseif GetApp1 == 65345 then
+				CurApp1 = "Longfin"
+			elseif GetApp1 == 65535 then
+				CurApp1 = "All Ways"
+			else
+				CurApp1 = "None"
+			end
+			return "Approach: " .. CurApp1
+		end, null, null, null)
+
+	CPDS:add_bare_item("",
+		function()
+			GetWea = stats.get_int(MPX .. "H4CNF_WEAPONS")
+			CurWea = ""
+			if GetWea == 1 then
+				CurWea = "Aggressor"
+			elseif GetWea == 2 then
+				CurWea = "Conspiratort"
+			elseif GetWea == 3 then
+				CurWea = "Crackshot"
+			elseif GetWea == 4 then
+				CurWea = "Saboteur"
+			elseif GetWea == 5 then
+				CurWea = "Marksman"
+			else
+				CurWea = "None"
+			end
+			return "Weapons: " .. CurWea
+		end, null, null, null)
+
+	CPDS:add_action("Save Heist Preset",
+		function()
+			CayoPrimary = GetPriTar1
+			CayoComCash = GetComCash
+			CayoComWeed = GetComWeed
+			CayoComCoke = GetComCoke
+			CayoComGold = GetComGold
+			CayoComArts = GetComArts
+			CayoIslCash = GetIslCash
+			CayoIslWeed = GetIslWeed
+			CayoIslCoke = GetIslCoke
+			CayoIslGold = GetIslGold
+			CayoDifficulty = GetDif1
+			CayoApproach = GetApp1
+			CayoWeapons = GetWea
+		end)
+
+	CPDS:add_action("Replay Heist Again",
+		function()
+			stats.set_int(MPX .. "H4CNF_TARGET", CayoPrimary)
+			stats.set_int(MPX .. "H4LOOT_CASH_C", CayoComCash)
+			stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", CayoComCash)
+			stats.set_int(MPX .. "H4LOOT_WEED_C", CayoComWeed)
+			stats.set_int(MPX .. "H4LOOT_WEED_C_SCOPED", CayoComWeed)
+			stats.set_int(MPX .. "H4LOOT_COKE_C", CayoComCoke)
+			stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", CayoComCoke)
+			stats.set_int(MPX .. "H4LOOT_GOLD_C", CayoComGold)
+			stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", CayoComGold)
+			stats.set_int(MPX .. "H4LOOT_PAINT", CayoComArts)
+			stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", CayoComArts)
+			stats.set_int(MPX .. "H4LOOT_CASH_I", CayoIslCash)
+			stats.set_int(MPX .. "H4LOOT_CASH_I_SCOPED", CayoIslCash)
+			stats.set_int(MPX .. "H4LOOT_WEED_I", CayoIslWeed)
+			stats.set_int(MPX .. "H4LOOT_WEED_I_SCOPED", CayoIslWeed)
+			stats.set_int(MPX .. "H4LOOT_COKE_I", CayoIslCoke)
+			stats.set_int(MPX .. "H4LOOT_COKE_I_SCOPED", CayoIslCoke)
+			stats.set_int(MPX .. "H4LOOT_GOLD_I", CayoIslGold)
+			stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", CayoIslGold)
+			stats.set_int(MPX .. "H4LOOT_CASH_V", 90000)
+			stats.set_int(MPX .. "H4LOOT_WEED_V", 147870)
+			stats.set_int(MPX .. "H4LOOT_COKE_V", 200095)
+			stats.set_int(MPX .. "H4LOOT_GOLD_V", 330350)
+			stats.set_int(MPX .. "H4LOOT_PAINT_V", 189500)
+			stats.set_int(MPX .. "H4CNF_UNIFORM", -1)
+			stats.set_int(MPX .. "H4CNF_GRAPPEL", -1)
+			stats.set_int(MPX .. "H4CNF_TROJAN", 5)
+			stats.set_int(MPX .. "H4CNF_WEP_DISRP", 3)
+			stats.set_int(MPX .. "H4CNF_ARM_DISRP", 3)
+			stats.set_int(MPX .. "H4CNF_HEL_DISRP", 3)
+			stats.set_int(MPX .. "H4_PLAYTHROUGH_STATUS", 10)
+		end)
+
+	CPDS:add_action("", null)
+
+	CPDSNote = CPDS:add_submenu("Read Me")
+
+	CPDSNote:add_action("                    Save Heist Preset:", null)
+	CPDSNote:add_action("    Use to save your heist planning screen", null)
+	CPDSNote:add_action("", null)
+	CPDSNote:add_action("                  Replay Heist Again:", null)
+	CPDSNote:add_action("   Use to make your heist planning screen", null)
+	CPDSNote:add_action("   the same as it was before saving preset", null)
+
 	CPP = CayoPerico:add_submenu("Preps")
 
 			a6 = 1
@@ -517,8 +728,10 @@
 			a6 = PriTar
 		end)
 
+	CPST = CPP:add_submenu("Secondary Targets")
+
 			a7 = 1
-	CPP:add_array_item("Fill Compound Storages", {"None", "Cash", "Weed", "Coke", "Gold"},
+	CPST:add_array_item("Fill Compound Storages", {"None", "Cash", "Weed", "Coke", "Gold"},
 		function()
 			return a7
 		end,
@@ -577,7 +790,7 @@
 		end)
 
 			a8 = 1
-	CPP:add_array_item("Fill Island Storages", {"None", "Cash", "Weed", "Coke", "Gold"},
+	CPST:add_array_item("Fill Island Storages", {"None", "Cash", "Weed", "Coke", "Gold"},
 		function()
 			return a8
 		end,
@@ -638,15 +851,211 @@
 			a65 = false
 		local function AddPaintings(Enabled)
 			if Enabled then
-				stats.set_int(MPX .. "H4LOOT_PAINT_C", 127)
-				stats.set_int(MPX .. "H4LOOT_PAINT_C_SCOPED", 127)
+				stats.set_int(MPX .. "H4LOOT_PAINT", 127)
+				stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", 127)
 				stats.set_int(MPX .. "H4LOOT_PAINT_V", 189500)
 			else
-				stats.set_int(MPX .. "H4LOOT_PAINT_C", 0)
-			    stats.set_int(MPX .. "H4LOOT_PAINT_C_SCOPED", 0)
+				stats.set_int(MPX .. "H4LOOT_PAINT", 0)
+			    stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", 0)
 			end
 		end
-	CPP:add_toggle("Add Paintings", function() return a65 end, function() a65 = not a65 AddPaintings(a65) end)
+	CPST:add_toggle("Add Paintings", function() return a65 end, function() a65 = not a65 AddPaintings(a65) end)
+
+	CPDM = CPST:add_submenu("Detailed Method")
+
+	CPCST = CPDM:add_submenu("Compound")
+
+			CayoTarget1 = ""
+			a92 = 1
+	CPCST:add_array_item("Target (only one)", {"Select", "Cash", "Weed", "Coke", "Gold"},
+		function()
+			return a92
+		end,
+		function(Tar)
+			if Tar == 1 then
+				a92 = 1
+			elseif Tar == 2 then
+				CayoTarget1 = "CASH"
+				stats.set_int(MPX .. "H4LOOT_CASH_V", 90000)
+			elseif Tar == 3 then
+				CayoTarget1 = "WEED"
+				stats.set_int(MPX .. "H4LOOT_WEED_V", 147870)
+			elseif Tar == 4 then
+				CayoTarget1 = "COKE"
+				stats.set_int(MPX .. "H4LOOT_COKE_V", 200095)
+			elseif Tar == 5 then
+				CayoTarget1	 = "GOLD"
+				stats.set_int(MPX .. "H4LOOT_GOLD_V", 330350)
+			end
+			stats.set_int(MPX .. "H4LOOT_CASH_C", 0)
+			stats.set_int(MPX .. "H4LOOT_CASH_C_SCOPED", 0)
+			stats.set_int(MPX .. "H4LOOT_WEED_C", 0)
+			stats.set_int(MPX .. "H4LOOT_WEED_C_SCOPED", 0)
+			stats.set_int(MPX .. "H4LOOT_COKE_C", 0)
+			stats.set_int(MPX .. "H4LOOT_COKE_C_SCOPED", 0)
+			stats.set_int(MPX .. "H4LOOT_GOLD_C", 0)
+			stats.set_int(MPX .. "H4LOOT_GOLD_C_SCOPED", 0)
+			a92 = Tar
+		end)
+
+			TarComAmount = 0
+			a93 = 1
+	CPCST:add_array_item("Target Amount", {"0", "1", "2", "3", "4", "5", "6", "7", "8"},
+		function()
+			return a93
+		end,
+		function(TarAmo)
+			if TarAmo == 1 then
+				TarComAmount = 0
+			elseif TarAmo == 2 then
+				TarComAmount = 128
+			elseif TarAmo == 3 then
+				TarComAmount = 64
+			elseif TarAmo == 4 then
+				TarComAmount = 196
+			elseif TarAmo == 5 then
+				TarComAmount = 204
+			elseif TarAmo == 6 then
+				TarComAmount = 220
+			elseif TarAmo == 7 then
+				TarComAmount = 252
+			elseif TarAmo == 8 then
+				TarComAmount = 253
+			elseif TarAmo == 9 then
+				TarComAmount = 255
+			end
+			stats.set_int(MPX .. "H4LOOT_" .. CayoTarget1 .. "_C", TarComAmount)
+			stats.set_int(MPX .. "H4LOOT_" .. CayoTarget1 .. "_C_SCOPED", TarComAmount)
+			a93 = TarAmo
+		end)
+
+			ArtAmount = 0
+			a94 = 1
+	CPCST:add_array_item("Arts Amount", {"0", "1", "2", "3", "4", "5", "6", "7"},
+		function()
+			return a94
+		end,
+		function(ArtAmo)
+			if ArtAmo == 1 then
+				ArtAmount = 0
+			elseif ArtAmo == 2 then
+				ArtAmount = 64
+			elseif ArtAmo == 3 then
+				ArtAmount = 96
+			elseif ArtAmo == 4 then
+				ArtAmount = 112
+			elseif ArtAmo == 5 then
+				ArtAmount = 120
+			elseif ArtAmo == 6 then
+				ArtAmount = 122
+			elseif ArtAmo == 7 then
+				ArtAmount = 126
+			elseif ArtAmo == 8 then
+				ArtAmount = 127
+			end
+			stats.set_int(MPX .. "H4LOOT_PAINT", ArtAmount)
+			stats.set_int(MPX .. "H4LOOT_PAINT_SCOPED", ArtAmount)
+			stats.set_int(MPX .. "H4LOOT_PAINT_V", 189500)
+			a94 = ArtAmo
+		end)
+
+	CPIST = CPDM:add_submenu("Island")
+
+			CayoTarget2 = ""
+			a95 = 1
+	CPIST:add_array_item("Target (only one)", {"Select", "Cash", "Weed", "Coke", "Gold"},
+		function()
+			return a95
+		end,
+		function(Tar)
+			if Tar == 1 then
+				a95 = 1
+			elseif Tar == 2 then
+				CayoTarget2 = "CASH"
+				stats.set_int(MPX .. "H4LOOT_CASH_V", 90000)
+			elseif Tar == 3 then
+				CayoTarget2 = "WEED"
+				stats.set_int(MPX .. "H4LOOT_WEED_V", 147870)
+			elseif Tar == 4 then
+				CayoTarget2 = "COKE"
+				stats.set_int(MPX .. "H4LOOT_COKE_V", 200095)
+			elseif Tar == 5 then
+				CayoTarget2 = "GOLD"
+				stats.set_int(MPX .. "H4LOOT_GOLD_V", 330350)
+			end
+			stats.set_int(MPX .. "H4LOOT_IASH_I", 0)
+			stats.set_int(MPX .. "H4LOOT_IASH_I_SCOPED", 0)
+			stats.set_int(MPX .. "H4LOOT_WEED_I", 0)
+			stats.set_int(MPX .. "H4LOOT_WEED_I_SCOPED", 0)
+			stats.set_int(MPX .. "H4LOOT_IOKE_I", 0)
+			stats.set_int(MPX .. "H4LOOT_IOKE_I_SCOPED", 0)
+			stats.set_int(MPX .. "H4LOOT_GOLD_I", 0)
+			stats.set_int(MPX .. "H4LOOT_GOLD_I_SCOPED", 0)
+			a95 = Tar
+		end)
+
+			TarIslAmount = 0
+			a96 = 1
+	CPIST:add_array_item("Target Amount", {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"},
+		function()
+			return a96
+		end,
+		function(TarAmo)
+			if TarAmo == 1 then
+				TarIslAmount = 0
+			elseif TarAmo == 2 then
+				TarIslAmount = 8388608
+			elseif TarAmo == 3 then
+				TarIslAmount = 12582912
+			elseif TarAmo == 4 then
+				TarIslAmount = 12845056
+			elseif TarAmo == 5 then
+				TarIslAmount = 12976128
+			elseif TarAmo == 6 then
+				TarIslAmount = 13500416
+			elseif TarAmo == 7 then
+				TarIslAmount = 14548992
+			elseif TarAmo == 8 then
+				TarIslAmount = 16646144
+			elseif TarAmo == 9 then
+				TarIslAmount = 16711680
+			elseif TarAmo == 10 then
+				TarIslAmount = 16744448
+			elseif TarAmo == 11 then
+				TarIslAmount = 16760832
+			elseif TarAmo == 12 then
+				TarIslAmount = 16769024
+			elseif TarAmo == 13 then
+				TarIslAmount = 16769536
+			elseif TarAmo == 14 then
+				TarIslAmount = 16770560
+			elseif TarAmo == 15 then
+				TarIslAmount = 16770816
+			elseif TarAmo == 16 then
+				sTarIslAmount = 16770880
+			elseif TarAmo == 17 then
+				TarIslAmount = 16771008
+			elseif TarAmo == 18 then
+				TarIslAmount = 16773056
+			elseif TarAmo == 19 then
+				TarIslAmount = 16777152
+			elseif TarAmo == 20 then
+				TarIslAmount = 16777184
+			elseif TarAmo == 21 then
+				TarIslAmount = 16777200
+			elseif TarAmo == 22 then
+				sTarIslAmount = 16777202
+			elseif TarAmo == 23 then
+				TarIslAmount = 16777203
+			elseif TarAmo == 24 then
+				TarIslAmount = 16777211
+			elseif TarAmo == 24 then
+				TarIslAmount = 16777215
+			end
+			stats.set_int(MPX .. "H4LOOT_" .. CayoTarget2 .. "_I", TarIslAmount)
+			stats.set_int(MPX .. "H4LOOT_" .. CayoTarget2 .. "_I_SCOPED", TarIslAmount)
+			a96 = TarAmo
+		end)
 
 			a9 = 1
 	CPP:add_array_item("Difficulty", {"Select", "Normal", "Hard"},
@@ -846,7 +1255,7 @@
 
 	CPENote = CPE:add_submenu("Read Me")
 
-	CPENote:add_action("                      Women's Bag:", null)
+	CPENote:add_action("                      Woman's Bag:", null)
 	CPENote:add_action("       Changes your bag size to infinity", null)
 	CPENote:add_action("", null)
 	CPENote:add_action("                For the first robbery:", null)
@@ -1108,6 +1517,189 @@
 --Diamond Сasino--
 
 	DiamondCasino = HeistTool:add_submenu("Diamond Casino (Safe)")
+
+	DDC = DiamondCasino:add_submenu("Data Saver")
+
+	DDC:add_bare_item("",
+		function()
+			GetPriTar2 = stats.get_int(MPX .. "H3OPT_TARGET")
+			CurPriTar2 = ""
+			if not CurApp2 == "None" and GetPriTar2 == 0 then
+				CurPriTar2 = "Cash"
+			elseif GetPriTar2 == 1 then
+				CurPriTar2 = "Gold"
+			elseif GetPriTar2 == 2 then
+				CurPriTar2 = "Arts"
+			elseif GetPriTar2 == 3 then
+				CurPriTar2 = "Diamonds"
+			else
+				CurPriTar2 = "None"
+			end
+			return "Target: " .. CurPriTar2
+		end, null, null, null)
+
+	DDC:add_bare_item("",
+		function()
+			GetApp2 = stats.get_int(MPX .. "H3OPT_APPROACH")
+			GetHardApp = stats.get_int(MPX .. "H3_HARD_APPROACH")
+			CurApp2 = ""
+			CurHardApp = ""
+			if GetApp2 == 1 then
+				CurApp2 = "Silent n Sneaky"
+			elseif GetApp2 == 2 then
+				CurApp2 = "Big Con"
+			elseif GetApp2 == 3 then
+				CurApp2 = "Aggressive"
+			else
+				CurApp2 = "None"
+			end
+			if GetHardApp == GetApp2 then
+				CurHardApp = " (Hard)"
+			else
+				CurHardApp = " (Normal)"
+			end
+			if CurGun == "None" then
+				CurHardApp = ""
+			end
+			return "Approach: " .. CurApp2 .. CurHardApp
+		end, null, null, null)
+
+	DDC:add_bare_item("",
+		function()
+			GetGun = stats.get_int(MPX .. "H3OPT_CREWWEAP")
+			CurGun = ""
+			if GetGun == 1 then
+				CurGun = "Karl Abolaji (5%)"
+			elseif GetGun == 2 then
+				CurGun = "Gustavo Mota (9%)"
+			elseif GetGun == 3 then
+				CurGun = "Charlie Reed (7%)"
+			elseif GetGun == 4 then
+				CurGun = "Chester McCoy (10%)"
+			elseif GetGun == 5 then
+				CurGun = "Patrick McReary (8%)"
+			else
+				CurGun = "None"
+			end
+			return "Gunman: " .. CurGun
+		end, null, null, null)
+
+	DDC:add_bare_item("",
+		function()
+			GetDri = stats.get_int(MPX .. "H3OPT_CREWDRIVER")
+			CurDri = ""
+			if GetDri == 1 then
+				CurDri = "Karim Deniz (5%)"
+			elseif GetDri == 2 then
+				CurDri = "Taliana Martinez (7%)"
+			elseif GetDri == 3 then
+				CurDri = "Eddie Toh (9%)"
+			elseif GetDri == 4 then
+				CurDri = "Zach Nelson (6%)"
+			elseif GetDri == 5 then
+				CurDri = "Chester McCoy (10%)"
+			else
+				CurDri = "None"
+			end
+			return "Driver: " .. CurDri
+		end, null, null, null)
+
+	DDC:add_bare_item("",
+		function()
+			GetHac = stats.get_int(MPX .. "H3OPT_CREWHACKER")
+			CurHac = ""
+			if GetHac == 1 then
+				CurHac = "Rickie Lukens (3%)"
+			elseif GetHac == 2 then
+				CurHac = "Christian Feltz (7%)"
+			elseif GetHac == 3 then
+				CurHac = "Yohan Blair (5%)"
+			elseif GetHac == 4 then
+				CurHac = "Avi Schwartzman (10%)"
+			elseif GetHac == 5 then
+				CurHac = "Page Harris (9%)"
+			else
+				CurHac = "None"
+			end
+			return "Hacker: " .. CurHac
+		end, null, null, null)
+
+	DDC:add_bare_item("",
+		function()
+			GetMas = stats.get_int(MPX .."H3OPT_MASKS")
+			CurMas = ""
+			if GetMas == 1 then
+				CurMas = "Geometic Set"
+			elseif GetMas == 2 then
+				CurMas = "Hunter Set"
+			elseif GetMas == 3 then
+				CurMas = "Oni Half Mask Set"
+			elseif GetMas == 4 then
+				CurMas = "Emoji Set"
+			elseif GetMas == 5 then
+				CurMas = "Ornate Skull Set"
+			elseif GetMas == 6 then
+				CurMas = "Lucky Fruit Set"
+			elseif GetMas == 7 then
+				CurMas = "Guerilla Set"
+			elseif GetMas == 8 then
+				CurMas = "Clown Set"
+			elseif GetMas == 9 then
+				CurMas = "Animal Set"
+			elseif GetMas == 10 then
+				CurMas = "Riot Set"
+			elseif GetMas == 11 then
+				CurMas = "Oni Full Mask Set"
+			elseif GetMas == 12 then
+				CurMas = "Hockey Set"
+			else
+				CurMas = "None"
+			end
+			return "Masks: " .. CurMas
+		end, null, null, null)
+
+	DDC:add_action("Save Heist Preset",
+		function()
+			CasinoPrimary = GetPriTar2
+			CasinoApproach = GetApp2
+			CasinoHardApproach = GetHardApp
+			CasinoLastApproach = stats.get_int(MPX .. "H3_LAST_APPROACH")
+			CasinoGunman = GetGun
+			CasinoDriver = GetDri
+			CasinoHacker = GetHac
+			CasinoMasks = GetMas
+		end)
+
+	DDC:add_action("Replay Heist Again",
+		function()
+			stats.set_int(MPX .. "H3OPT_TARGET", CasinoPrimary)
+			stats.set_int(MPX .. "H3OPT_APPROACH", CasinoApproach)
+			stats.set_int(MPX .. "H3_HARD_APPROACH", CasinoHardApproach)
+			stats.set_int(MPX .. "H3_LAST_APPROACH", CasinoLastApproach)
+			stats.set_int(MPX .. "H3OPT_CREWWEAP", CasinoGunman)
+			stats.set_int(MPX .. "H3OPT_CREWDRIVER", CasinoDriver)
+			stats.set_int(MPX .. "H3OPT_CREWHACKER", CasinoHacker)
+			stats.set_int(MPX .. "H3OPT_MASKS", CasinoMasks)
+			stats.set_int(MPX .. "H3OPT_DISRUPTSHIP", 3)
+			stats.set_int(MPX .. "H3OPT_KEYLEVELS", 2)
+			stats.set_int(MPX .. "H3OPT_VEHS", 3)
+			stats.set_int(MPX .. "H3OPT_WEAPS", 0)
+			stats.set_int(MPX .. "H3OPT_BITSET0", -1)
+			stats.set_int(MPX .. "H3OPT_BITSET1", -1)
+			stats.set_int(MPX .. "H3OPT_COMPLETEDPOSIX", -1)
+		end)
+
+	DDC:add_action("", null)
+
+	DDCNote = DDC:add_submenu("Read Me")
+
+	DDCNote:add_action("                    Save Heist Preset:", null)
+	DDCNote:add_action("    Use to save your heist planning screen", null)
+	DDCNote:add_action("", null)
+	DDCNote:add_action("                  Replay Heist Again:", null)
+	DDCNote:add_action("   Use to make your heist planning screen", null)
+	DDCNote:add_action("   the same as it was before saving preset", null)
+
 
 	DCP = DiamondCasino:add_submenu("Preps")
 
@@ -1622,16 +2214,15 @@
 	CashRemover = MoneyEditor:add_submenu("Cash Remover (Real)")
 
 			NumberList = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"}
-			Two = {"0", "1", "2"}
 
-			DefNum1 = Two[1]
+			DefNum1 = NumberList[1]
 			DefNum1Cur = 1
-	CashRemover:add_array_item("Char #1", Two,
+	CashRemover:add_array_item("Char #1", NumberList,
 		function()
 			return DefNum1Cur
 		end,
 		function(NewNum1)
-			DefNum1 = Two[NewNum1]
+			DefNum1 = NumberList[NewNum1]
 			DefNum1Cur = NewNum1
 		end)
 
@@ -1739,6 +2330,8 @@
 			CashToRemove = tonumber(DefNum1 .. DefNum2 .. DefNum3 .. DefNum4 .. DefNum5 .. DefNum6 .. DefNum7 .. DefNum8 .. DefNum9 .. DefNum10)
 			if CashToRemove == 0 then
 				CashToRemove = "0"
+			elseif CashToRemove > 2147483646 then
+				CashToRemove = 2147483646
 			end
 			return "Remove Cash: $" ..  FormatMoney(CashToRemove) end,
 		function()
@@ -1926,6 +2519,8 @@
 			CashToChange = tonumber(DefNum11 .. DefNum12 .. DefNum13 .. DefNum14 .. DefNum15 .. DefNum16 .. DefNum17 .. DefNum18 .. DefNum19 .. DefNum20)
 			if CashToChange == 0 then
 				CashToChange = "0"
+			elseif CashToChange > 2147483646 then
+				CashToChange = 2147483646
 			end
 			return "Changed Value: $" .. FormatMoney(CashToChange)
 		end, null, null, null)
@@ -2035,6 +2630,7 @@
 				return "Cargo n Shipments: $" .. FormatMoney(globals.get_int(FMG + CNS) * CargoAmount) .. " (" .. CargoAmount .. "/50)"
 			end
 		end, null, null, null)
+
 	NightclubHelperInfo:add_bare_item("",
 		function()
 			SportingAmount = stats.get_int(MPX .. "HUB_PROD_TOTAL_1")
@@ -2044,6 +2640,7 @@
 				return "Sporting Goods: $" .. FormatMoney(globals.get_int(FMG + SG) * SportingAmount) .. " (" .. SportingAmount .. "/100)"
 			end
 		end, null, null, null)
+
 	NightclubHelperInfo:add_bare_item("",
 		function()
 			ImportsAmount = stats.get_int(MPX .. "HUB_PROD_TOTAL_2")
@@ -2053,6 +2650,7 @@
 				return "S.A. Imports: $" .. FormatMoney(globals.get_int(FMG + SAI) * ImportsAmount) .. " (" .. ImportsAmount .. "/10)"
 			end
 		end, null, null, null)
+
 	NightclubHelperInfo:add_bare_item("",
 		function()
 			PharmaceutAmount = stats.get_int(MPX .. "HUB_PROD_TOTAL_3")
@@ -2062,6 +2660,7 @@
 				return "Pharmaceut. Research: $" .. FormatMoney(globals.get_int(FMG + PR) * PharmaceutAmount).. " (" .. PharmaceutAmount .. "/20)"
 			end
 		end, null, null, null)
+
 	NightclubHelperInfo:add_bare_item("",
 		function()
 			OrganicAmount = stats.get_int(MPX .. "HUB_PROD_TOTAL_4")
@@ -2071,6 +2670,7 @@
 				return "Organic Produce: $" .. FormatMoney(globals.get_int(FMG + OP) * OrganicAmount) .. " (" .. OrganicAmount .. "/80)"
 			end
 		end, null, null, null)
+
 	NightclubHelperInfo:add_bare_item("",
 		function()
 			PrintingAmount = stats.get_int(MPX .. "HUB_PROD_TOTAL_5")
@@ -2080,6 +2680,7 @@
 				return "Printing n Copying: $" .. FormatMoney(globals.get_int(FMG + PNC) * PrintingAmount) .. " (" .. PrintingAmount .. "/60)"
 			end
 		end, null, null, null)
+
 	NightclubHelperInfo:add_bare_item("",
 		function()
 			CashAmount = stats.get_int(MPX .. "HUB_PROD_TOTAL_6")
@@ -2216,20 +2817,20 @@
 
 			DefDelay1 = 0.5
 			a46 = 1
-	AFKMode:add_array_item("Delays", {"Default", "Fast", "Medium", "Slow"},
+	AFKMode:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"},
 		function()
 			return a46
 		end,
-		function(DelayType1)
-			if DelayType1 == 1 then
+		function(Del)
+			if Del == 1 then
 				DefDelay1 = 0.5
-			elseif DelayType1 == 2 then
+			elseif Del == 2 then
 				DefDelay1 = 1
-			elseif DelayType1 == 3 then
+			elseif Del == 3 then
 				DefDelay1 = 2
-			elseif DelayType1 == 4 then
+			elseif Del == 4 then
 				DefDelay1 = 3 end
-			a46 = DelayType1
+			a46 = Del
 		end)
 
 			DefWarehouse = 1
@@ -2251,14 +2852,14 @@
 			a47 = WarehouseType
 		end)
 
-			DefCash = 0
+			DefCash1 = 0
 			a49 = 0
 	AFKMode:add_int_range("Required Cash", 6000000, 0, 996000000,
 		function()
 			return a49
 		end,
 		function(ReqCash)
-			DefCash = ReqCash
+			DefCash1 = ReqCash
 			a49 = ReqCash
 		end)
 
@@ -2268,9 +2869,9 @@
 			LoopStop = 0
 			a50 = false
 		local function AfkMode()
-			GetTotalCash = stats.get_int("MPPLY_TOTAL_EVC")
-			SaveTotalCash = GetTotalCash
-			ReqTotalCash = SaveTotalCash + DefCash
+			GetTotalCash1 = stats.get_int("MPPLY_TOTAL_EVC")
+			SaveTotalCash1 = GetTotalCash1
+			ReqTotalCash11 = SaveTotalCash1 + DefCash1
 			if a50 == false then
 				LoopStop = 1
 				return
@@ -2318,10 +2919,11 @@
 									sleep(1.5)
 									menu.send_key_up(keyboard.S)
 									if InfMode == false then
-										if stats.get_int("MPPLY_TOTAL_EVC") >= ReqTotalCash then
+										if stats.get_int("MPPLY_TOTAL_EVC") >= ReqTotalCash1 then
 											LoopStop = 1
 											a9 = false
-										else LoopStop = 0
+										else
+											LoopStop = 0
 										end
 									end
 								end
@@ -2378,7 +2980,7 @@
 									sleep(1.5)
 									menu.send_key_up(keyboard.S)
 									if InfMode == false then
-										if stats.get_int("MPPLY_TOTAL_EVC") >= ReqTotalCash then
+										if stats.get_int("MPPLY_TOTAL_EVC") >= ReqTotalCash1 then
 											LoopStop = 1
 											a9 = false
 										else
@@ -2439,7 +3041,7 @@
 									sleep(1.5)
 									menu.send_key_up(keyboard.S)
 									if InfMode == false then
-										if stats.get_int("MPPLY_TOTAL_EVC") >= ReqTotalCash then
+										if stats.get_int("MPPLY_TOTAL_EVC") >= ReqTotalCash1 then
 											LoopStop = 1
 											a50 = false
 										else
@@ -2456,10 +3058,10 @@
 		end
 	AFKMode:add_toggle("Toggle AFK Mode", function() return a50 end, function() a50 = not a50 AfkMode(a50) end)
 
-			CurrentCash = stats.get_int(MPX .. "LIFETIME_CONTRA_EARNINGS")
-			SaveCash = CurrentCash
 	AFKMode:add_bare_item("",
 		function()
+			CurrentCash = stats.get_int(MPX .. "LIFETIME_CONTRA_EARNINGS")
+			SaveCash = CurrentCash
 			return "Money Made: $" .. FormatMoney(stats.get_int(MPX .. "LIFETIME_CONTRA_EARNINGS") - SaveCash)
 		end, null, null, null)
 
@@ -2467,7 +3069,7 @@
 
 	AFKModeNote = AFKMode:add_submenu("Read Me")
 
-	AFKModeNote:add_action("                           Delays:", null)
+	AFKModeNote:add_action("                            Delay:", null)
 	AFKModeNote:add_action("  Change this if you aren't getting money", null)
 	AFKModeNote:add_action("", null)
 	AFKModeNote:add_action("                   Warehouse Type:", null)
@@ -2495,9 +3097,9 @@
 	EasterEgg:add_action(" Woah, you found me! Take this prize then:", null)
 	EasterEgg:add_action("                   Receive The Prize", function() menu.suicide_player() end)
 
-	GeneralSettings = SpecialCargoVIP:add_submenu("General Settings")
+	Settings = SpecialCargoVIP:add_submenu("Settings")
 
-	GeneralSettings:add_action("Start Solo Session",
+	Settings:add_action("Start Solo Session",
 		function()
 			globals.set_int(1575020, 8)
 			globals.set_int(1574589, 1)
@@ -2506,12 +3108,12 @@
 		end)
 
 			NoRP = true
-	GeneralSettings:add_toggle("Disable RP Gain", function() return NoRP end, function() NoRP = not NoRP end)
+	Settings:add_toggle("Disable RP Gain", function() return NoRP end, function() NoRP = not NoRP end)
 
 			NoCrateBack = false
-	GeneralSettings:add_toggle("Disable CrateBack", function() return NoCrateBack end, function() NoCrateBack = not NoCrateBack end)
+	Settings:add_toggle("Disable CrateBack", function() return NoCrateBack end, function() NoCrateBack = not NoCrateBack end)
 
-	GetCrates = GeneralSettings:add_submenu("Get Crates")
+	GetCrates = Settings:add_submenu("Get Crates")
 
 	GetCrates:add_action("1-3 per Press",
 		function()
@@ -2557,55 +3159,55 @@
 	GetCratesNote:add_action("       Start the buy mission first, select", null)
 	GetCratesNote:add_action("      the number of crates and activate", null)
 
-	GeneralSettings:add_action("Legal Stats",
+	Settings:add_action("Legal Stats",
 		function()
 			stats.set_int(MPX .. "LIFETIME_BUY_COMPLETE", 999)
 			stats.set_int(MPX .. "LIFETIME_BUY_UNDERTAKEN", 999)
 			stats.set_int(MPX .. "LIFETIME_SELL_COMPLETE", 999)
 			stats.set_int(MPX .. "LIFETIME_SELL_UNDERTAKEN", 999)
 			stats.set_int(MPX .. "LIFETIME_CONTRA_EARNINGS", 19990000)
-			sleep(2)
+			sleep(1)
 			globals.set_int(1575020, 8)
 			globals.set_int(1574589, 1)
 			sleep(3)
 			globals.set_int(1574589, 0)
 		end)
 
-	GeneralSettings:add_action("Clean Office",
+	Settings:add_action("Clean Office",
 		function()
 			stats.set_int(MPX .. "LIFETIME_BUY_COMPLETE", 1)
 			stats.set_int(MPX .. "LIFETIME_BUY_UNDERTAKEN", 1)
 			stats.set_int(MPX .. "LIFETIME_SELL_COMPLETE", 1)
 			stats.set_int(MPX .. "LIFETIME_SELL_UNDERTAKEN", 1)
 			stats.set_int(MPX .. "LIFETIME_CONTRA_EARNINGS", 1)
-			sleep(2)
+			sleep(1)
 			globals.set_int(1575020, 8)
 			globals.set_int(1574589, 1)
 			sleep(3)
 			globals.set_int(1574589, 0)
 		end)
 
-	GeneralSettings:add_action("", null)
+	Settings:add_action("", null)
 
-	GeneralSettingsNote = GeneralSettings:add_submenu("Read Me")
+	SettingsNote = Settings:add_submenu("Read Me")
 
-	GeneralSettingsNote:add_action("                   Start Solo Session:", null)
-	GeneralSettingsNote:add_action("        Use if you aren't alone in session", null)
-	GeneralSettingsNote:add_action("", null)
-	GeneralSettingsNote:add_action("                    Disable RP Gain:", null)
-	GeneralSettingsNote:add_action("           Disables earning experience", null)
-	GeneralSettingsNote:add_action("", null)
-	GeneralSettingsNote:add_action("                   Disable CrateBack:", null)
-	GeneralSettingsNote:add_action(" Disables the return of crates after its sale", null)
-	GeneralSettingsNote:add_action("", null)
-	GeneralSettingsNote:add_action("                        Legal Stats:", null)
-	GeneralSettingsNote:add_action("   Changes your sales and earnings stats;", null)
-	GeneralSettingsNote:add_action("         to save the legal statistics, you", null)
-	GeneralSettingsNote:add_action("  need to make one more sale for $10,000", null)
-	GeneralSettingsNote:add_action("", null)
-	GeneralSettingsNote:add_action("                       Clean Office:", null)
-	GeneralSettingsNote:add_action("       Removes money from your office;", null)
-	GeneralSettingsNote:add_action("   to save the result, make one more sale", null)
+	SettingsNote:add_action("                   Start Solo Session:", null)
+	SettingsNote:add_action("        Use if you aren't alone in session", null)
+	SettingsNote:add_action("", null)
+	SettingsNote:add_action("                    Disable RP Gain:", null)
+	SettingsNote:add_action("           Disables earning experience", null)
+	SettingsNote:add_action("", null)
+	SettingsNote:add_action("                   Disable CrateBack:", null)
+	SettingsNote:add_action(" Disables the return of crates after its sale", null)
+	SettingsNote:add_action("", null)
+	SettingsNote:add_action("                        Legal Stats:", null)
+	SettingsNote:add_action("   Changes your sales and earnings stats;", null)
+	SettingsNote:add_action("         to save the legal statistics, you", null)
+	SettingsNote:add_action("  need to make one more sale for $10,000", null)
+	SettingsNote:add_action("", null)
+	SettingsNote:add_action("                       Clean Office:", null)
+	SettingsNote:add_action("       Removes money from your office;", null)
+	SettingsNote:add_action("   to save the result, make one more sale", null)
 
 	ManualMode = SpecialCargoVIP:add_submenu("Manual Mode")
 
@@ -2795,6 +3397,37 @@
 
 	DeathLoop = MoneyTool:add_submenu("Death Loop (Not Tested)")
 
+		DefDelay3 = 1
+		a88 = 1
+	DeathLoop:add_array_item("Delay", {"Default", "Faster", "Flash"},
+		function()
+			return a88
+		end,
+		function(Del)
+			if Del == 1 then
+				DefDelay3 = 1
+			elseif Del == 2 then
+				DefDelay3 = 0.5
+			elseif Del == 3 then
+				DefDelay3 = 0.1
+			end
+			a88 = Del
+		end)
+
+			MoneyCount1 = 0
+			DefCash1 = 0
+			a89 = 0
+	DeathLoop:add_int_range("Required Cash (0 - inf)", 50000, 0, 2147483646,
+		function()
+			return a89
+		end,
+		function(ReqCash)
+			DefCash1 = ReqCash
+			a89 = ReqCash
+			MoneyCount1 = 0
+		end)
+
+			MoneyMade1 = 0
 			a76 = false
 		local function DeathLoop1()
 			while a76 do
@@ -2804,11 +3437,38 @@
 				globals.set_int(4536533 + 5, 0)
 				globals.set_int(4536533 + 3, 0x610F9AB4)
 				globals.set_int(4536533 + 2, 50000)
+				if DefCash1 > 0 then
+					if MoneyCount1 >= DefCash1 then
+						a76 = false
+						a89 = 0
+						DefCash1 = 0
+						break
+					end
+				end
 				globals.set_int(4536533, 1)
-				sleep(1)
+				MoneyMade1 = MoneyMade1 + 50000
+				MoneyCount1 = MoneyCount1 + 50000
+				sleep(DefDelay3)
 			end
 		end
 	DeathLoop:add_toggle("$50k/1s (AFK)", function() return a76 end, function() a76 = not a76 DeathLoop1() end)
+
+	DeathLoop:add_bare_item("",
+		function()
+			return "Money Made: $" .. FormatMoney(MoneyMade1)
+		end, null, null, null)
+
+	DeathLoop:add_action("", null)
+
+	DeathLoopNote = DeathLoop:add_submenu("Read Me")
+
+	DeathLoopNote:add_action("                     Required Cash:", null)
+	DeathLoopNote:add_action("     Сhoose amount of money you want", null)
+	DeathLoopNote:add_action("               to get with AFK mode", null)
+	DeathLoopNote:add_action("", null)
+	DeathLoopNote:add_action("                       Money Made:", null)
+	DeathLoopNote:add_action("     Reselect the option to see the result;", null)
+	DeathLoopNote:add_action("       works better with «Default» delay", null)
 
 --Easy Loop--
 
@@ -2818,7 +3478,7 @@
 		local function EzLoop()
 			while a42 do
 				globals.set_int(1966104, 1)
-				sleep(1.5)
+				sleep(1)
 			end
 		end
 	EasyLoop:add_toggle("$5k/1s (AFK)", function() return a42 end, function() a42 = not a42 EzLoop() end)
@@ -2828,32 +3488,46 @@
 	NightLoop = MoneyTool:add_submenu("Night Loop (Safe)")
 
 			a64 = 1
-			DefDelay3 = 0.6
+			DefDelay4 = 0.6
 	NightLoop:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"},
 		function()
 			return a64
 		end,
-		function(DelayType3)
-			if DelayType3 == 1 then
-				DefDelay3 = 0.6
-			elseif DelayType3 == 2 then
-				DefDelay3 = 0.9
-			elseif DelayType3 == 3 then
-				DefDelay3 = 1.2
-			elseif DelayType3 == 4 then
-				DefDelay3 = 1.5
+		function(Del)
+			if Del == 1 then
+				DefDelay4 = 0.6
+			elseif Del == 2 then
+				DefDelay4 = 0.9
+			elseif Del == 3 then
+				DefDelay4 = 1.2
+			elseif Del == 4 then
+				DefDelay4 = 1.5
 			end
-			a64 = DelayType3
+			a64 = Del
 		end)
 
 			BypassTransError = false
 	NightLoop:add_toggle("Bypass Transaction Error", function()	return BypassTransError end, function() BypassTransError = not BypassTransError end)
+
+			MoneyCount2 = 0
+			DefCash2 = 0
+			a91 = 0
+	NightLoop:add_int_range("Required Cash (0 - inf)", 300000, 0, 2147483646,
+		function()
+			return a91
+		end,
+		function(ReqCash)
+			DefCash2 = ReqCash
+			a91 = ReqCash
+			MoneyCount2 = 0
+		end)
 
 			SafeAmount = 300000
 			SafeCollection = 199 + 532 + 1
 			SafeCapacity = 24227
 			IncomeStart = 24204
 			IncomeEnd = 24223
+			MoneyMade2 = 0
 			a44 = false
 		local function NightLoop1()
 			if not localplayer then return end
@@ -2865,19 +3539,34 @@
 				end
 				globals.set_int(FMG + SafeCapacity, SafeAmount)
 				stats.set_int(MPX .. "CLUB_PAY_TIME_LEFT", -1)
-				sleep(DefDelay3)
+				sleep(DefDelay4)
 				if globals.get_int(SafeValue) ~= 0 then
 					if BypassTransError == true then
 						globals.set_int(4536677, 0)
 						globals.set_int(4536678, 0)
 						globals.set_int(4536679, 0)
 					end
+					if DefCash2 > 0 then
+						if MoneyCount2 >= DefCash2 then
+							a44 = false
+							a91 = 0
+							DefCash2 = 0
+							break
+						end
+					end
 					AMN:set_int(SafeCollection, 1)
-					sleep(DefDelay3)
+					MoneyMade2 = MoneyMade2 + 300000
+					MoneyCount2 = MoneyCount2 + 300000
+					sleep(DefDelay4)
 				end
 			end
 		end
 	NightLoop:add_toggle("$300k/2s (AFK)", function() return a44 end, function() a44 = not a44 NightLoop1() end)
+
+	NightLoop:add_bare_item("",
+		function()
+			return "Money Made: $" .. FormatMoney(MoneyMade2)
+		end, null, null, null)
 
 	NightLoop:add_action("", null)
 
@@ -2890,11 +3579,50 @@
 	NightLoopNote:add_action("", null)
 	NightLoopNote:add_action("              Bypass Transaction Error:", null)
 	NightLoopNote:add_action(" Toggle this if you're still getting an error", null)
+	NightLoopNote:add_action("", null)
+	NightLoopNote:add_action("                     Required Cash:", null)
+	NightLoopNote:add_action("     Сhoose amount of money you want", null)
+	NightLoopNote:add_action("               to get with AFK mode", null)
+	NightLoopNote:add_action("", null)
+	NightLoopNote:add_action("                       Money Made:", null)
+	NightLoopNote:add_action("     Reselect the option to see the result;", null)
+	NightLoopNote:add_action("       works better with «Default» delay", null)
 
 --OP Loop--
 
 	OPLoop = MoneyTool:add_submenu("OP Loop (Not Tested)")
 
+		DefDelay5 = 1
+		a87 = 1
+	OPLoop:add_array_item("Delay", {"Default", "Faster", "Flash"},
+		function()
+			return a87
+		end,
+		function(Del)
+			if Del == 1 then
+				DefDelay5 = 1
+			elseif Del == 2 then
+				DefDelay5 = 0.5
+			elseif Del == 3 then
+				DefDelay5 = 0.1
+			end
+			a87 = Del
+		end)
+
+			MoneyCount3 = 0
+			DefCash3 = 0
+			a90 = 0
+	OPLoop:add_int_range("Required Cash (0 - inf)", 1000000, 0, 2147483646,
+		function()
+			return a90
+		end,
+		function(ReqCash)
+			DefCash3 = ReqCash
+			a90 = ReqCash
+			MoneyCount3 = 0
+		end)
+
+			MoneyMade3 = 0
 			a75 = false
 		local function OPLoop1()
 			while a75 do
@@ -2904,11 +3632,38 @@
 				globals.set_int(4536533 + 5, 0)
 				globals.set_int(4536533 + 3, 0x615762F1)
 				globals.set_int(4536533 + 2, 1000000)
+				if DefCash3 > 0 then
+					if MoneyCount3 >= DefCash3 then
+						a75 = false
+						a90 = 0
+						DefCash3 = 0
+						break
+					end
+				end
 				globals.set_int(4536533, 1)
-				sleep(1)
+				MoneyMade3 = MoneyMade3 + 1000000
+				MoneyCount3 = MoneyCount3 + 1000000
+				sleep(DefDelay5)
 			end
 		end
 	OPLoop:add_toggle("$1m/1s (AFK)", function() return a75 end, function() a75 = not a75 OPLoop1() end)
+
+	OPLoop:add_bare_item("",
+		function()
+			return "Money Made: $" .. FormatMoney(MoneyMade3)
+		end, null, null, null)
+
+	OPLoop:add_action("", null)
+
+	OPLoopNote = OPLoop:add_submenu("Read Me")
+
+	OPLoopNote:add_action("                     Required Cash:", null)
+	OPLoopNote:add_action("     Сhoose amount of money you want", null)
+	OPLoopNote:add_action("               to get with AFK mode", null)
+	OPLoopNote:add_action("", null)
+	OPLoopNote:add_action("                       Money Made:", null)
+	OPLoopNote:add_action("     Reselect the option to see the result;", null)
+	OPLoopNote:add_action("       works better with «Default» delay", null)
 
 --Orbital Loop--
 
