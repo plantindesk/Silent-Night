@@ -188,7 +188,7 @@
 	AutoShop:add_action("Cooldown Killer",
 		function()
 			for i = 0, 7 do
-				stats.set_int(MPX .. "TUNER_CONTRACT" .. i .. "_POSIX")
+				stats.set_int(MPX .. "TUNER_CONTRACT" .. i .. "_POSIX", 0)
 			end
 		end)
 
@@ -589,7 +589,7 @@
 			CurDif1 = ""
 			if GetDif1 == 126823 then
 				CurDif1 = "Normal"
-			elseif GetDif1 == 131055 then
+			elseif GetDif1 == 131055 or GetDif1 == 114671 then
 				CurDif1 = "Hard"
 			else
 				CurDif1 = "None"
@@ -1161,7 +1161,8 @@
 			end
 			elseif Pre == 2 then
 				for i = 1978495 + 825 + 56 + 1, 1978495 + 825 + 56 + 4 do
-				globals.set_int(i, 100) globals.set_int(2684820 + 6606, 100)
+				globals.set_int(i, 100)
+				globals.set_int(2684820 + 6606, 100)
 				end
 			end
 			a12 = Pre
@@ -2098,10 +2099,12 @@
 			if Pre == 1 then
 				for i = 1967630 + 812 + 50 + 1, 1967630 + 812 + 50 + 4 do
 					globals.set_int(i, 85)
+					globals.set_int(2684820 + 6606, 85)
 				end
 			elseif Pre == 2 then
 				for i = 1967630 + 812 + 50 + 1, 1967630 + 812 + 50 + 4 do
 					globals.set_int(i, 100)
+					globals.set_int(2684820 + 6606, 100)
 				end
 			end
 			a39 = Pre
@@ -2333,7 +2336,8 @@
 			elseif CashToRemove > 2147483646 then
 				CashToRemove = 2147483646
 			end
-			return "Remove Cash: $" ..  FormatMoney(CashToRemove) end,
+			return "Remove Cash: $" ..  FormatMoney(CashToRemove)
+		end,
 		function()
 			globals.set_int(2764426 + 36, CashToRemove)
 			if a80 == true then
@@ -7106,14 +7110,14 @@
 		function()
 			stats.set_int("MPPLY_CREW_LOCAL_XP_" .. a77, RPtoRank[NewCrewRank] + 100)
 			if a78 == true then
+				DefNum33Cur = 1
 				DefNum34Cur = 1
 				DefNum35Cur = 1
 				DefNum36Cur = 1
-				DefNum37Cur = 1
-				DefNum34 = NumberList2[1]
+				DefNum33 = NumberList2[1]
+				DefNum34 = NumberList1[1]
 				DefNum35 = NumberList1[1]
 				DefNum36 = NumberList1[1]
-				DefNum37 = NumberList1[1]
 			end
 		end, null, null)
 
@@ -7238,6 +7242,170 @@
 	RankNote:add_action("", null)
 	RankNote:add_action("                        Reset Value:", null)
 	RankNote:add_action("      Resets «Set Rank» value after using", null)
+
+	KDChanger = CharactersStats:add_submenu("K/D Changer")
+
+	KDChanger:add_bare_item("",
+		function()
+			return "Current K/D Ratio: " .. stats.get_float("MPPLY_KILL_DEATH_RATIO")
+		end, null, null, null)
+
+			DefNum37 = NumberList[1]
+			DefNum37Cur = 1
+	KDChanger:add_array_item("Char #1", NumberList,
+		function()
+			return DefNum37Cur
+		end,
+		function(NewNum37)
+			DefNum37 = NumberList[NewNum37]
+			DefNum37Cur = NewNum37
+		end)
+
+			DefNum38 = NumberList[1]
+			DefNum38Cur = 1
+	KDChanger:add_array_item("Char #2", NumberList,
+		function()
+			return DefNum38Cur
+		end,
+		function(NewNum38)
+			DefNum38 = NumberList[NewNum38]
+			DefNum38Cur = NewNum38
+		end)
+
+			DefNum39 = NumberList[1]
+			DefNum39Cur = 1
+	KDChanger:add_array_item("Char #3", NumberList,
+		function()
+			return DefNum39Cur
+		end,
+		function(NewNum39)
+			DefNum39 = NumberList[NewNum39]
+			DefNum39Cur = NewNum39
+		end)
+
+			DefNum40 = NumberList[1]
+			DefNum40Cur = 1
+	KDChanger:add_array_item("Char #4", NumberList,
+		function()
+			return DefNum40Cur
+		end,
+		function(NewNum40)
+			DefNum40 = NumberList[NewNum40]
+			DefNum40Cur = NewNum40
+		end)
+
+			DefNum41 = NumberList[1]
+			DefNum41Cur = 1
+	KDChanger:add_array_item("Char #5", NumberList,
+		function()
+			return DefNum41Cur
+		end,
+		function(NewNum41)
+			DefNum41 = NumberList[NewNum41]
+			DefNum41Cur = NewNum41
+		end)
+
+			DefNum42 = NumberList[1]
+			DefNum42Cur = 1
+	KDChanger:add_array_item("Char #6", NumberList,
+		function()
+			return DefNum42Cur
+		end,
+		function(NewNum42)
+			DefNum42 = NumberList[NewNum42]
+			DefNum42Cur = NewNum42
+		end)
+
+			DefNum43 = NumberList[1]
+			DefNum43Cur = 1
+	KDChanger:add_array_item("Char #7", NumberList,
+		function()
+			return DefNum43Cur
+		end,
+		function(NewNum43)
+			DefNum43 = NumberList[NewNum43]
+			DefNum43Cur = NewNum43
+		end)
+
+			DefNum44 = NumberList[1]
+			DefNum44Cur = 1
+	KDChanger:add_array_item("Char #8", NumberList,
+		function()
+			return DefNum44Cur
+		end,
+		function(NewNum44)
+			DefNum44 = NumberList[NewNum44]
+			DefNum44Cur = NewNum44
+		end)
+
+			DefNum45 = NumberList[1]
+			DefNum45Cur = 1
+	KDChanger:add_array_item("Char #9", NumberList,
+		function()
+			return DefNum45Cur
+		end,
+		function(NewNum45)
+			DefNum45 = NumberList[NewNum45]
+			DefNum45Cur = NewNum45
+		end)
+
+			DefNum46 = NumberList[1]
+			DefNum46Cur = 1
+	KDChanger:add_array_item("Char #10", NumberList,
+		function()
+			return DefNum46Cur
+		end,
+		function(NewNum46)
+			DefNum46 = NumberList[NewNum46]
+			DefNum46Cur = NewNum46
+		end)
+
+	KDChanger:add_bare_item("",
+		function()
+			ValueToChange = tonumber(DefNum37 .. DefNum38 .. DefNum39 .. DefNum40 .. DefNum41 .. DefNum42 .. DefNum43 .. DefNum44 .. DefNum45 .. DefNum46)
+			if ValueToChange > 2147483646 then
+				ValueToChange = 2147483646
+			end
+			return "Set K/D Ratio: " .. ValueToChange
+		end,
+		function()
+			stats.set_float("MPPLY_KILL_DEATH_RATIO", ValueToChange)
+			stats.set_int("MPPLY_KILLS_PLAYERS", ValueToChange)
+			stats.set_float("MPPLY_DEATHS_PLAYER", 0)
+			if a97 == true then
+				sleep(1)
+				DefNum37Cur = 1
+				DefNum38Cur = 1
+				DefNum39Cur = 1
+				DefNum40Cur = 1
+				DefNum41Cur = 1
+				DefNum42Cur = 1
+				DefNum43Cur = 1
+				DefNum44Cur = 1
+				DefNum45Cur = 1
+				DefNum46Cur = 1
+				DefNum37 = NumberList[1]
+				DefNum38 = NumberList[1]
+				DefNum39 = NumberList[1]
+				DefNum40 = NumberList[1]
+				DefNum41 = NumberList[1]
+				DefNum42 = NumberList[1]
+				DefNum43 = NumberList[1]
+				DefNum44 = NumberList[1]
+				DefNum45 = NumberList[1]
+				DefNum46 = NumberList[1]
+			end
+		end, null, null)
+
+				a97 = true
+	KDChanger:add_toggle("Reset Value", function() return a97 end, function() a97 = not a97 end)
+
+	KDChanger:add_action("", null)
+
+	KDChangerNote = KDChanger:add_submenu("Read Me")
+
+	KDChangerNote:add_action("                        Reset Value:", null)
+	KDChangerNote:add_action("  Resets «Set K/D Ratio» value after using", null)
 
 			a60 = false
 		local function SexChanger(Enabled)
@@ -7400,15 +7568,9 @@
 
 	PBunkerUnlocks = BunkerUnlocks:add_submenu("Unlock All (Permanently)")
 
-	PBunkerUnlocks:add_action("Get Supplies", function() globals.set_int(2764608, 121) end)
-
-			a63 = 1
-	PBunkerUnlocks:add_array_item("Research", {"Speed Up", "Reset Speed"},
-		function()
-			return a63
-		end,
-		function(Res)
-			if Res == 1 then
+			a63 = false
+		local function ResUnlocker(Enabled)
+			if Enabled then
 				globals.set_int(FMG + 21475, 1)
 				globals.set_int(FMG + 21727, 1)
 				globals.set_int(FMG + 21728, 1)
@@ -7416,7 +7578,7 @@
 				globals.set_int(FMG + 21731, 0)
 				globals.set_int(FMG + 21732, 0)
 				menu.trigger_bunker_research()
-			elseif Res == 2 then
+			else
 				globals.set_int(FMG + 21475, 60)
 				globals.set_int(FMG + 21727, 300000)
 				globals.set_int(FMG + 21728, 45000)
@@ -7424,8 +7586,12 @@
 				globals.set_int(FMG + 21731, 2)
 				globals.set_int(FMG + 21732, 1)
 			end
-			a63 = Res
-		end)
+			while a63 do
+				globals.set_int(2764608, 121)
+				sleep(11)
+			end
+		end
+	PBunkerUnlocks:add_toggle("Unlock All", function() return a63 end, function() a63 = not a63 ResUnlocker() end)
 
 	PBunkerUnlocks:add_action("", null)
 
@@ -7683,7 +7849,8 @@
 			DefNum28 = PlateChar[NewNum28]
 			DefNum28Cur = NewNum28
 		end)
-		local function CheckPlate(IfSpace)
+
+	local function CheckPlate(IfSpace)
 			if IfSpace == "." then
 				return " "
 			else
@@ -7795,12 +7962,14 @@
 
 	Misc:add_action("Unlock Gun Van Guns",
 		function()
+			globals.set_int(262145 + 34131, 0)
 			globals.set_int(FMG + 34094 + 3, -22923932) -- Railgun
 			globals.set_int(FMG + 34094 + 4, 1171102963) -- Stungun
 			globals.set_int(FMG + 34094 + 5, -1355376991) -- Up-n-Atomizer
 			globals.set_int(FMG + 34094 + 6, -1238556825) -- Widowmaker
 			globals.set_int(FMG + 34094 + 7, 1198256469) -- Hellbringer
 			globals.set_int(FMG + 34094 + 8, -1786099057) -- Bat
+			globals.set_int(FMG + 34094 + 8, -1716189206) -- Knife
 		end)
 
 	Misc:add_action("", null)
@@ -7820,5 +7989,6 @@
 	Credits:add_action("Helpers #2: Killa`B, Slon, L7NEG", null)
 	Credits:add_action("Helpers #3: Professor, Zeiger", null)
 	Credits:add_action("Helpers #4: Amnesia, Pewpew", null)
+	Credits:add_action("Helpers #5: emo guy", null)
 	Credits:add_action("", null)
 	Credits:add_action("Discord: silentsalo", null)
