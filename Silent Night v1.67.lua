@@ -2,7 +2,7 @@
 
 --Required Game Version--
 
-	require_game_build(2944) -- GTA Online v1.67
+	require_game_build(2944) -- GTA Online v1.67 (build 2944)
 
 	SilentNight = menu.add_submenu("ツ Silent Night")
 
@@ -26,10 +26,6 @@
 			AMN = script("am_mp_nightclub")
 			FMG = 262145 -- basic global
 
---Required Keyboard Keys--
-
-			keyboard = {W = 87, S = 83, A = 65, D = 68, E = 69}
-
 --Required Functions--
 
 		FormatMoney =
@@ -51,7 +47,7 @@
 		local function null()
 		end
 
---Heist Tool--
+---Heist Tool---
 
 	HeistTool = SilentNight:add_submenu("♠ Heist Tool")
 
@@ -59,9 +55,8 @@
 
 	Agency = HeistTool:add_submenu("Agency (Safe)")
 
-			AgencyContracts = {"Select", "The Nightclub", "The Marina", "Nightlife Leak", "The Country Club", "Guest List", "High Society Leak", "Davis", "The Ballas", "The South Central Leak", "Studio Time", "Don't Fuck With Dre"}
 			a1 = 1
-	Agency:add_array_item("VIP Contract", AgencyContracts,
+	Agency:add_array_item("VIP Contract", {"Select", "The Nightclub", "The Marina", "Nightlife Leak", "The Country Club", "Guest List", "High Society Leak", "Davis", "The Ballas", "The South Central Leak", "Studio Time", "Don't Fuck With Dre"},
 		function()
 			return a1
 		end,
@@ -2220,7 +2215,7 @@
 
 			DefNum1 = NumberList[1]
 			DefNum1Cur = 1
-	CashRemover:add_array_item("Char #1", NumberList,
+	CashRemover:add_array_item("Number #1", NumberList,
 		function()
 			return DefNum1Cur
 		end,
@@ -2231,7 +2226,7 @@
 
 			DefNum2 = NumberList[1]
 			DefNum2Cur = 1
-	CashRemover:add_array_item("Char #2", NumberList,
+	CashRemover:add_array_item("Number #2", NumberList,
 		function()
 			return DefNum2Cur
 		end,
@@ -2242,7 +2237,7 @@
 
 			DefNum3 = NumberList[1]
 			DefNum3Cur = 1
-	CashRemover:add_array_item("Char #3", NumberList,
+	CashRemover:add_array_item("Number #3", NumberList,
 		function()
 			return DefNum3Cur
 		end,
@@ -2253,7 +2248,7 @@
 
 			DefNum4 = NumberList[1]
 			DefNum4Cur = 1
-	CashRemover:add_array_item("Char #4", NumberList,
+	CashRemover:add_array_item("Number #4", NumberList,
 		function()
 			return DefNum4Cur
 		end,
@@ -2264,7 +2259,7 @@
 
 			DefNum5 = NumberList[1]
 			DefNum5Cur = 1
-	CashRemover:add_array_item("Char #5", NumberList,
+	CashRemover:add_array_item("Number #5", NumberList,
 		function()
 			return DefNum5Cur
 		end,
@@ -2275,7 +2270,7 @@
 
 			DefNum6 = NumberList[1]
 			DefNum6Cur = 1
-	CashRemover:add_array_item("Char #6", NumberList,
+	CashRemover:add_array_item("Number #6", NumberList,
 		function()
 			return DefNum6Cur
 		end,
@@ -2286,7 +2281,7 @@
 
 			DefNum7 = NumberList[1]
 			DefNum7Cur = 1
-	CashRemover:add_array_item("Char #7", NumberList,
+	CashRemover:add_array_item("Number #7", NumberList,
 		function()
 			return DefNum7Cur
 		end,
@@ -2297,7 +2292,7 @@
 
 			DefNum8 = NumberList[1]
 			DefNum8Cur = 1
-	CashRemover:add_array_item("Char #8", NumberList,
+	CashRemover:add_array_item("Number #8", NumberList,
 		function()
 			return DefNum8Cur
 		end,
@@ -2308,7 +2303,7 @@
 
 			DefNum9 = NumberList[1]
 			DefNum9Cur = 1
-	CashRemover:add_array_item("Char #9", NumberList,
+	CashRemover:add_array_item("Number #9", NumberList,
 		function()
 			return DefNum9Cur
 		end,
@@ -2319,7 +2314,7 @@
 
 			DefNum10 = NumberList[1]
 			DefNum10Cur = 1
-	CashRemover:add_array_item("Char #10", NumberList,
+	CashRemover:add_array_item("Number #10", NumberList,
 		function()
 			return DefNum10Cur
 		end,
@@ -2413,7 +2408,7 @@
 
 			DefNum11 = NumberList[1]
 			DefNum11Cur = 1
-	Totals:add_array_item("Char #1", NumberList,
+	Totals:add_array_item("Number #1", NumberList,
 		function()
 			return DefNum11Cur
 		end,
@@ -2424,7 +2419,7 @@
 
 			DefNum12 = NumberList[1]
 			DefNum12Cur = 1
-	Totals:add_array_item("Char #2", NumberList,
+	Totals:add_array_item("Number #2", NumberList,
 		function()
 			return DefNum12Cur
 		end,
@@ -2435,7 +2430,7 @@
 
 			DefNum13 = NumberList[1]
 			DefNum13Cur = 1
-	Totals:add_array_item("Char #3", NumberList,
+	Totals:add_array_item("Number #3", NumberList,
 		function()
 			return DefNum13Cur
 		end,
@@ -2446,7 +2441,7 @@
 
 			DefNum14 = NumberList[1]
 			DefNum14Cur = 1
-	Totals:add_array_item("Char #4", NumberList,
+	Totals:add_array_item("Number #4", NumberList,
 		function()
 			return DefNum14Cur
 		end,
@@ -2457,7 +2452,7 @@
 
 			DefNum15 = NumberList[1]
 			DefNum15Cur = 1
-	Totals:add_array_item("Char #5", NumberList,
+	Totals:add_array_item("Number #5", NumberList,
 		function()
 			return DefNum15Cur
 		end,
@@ -2468,7 +2463,7 @@
 
 			DefNum16 = NumberList[1]
 			DefNum16Cur = 1
-	Totals:add_array_item("Char #6", NumberList,
+	Totals:add_array_item("Number #6", NumberList,
 		function()
 			return DefNum16Cur
 		end,
@@ -2479,7 +2474,7 @@
 
 			DefNum17 = NumberList[1]
 			DefNum17Cur = 1
-	Totals:add_array_item("Char #7", NumberList,
+	Totals:add_array_item("Number #7", NumberList,
 		function()
 			return DefNum17Cur
 		end,
@@ -2490,7 +2485,7 @@
 
 			DefNum18 = NumberList[1]
 			DefNum18Cur = 1
-	Totals:add_array_item("Char #8", NumberList,
+	Totals:add_array_item("Number #8", NumberList,
 		function()
 			return DefNum18Cur
 		end,
@@ -2501,7 +2496,7 @@
 
 			DefNum19 = NumberList[1]
 			DefNum19Cur = 1
-	Totals:add_array_item("Char #9", NumberList,
+	Totals:add_array_item("Number #9", NumberList,
 		function()
 			return DefNum19Cur
 		end,
@@ -2512,7 +2507,7 @@
 
 			DefNum20 = NumberList[1]
 			DefNum20Cur = 1
-	Totals:add_array_item("Char #10", NumberList,
+	Totals:add_array_item("Number #10", NumberList,
 		function() return DefNum20Cur end, function(NewNum20)
 			DefNum20 = NumberList[NewNum20]
 			DefNum20Cur = NewNum20
@@ -2869,7 +2864,8 @@
 
 			InfMode = true
 	AFKMode:add_toggle("Infinity $$$", function() return InfMode end, function() InfMode = not InfMode end)
-
+			
+			keyboard = {W = 87, S = 83, A = 65, D = 68, E = 69}
 			LoopStop = 0
 			a50 = false
 		local function AfkMode()
@@ -3399,7 +3395,7 @@
 
 --Death Loop--
 
-	DeathLoop = MoneyTool:add_submenu("Death Loop (Not Tested)")
+	DeathLoop = MoneyTool:add_submenu("Death Loop (Safe)")
 
 		DefDelay3 = 1
 		a88 = 1
@@ -3594,7 +3590,7 @@
 
 --OP Loop--
 
-	OPLoop = MoneyTool:add_submenu("OP Loop (Not Tested)")
+	OPLoop = MoneyTool:add_submenu("OP Loop (Safe)")
 
 		DefDelay5 = 1
 		a87 = 1
@@ -5177,7 +5173,7 @@
 			stats.set_int(MPX .. "HVYSNIPER_ENEMY_KILLS", 500)
 		end)
 
-	Awards1b1:add_action("Arena War",
+	Awards1b1:add_action("Vehicles",
 		function()
 			stats.set_int(MPX .. "AWD_50_VEHICLES_BLOWNUP", 500)
 			stats.set_int(MPX .. "CARS_EXPLODED", 500)
@@ -6952,15 +6948,31 @@
 		end
 	Characteristics:add_toggle("Fast Run n Reload", function() return a58 end, function() a58 = not a58 FastRunNReload(a58) end)
 
-	Characteristics:add_action("Max Stats",
+			a98 = 1
+	Characteristics:add_array_item("Presets", {"Select", "Max", "Default"},
 		function()
-			stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 100)
-			stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 100)
-			stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 100)
-			stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 100)
-			stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 100)
-			stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 100)
-			stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 100)
+			return a98
+		end,
+		function(Pre)
+			if Pre == 1 then
+				a98 = 1
+			elseif Pre == 2 then
+				stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 100)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 100)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 100)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 100)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 100)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 100)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 100)
+			elseif Pre == 3 then
+				stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 0)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 0)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 0)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 0)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 0)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 0)
+				stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 0)
+			end
 		end)
 
 	Characteristics:add_int_range("Stamina", 2, 0, 100, function() return stats.get_int(MPX .. "STAMINA") end, function(Sta) stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", Sta - stats.get_int(MPX .. "STAMINA")) end)
@@ -7053,7 +7065,7 @@
 
 			DefNum33 = NumberList2[1]
 			DefNum33Cur = 1
-	CrewRank:add_array_item("Char #1", NumberList2,
+	CrewRank:add_array_item("Number #1", NumberList2,
 		function()
 			return DefNum33Cur
 		end,
@@ -7064,7 +7076,7 @@
 
 			DefNum34 = NumberList1[1]
 			DefNum34Cur = 1
-	CrewRank:add_array_item("Char #2", NumberList1,
+	CrewRank:add_array_item("Number #2", NumberList1,
 		function()
 			return DefNum34Cur
 		end,
@@ -7075,7 +7087,7 @@
 
 			DefNum35 = NumberList1[1]
 			DefNum35Cur = 1
-	CrewRank:add_array_item("Char #3", NumberList1,
+	CrewRank:add_array_item("Number #3", NumberList1,
 		function()
 			return DefNum35Cur
 		end,
@@ -7086,7 +7098,7 @@
 
 			DefNum36 = NumberList1[1]
 			DefNum36Cur = 1
-	CrewRank:add_array_item("Char #4", NumberList1,
+	CrewRank:add_array_item("Number #4", NumberList1,
 		function()
 			return DefNum36Cur
 		end,
@@ -7157,7 +7169,7 @@
 
 			DefNum29 = NumberList2[1]
 			DefNum29Cur = 1
-	Rank:add_array_item("Char #1", NumberList2,
+	Rank:add_array_item("Number #1", NumberList2,
 		function()
 			return DefNum29Cur
 		end,
@@ -7168,7 +7180,7 @@
 
 			DefNum30 = NumberList1[1]
 			DefNum30Cur = 1
-	Rank:add_array_item("Char #2", NumberList1,
+	Rank:add_array_item("Number #2", NumberList1,
 		function()
 			return DefNum30Cur
 		end,
@@ -7179,7 +7191,7 @@
 
 			DefNum31 = NumberList1[1]
 			DefNum31Cur = 1
-	Rank:add_array_item("Char #3", NumberList1,
+	Rank:add_array_item("Number #3", NumberList1,
 		function()
 			return DefNum31Cur
 		end,
@@ -7190,7 +7202,7 @@
 
 			DefNum32 = NumberList1[1]
 			DefNum32Cur = 1
-	Rank:add_array_item("Char #4", NumberList1,
+	Rank:add_array_item("Number #4", NumberList1,
 		function()
 			return DefNum32Cur
 		end,
@@ -7252,7 +7264,7 @@
 
 			DefNum37 = NumberList[1]
 			DefNum37Cur = 1
-	KDChanger:add_array_item("Char #1", NumberList,
+	KDChanger:add_array_item("Number #1", NumberList,
 		function()
 			return DefNum37Cur
 		end,
@@ -7263,7 +7275,7 @@
 
 			DefNum38 = NumberList[1]
 			DefNum38Cur = 1
-	KDChanger:add_array_item("Char #2", NumberList,
+	KDChanger:add_array_item("Number #2", NumberList,
 		function()
 			return DefNum38Cur
 		end,
@@ -7274,7 +7286,7 @@
 
 			DefNum39 = NumberList[1]
 			DefNum39Cur = 1
-	KDChanger:add_array_item("Char #3", NumberList,
+	KDChanger:add_array_item("Number #3", NumberList,
 		function()
 			return DefNum39Cur
 		end,
@@ -7285,7 +7297,7 @@
 
 			DefNum40 = NumberList[1]
 			DefNum40Cur = 1
-	KDChanger:add_array_item("Char #4", NumberList,
+	KDChanger:add_array_item("Number #4", NumberList,
 		function()
 			return DefNum40Cur
 		end,
@@ -7296,7 +7308,7 @@
 
 			DefNum41 = NumberList[1]
 			DefNum41Cur = 1
-	KDChanger:add_array_item("Char #5", NumberList,
+	KDChanger:add_array_item("Number #5", NumberList,
 		function()
 			return DefNum41Cur
 		end,
@@ -7307,7 +7319,7 @@
 
 			DefNum42 = NumberList[1]
 			DefNum42Cur = 1
-	KDChanger:add_array_item("Char #6", NumberList,
+	KDChanger:add_array_item("Number #6", NumberList,
 		function()
 			return DefNum42Cur
 		end,
@@ -7318,7 +7330,7 @@
 
 			DefNum43 = NumberList[1]
 			DefNum43Cur = 1
-	KDChanger:add_array_item("Char #7", NumberList,
+	KDChanger:add_array_item("Number #7", NumberList,
 		function()
 			return DefNum43Cur
 		end,
@@ -7329,7 +7341,7 @@
 
 			DefNum44 = NumberList[1]
 			DefNum44Cur = 1
-	KDChanger:add_array_item("Char #8", NumberList,
+	KDChanger:add_array_item("Number #8", NumberList,
 		function()
 			return DefNum44Cur
 		end,
@@ -7340,7 +7352,7 @@
 
 			DefNum45 = NumberList[1]
 			DefNum45Cur = 1
-	KDChanger:add_array_item("Char #9", NumberList,
+	KDChanger:add_array_item("Number #9", NumberList,
 		function()
 			return DefNum45Cur
 		end,
@@ -7351,7 +7363,7 @@
 
 			DefNum46 = NumberList[1]
 			DefNum46Cur = 1
-	KDChanger:add_array_item("Char #10", NumberList,
+	KDChanger:add_array_item("Number #10", NumberList,
 		function()
 			return DefNum46Cur
 		end,
@@ -7591,7 +7603,7 @@
 				sleep(11)
 			end
 		end
-	PBunkerUnlocks:add_toggle("Unlock All", function() return a63 end, function() a63 = not a63 ResUnlocker() end)
+	PBunkerUnlocks:add_toggle("Unlock All", function() return a63 end, function() a63 = not a63 ResUnlocker(a63) end)
 
 	PBunkerUnlocks:add_action("", null)
 
@@ -7628,13 +7640,12 @@
 
 	LSCarMeetNote = LSCarMeet:add_submenu("Read Me")
 
+	LSCarMeetNote:add_action("                         Unlock All:", null)
 	LSCarMeetNote:add_action("      Buy a membership, activate, sit in", null)
-	LSCarMeetNote:add_action("          a test car and go to the track", null)
-	LSCarMeetNote:add_action("", null)
-	LSCarMeetNote:add_action("      If your level is not 1, then activate", null)
-	LSCarMeetNote:add_action("    and buy something in the LSCM store", null)
-	LSCarMeetNote:add_action("", null)
-	LSCarMeetNote:add_action("   If you've used LS Tuners awards unlock", null)
+	LSCarMeetNote:add_action("          a test car and go to the track;", null)
+	LSCarMeetNote:add_action("      if your level is not 1, then activate", null)
+	LSCarMeetNote:add_action("    and buy something in the LSCM store;", null)
+	LSCarMeetNote:add_action("   if you've used LS Tuners awards unlock", null)
 	LSCarMeetNote:add_action(" before, all unlocks will be temporary only", null)
 
 --LS Customs--
@@ -7748,7 +7759,7 @@
 
 			DefNum21 = PlateChar[1]
 			DefNum21Cur = 1
-	CustomPlate:add_array_item("Char #1", PlateChar,
+	CustomPlate:add_array_item("Symbol #1", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum21Cur
@@ -7761,7 +7772,7 @@
 
 			DefNum22 = PlateChar[1]
 			DefNum22Cur = 1
-	CustomPlate:add_array_item("Char #2", PlateChar,
+	CustomPlate:add_array_item("Symbol #2", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum22Cur
@@ -7774,7 +7785,7 @@
 
 			DefNum23 = PlateChar[1]
 			DefNum23Cur = 1
-	CustomPlate:add_array_item("Char #3", PlateChar,
+	CustomPlate:add_array_item("Symbol #3", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle()
 				then return DefNum23Cur
@@ -7787,7 +7798,7 @@
 
 			DefNum24 = PlateChar[1]
 			DefNum24Cur = 1
-	CustomPlate:add_array_item("Char #4", PlateChar,
+	CustomPlate:add_array_item("Symbol #4", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum24Cur
@@ -7800,7 +7811,7 @@
 
 			DefNum25 = PlateChar[1]
 			DefNum25Cur = 1
-	CustomPlate:add_array_item("Char #5", PlateChar,
+	CustomPlate:add_array_item("Symbol #5", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum25Cur
@@ -7813,7 +7824,7 @@
 
 			DefNum26 = PlateChar[1]
 			DefNum26Cur = 1
-	CustomPlate:add_array_item("Char #6", PlateChar,
+	CustomPlate:add_array_item("Symbol #6", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum26Cur
@@ -7826,7 +7837,7 @@
 
 			DefNum27 = PlateChar[1]
 			DefNum27Cur = 1
-	CustomPlate:add_array_item("Char #7", PlateChar,
+	CustomPlate:add_array_item("Symbol #7", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum27Cur
@@ -7839,7 +7850,7 @@
 
 			DefNum28 = PlateChar[1]
 			DefNum28Cur = 1
-	CustomPlate:add_array_item("Char #8", PlateChar,
+	CustomPlate:add_array_item("Symbol #8", PlateChar,
 		function()
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				return DefNum28Cur
@@ -7857,6 +7868,7 @@
 				return IfSpace
 			end
 		end
+		
 	CustomPlate:add_bare_item("",
 		function()
 			return "Apply Plate: " .. CheckPlate(DefNum21) .. CheckPlate(DefNum22) .. CheckPlate(DefNum23) .. CheckPlate(DefNum24) .. CheckPlate(DefNum25) .. CheckPlate(DefNum26) .. CheckPlate(DefNum27) .. CheckPlate(DefNum28)
@@ -7969,7 +7981,7 @@
 			globals.set_int(FMG + 34094 + 6, -1238556825) -- Widowmaker
 			globals.set_int(FMG + 34094 + 7, 1198256469) -- Hellbringer
 			globals.set_int(FMG + 34094 + 8, -1786099057) -- Bat
-			globals.set_int(FMG + 34094 + 8, -1716189206) -- Knife
+			globals.set_int(FMG + 34094 + 9, -1716189206) -- Knife
 		end)
 
 	Misc:add_action("", null)
@@ -7989,6 +8001,7 @@
 	Credits:add_action("Helpers #2: Killa`B, Slon, L7NEG", null)
 	Credits:add_action("Helpers #3: Professor, Zeiger", null)
 	Credits:add_action("Helpers #4: Amnesia, Pewpew", null)
-	Credits:add_action("Helpers #5: emo guy", null)
 	Credits:add_action("", null)
 	Credits:add_action("Discord: silentsalo", null)
+
+--Developer: Silent--
