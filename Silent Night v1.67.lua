@@ -2,7 +2,7 @@
 
 --Required Game Version--
 
-	require_game_build(2944) -- GTA Online v1.67 (build 2944)
+	require_game_build(3028) -- GTA Online v1.67 (build 3028)
 
 	SilentNight = menu.add_submenu("ツ Silent Night")
 
