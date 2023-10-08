@@ -56,7 +56,8 @@
 	Agency = HeistTool:add_submenu("Agency (Safe)")
 
 			a1 = 1
-	Agency:add_array_item("VIP Contract", {"Select", "The Nightclub", "The Marina", "Nightlife Leak", "The Country Club", "Guest List", "High Society Leak", "Davis", "The Ballas", "The South Central Leak", "Studio Time", "Don't Fuck With Dre"},
+	Agency:add_array_item("VIP Contract", {"Select", "The Nightclub", "The Marina", "Nightlife Leak", "The Country Club", "Guest List", "High Society Leak", "Davis", "The Ballas",
+										   "The South Central Leak", "Studio Time", "Don't Fuck With Dre"},
 		function()
 			return a1
 		end,
@@ -702,7 +703,7 @@
 	CPP = CayoPerico:add_submenu("Preps")
 
 			a6 = 1
-	CPP:add_array_item("Primary Target", {"Select", "Tequila (900k)", "Necklace (1m)", "Bonds (1,1m)", "Diamond (1,3m)", "Statue (1,9m)"},
+	CPP:add_array_item("Primary Target", {"Select", "Tequila (630k)", "Necklace (700k)", "Bonds (730k)", "Diamond (1,3m)", "Statue (1,9m)"},
 		function()
 			return a6
 		end,
@@ -1585,7 +1586,7 @@
 			GetDri = stats.get_int(MPX .. "H3OPT_CREWDRIVER")
 			CurDri = ""
 			if GetDri == 1 then
-				CurDri = "Karim Deniz (5%)"
+				CurDri = "Karim Denz (5%)"
 			elseif GetDri == 2 then
 				CurDri = "Taliana Martinez (7%)"
 			elseif GetDri == 3 then
@@ -1784,7 +1785,7 @@
 		end)
 
 			a29 = 1
-	DCP:add_array_item("Driver", {"Select", "Karim Deniz (5%)", "Zach Nelson (6%)", "Taliana Martinez (7%)", "Eddie Toh (9%)", "Chester McCoy (10%)"},
+	DCP:add_array_item("Driver", {"Select", "Karim Denz (5%)", "Zach Nelson (6%)", "Taliana Martinez (7%)", "Eddie Toh (9%)", "Chester McCoy (10%)"},
 		function()
 			return a29
 		end,
@@ -1828,7 +1829,8 @@
 		end)
 
 			a31 = 1
-	DCP:add_array_item("Masks", {"Select", "Geometic Set", "Hunter Set", "Oni Half Mask Set", "Emoji Set", "Ornate Skull Set", "Lucky Fruit Set", "Guerilla Set", "Clown Set", "Animal Set", "Riot Set", "Oni Full Mask Set", "Hockey Set"},
+	DCP:add_array_item("Masks", {"Select", "Geometic Set", "Hunter Set", "Oni Half Mask Set", "Emoji Set", "Ornate Skull Set", "Lucky Fruit Set", "Guerilla Set",
+								 "Clown Set", "Animal Set", "Riot Set", "Oni Full Mask Set", "Hockey Set"},
 		function()
 			return a31
 		end,
@@ -2398,13 +2400,92 @@
 			stats.set_int("SP2_TOTAL_CASH", MicCas)
 		end)
 
---Total Earned n Spent--
+--Earned n Spent--
 
-	Totals = MoneyEditor:add_submenu("Total Earned n Spent (Stats)")
+	Totals = MoneyEditor:add_submenu("Earned n Spent (Stats)")
 
-	Totals:add_bare_item("", function() return "Current Total Earned: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_EVC")) end, null, null, null)
+			TotalEarnedFrom = "Not Selected"
+			a102 = 1
+	Totals:add_array_item("Earned From", {"Select", "Total", "Jobs", "Selling Vehicles", "Betting", "Good Sport", "Picked Up"},
+		function()
+			return a102
+		end,
+		function(TotAct)
+			if TotAct == 1 then
+				TotalEarnedFrom = "Not Selected"
+			elseif TotAct == 2 then
+				TotalEarnedFrom = "MPPLY_TOTAL_EVC"
+			elseif TotAct == 3 then
+				TotalEarnedFrom = "MONEY_EARN_JOBS"
+			elseif TotAct == 4 then
+				TotalEarnedFrom = "MONEY_EARN_SELLING_VEH"
+			elseif TotAct == 5 then
+				TotalEarnedFrom = "MONEY_EARN_BETTING"
+			elseif TotAct == 6 then
+				TotalEarnedFrom = "MONEY_EARN_GOOD_SPORT"
+			elseif TotAct == 7 then
+				TotalEarnedFrom = "MONEY_EARN_PICKED_UP"
+			end
+			a102 = TotAct
+			TotalSpentOn = "Not Selected"
+			a103 = 1
+		end)
 
-	Totals:add_bare_item("", function() return "Current Total Spent: $" .. FormatMoney(stats.get_int("MPPLY_TOTAL_SVC")) end, null, null, null)
+			TotalSpentOn = "Not Selected"
+			a103 = 1
+	Totals:add_array_item("Spent On", {"Select", "Total", "Weapons n Armor", "Vehicles n Maintenance", "Style n Entertainment", "Property n Utilities", "Job n Activity Entry Fees", "Betting",
+									   "Contact Services", "Healthcare n Bail", "Dropped or Stolen"},
+		function()
+			return a103
+		end,
+		function(TotAct)
+			if TotAct == 1 then
+				TotalSpentOn = "Not Selected"
+			elseif TotAct == 2 then
+				TotalSpentOn = "MPPLY_TOTAL_SVC"
+			elseif TotAct == 3 then
+				TotalSpentOn = "MONEY_SPENT_WEAPON_ARMOR"
+			elseif TotAct == 4 then
+				TotalSpentOn = "MONEY_SPENT_VEH_MAINTENANCE"
+			elseif TotAct == 5 then
+				TotalSpentOn = "MONEY_SPENT_STYLE_ENT"
+			elseif TotAct == 6 then
+				TotalSpentOn = "MONEY_SPENT_PROPERTY_UTIL"
+			elseif TotAct == 7 then
+				TotalSpentOn = "MONEY_SPENT_JOB_ACTIVITY"
+			elseif TotAct == 8 then
+				TotalSpentOn = "MONEY_SPENT_BETTING"
+			elseif TotAct == 9 then
+				TotalSpentOn = "MONEY_SPENT_CONTACT_SERVICE"
+			elseif TotAct == 10 then
+				TotalSpentOn = "MONEY_SPENT_DROPPED_STOLEN"
+			end
+			a103 = TotAct
+			TotalEarnedFrom = "Not Selected"
+			a102 = 1
+		end)
+
+	Totals:add_bare_item("",
+		function()
+			if a102 == 1 then
+				return "Current Earned: " .. TotalEarnedFrom
+			elseif a102 == 2 then
+				return "Current Total Earned: $" .. FormatMoney(stats.get_int(TotalEarnedFrom))
+			else
+				return "Current Earned: $" .. FormatMoney(stats.get_int(MPX .. TotalEarnedFrom))
+			end
+		end, null, null, null)
+
+	Totals:add_bare_item("",
+		function()
+			if a103 == 1 then
+				return "Current Spent: " .. TotalSpentOn
+			elseif a103 == 2 then
+				return "Current Total Spent: $" .. FormatMoney(stats.get_int(TotalSpentOn))
+			else
+				return "Current Spent: $" .. FormatMoney(stats.get_int(MPX .. TotalSpentOn))
+			end
+		end, null, null, null)
 
 			DefNum11 = NumberList[1]
 			DefNum11Cur = 1
@@ -2521,12 +2602,22 @@
 			elseif CashToChange > 2147483646 then
 				CashToChange = 2147483646
 			end
-			return "Changed Value: $" .. FormatMoney(CashToChange)
-		end, null, null, null)
-
-	Totals:add_action("Change Total Earned",
+			return "Change Value: $" .. FormatMoney(CashToChange)
+		end,
 		function()
-			stats.set_int("MPPLY_TOTAL_EVC", CashToChange)
+			if a102 == 1 then
+				if a103 == 2 then
+					stats.set_int(TotalSpentOn, CashToChange)
+				else
+					stats.set_int(MPX .. TotalSpentOn, CashToChange)
+				end
+			elseif a103 == 1 then
+				if a102 == 2 then
+					stats.set_int(TotalEarnedFrom, CashToChange)
+				else
+					stats.set_int(MPX .. TotalEarnedFrom, CashToChange)
+				end
+			end
 			if a81 == true then
 				sleep(1)
 				DefNum11Cur = 1
@@ -2550,42 +2641,14 @@
 				DefNum19 = NumberList[1]
 				DefNum20 = NumberList[1]
 			end
-		end)
-
-	Totals:add_action("Change Total Spent",
-		function()
-			stats.set_int("MPPLY_TOTAL_SVC", CashToChange)
-			if a81 == true then
-				sleep(1)
-				DefNum11Cur = 1
-				DefNum12Cur = 1
-				DefNum13Cur = 1
-				DefNum14Cur = 1
-				DefNum15Cur = 1
-				DefNum16Cur = 1
-				DefNum17Cur = 1
-				DefNum18Cur = 1
-				DefNum19Cur = 1
-				DefNum20Cur = 1
-				DefNum11 = NumberList[1]
-				DefNum12 = NumberList[1]
-				DefNum13 = NumberList[1]
-				DefNum14 = NumberList[1]
-				DefNum15 = NumberList[1]
-				DefNum16 = NumberList[1]
-				DefNum17 = NumberList[1]
-				DefNum18 = NumberList[1]
-				DefNum19 = NumberList[1]
-				DefNum20 = NumberList[1]
-			end
-		end)
+		end, null, null)
 
 			a81 = true
 	Totals:add_toggle("Reset Value", function() return a81 end, function() a81 = not a81 end)
 
-	Totals:add_action("Make Earned n Spent The Same", function() stats.set_int("MPPLY_TOTAL_EVC", stats.get_int("MPPLY_TOTAL_SVC")) end)
+	Totals:add_action("Make Total Earned n Spent The Same", function() stats.set_int("MPPLY_TOTAL_EVC", stats.get_int("MPPLY_TOTAL_SVC")) end)
 
-	Totals:add_action("Make Spent n Earned The Same", function() stats.set_int("MPPLY_TOTAL_SVC", stats.get_int("MPPLY_TOTAL_EVC")) end)
+	Totals:add_action("Make Total Spent n Earned The Same", function() stats.set_int("MPPLY_TOTAL_SVC", stats.get_int("MPPLY_TOTAL_EVC")) end)
 
 	Totals:add_action("", null)
 
@@ -2595,7 +2658,7 @@
 	TotalsNote:add_action("    earn or spend somehow some money", null)
 	TotalsNote:add_action("", null)
 	TotalsNote:add_action("                        Reset Value:", null)
-	TotalsNote:add_action(" Resets «Changed Value» value after using", null)
+	TotalsNote:add_action("  Resets «Change Value» value after using", null)
 
 --Nightclub Helper--
 
@@ -2864,7 +2927,7 @@
 
 			InfMode = true
 	AFKMode:add_toggle("Infinity $$$", function() return InfMode end, function() InfMode = not InfMode end)
-			
+
 			keyboard = {W = 87, S = 83, A = 65, D = 68, E = 69}
 			LoopStop = 0
 			a50 = false
@@ -3679,13 +3742,6 @@
 			end
 		end
 	OrbitalRefund:add_toggle("$500k/30s (AFK)", function() return a45 end, function() a45 = not a45 OrbitalLoop1() end)
-
-	OrbitalRefund:add_action("", null)
-
-	OrbitalRefundNote = OrbitalRefund:add_submenu("Read Me")
-
-	OrbitalRefundNote:add_action("      The current suggested max amount", null)
-	OrbitalRefundNote:add_action("      to use this option is: 10m per week", null)
 
 ---Unlock Tool---
 
@@ -6973,6 +7029,7 @@
 				stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 0)
 				stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 0)
 			end
+			a98 = Pre
 		end)
 
 	Characteristics:add_int_range("Stamina", 2, 0, 100, function() return stats.get_int(MPX .. "STAMINA") end, function(Sta) stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", Sta - stats.get_int(MPX .. "STAMINA")) end)
@@ -7255,6 +7312,8 @@
 	RankNote:add_action("                        Reset Value:", null)
 	RankNote:add_action("      Resets «Set Rank» value after using", null)
 
+--K/D Changer--
+
 	KDChanger = CharactersStats:add_submenu("K/D Changer")
 
 	KDChanger:add_bare_item("",
@@ -7471,7 +7530,7 @@
 				a61 = 1
 			elseif ArenaWarVehicles[AreWarVeh] == "Taxi" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 24)
-				stats.set_int(MPX .. "ARENAWARS_AP", 230)
+				stats.set_int(MPX .. "ARENAWARS_AP", 249)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7479,7 +7538,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "HVY Dozer" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 49)
-				stats.set_int(MPX .. "ARENAWARS_AP", 460)
+				stats.set_int(MPX .. "ARENAWARS_AP", 479)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7487,7 +7546,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "Clown Van" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 74)
-				stats.set_int(MPX .. "ARENAWARS_AP", 730)
+				stats.set_int(MPX .. "ARENAWARS_AP", 749)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7495,7 +7554,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "Trashmaster" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 99)
-				stats.set_int(MPX .. "ARENAWARS_AP", 980)
+				stats.set_int(MPX .. "ARENAWARS_AP", 999)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7503,7 +7562,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "HVY Barracks Semi" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 199)
-				stats.set_int(MPX .. "ARENAWARS_AP", 2020)
+				stats.set_int(MPX .. "ARENAWARS_AP", 2039)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7511,7 +7570,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "HVY Mixer" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 299)
-				stats.set_int(MPX .. "ARENAWARS_AP", 3020)
+				stats.set_int(MPX .. "ARENAWARS_AP", 3039)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7519,7 +7578,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "Space Docker" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 499)
-				stats.set_int(MPX .. "ARENAWARS_AP", 4980)
+				stats.set_int(MPX .. "ARENAWARS_AP", 4999)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7527,7 +7586,7 @@
 				globals.set_int(1574589, 0)
 			elseif ArenaWarVehicles[AreWarVeh] == "Tractor" then
 				stats.set_int(MPX .. "ARENAWARS_AP_TIER", 999)
-				stats.set_int(MPX .. "ARENAWARS_AP", 10010)
+				stats.set_int(MPX .. "ARENAWARS_AP", 10029)
 				sleep(2)
 				globals.set_int(1575020, 8)
 				globals.set_int(1574589, 1)
@@ -7755,7 +7814,8 @@
 
 	CustomPlate = CustomModifications:add_submenu("Custom Plate")
 
-			PlateChar = {".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
+			PlateChar = {".", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q",
+						 "R", "S", "T", "U", "V", "W", "X", "Y", "Z"}
 
 			DefNum21 = PlateChar[1]
 			DefNum21Cur = 1
@@ -7868,7 +7928,7 @@
 				return IfSpace
 			end
 		end
-		
+
 	CustomPlate:add_bare_item("",
 		function()
 			return "Apply Plate: " .. CheckPlate(DefNum21) .. CheckPlate(DefNum22) .. CheckPlate(DefNum23) .. CheckPlate(DefNum24) .. CheckPlate(DefNum25) .. CheckPlate(DefNum26) .. CheckPlate(DefNum27) .. CheckPlate(DefNum28)
@@ -7939,6 +7999,491 @@
 		end
 	Misc:add_toggle("Hide Me", function() return a66 end, function() a66 = not a66 SilentNSneaky(a66) end)
 
+	GunVan = Misc:add_submenu("Modify Gun Van Weapons")
+
+			a100 = 1
+	GunVan:add_array_item("Possible Locations", {"Select", "Paleto Bay", "Grapeseed Store", "Sandy Shores", "Grand Senora #1", "Grand Senora #2", "Vinewood Sign",
+										   "Chumash", "Paleto Forest", "Zancudo River", "Power Station", "Lago Zancudo", "El Burro Heights", "Murrieta Heights", "Elysian Island",
+										   "Tataviam Mountains", "La Mesa #1", "La Mesa #2", "Del Perro", "Dock Terminal", "La Puerta", "Vespucci Beach", "West Vinewood", "Downtown Vinewood", "Pillbox Hill",
+										   "Little Seoul", "Alamo Sea", "Hookies", "Truck Terminal", "Mirror Park", "Davis"},
+	function()
+		return a100
+	end,
+	function(PosLoc)
+		if PosLoc == 1 then
+			a100 = 1
+		elseif PosLoc == 2 then
+			TP(-29.532, 6435.136, 31.162, 0, 0, 0)
+		elseif PosLoc == 3 then
+			TP(1705.214, 4819.167, 41.75, 0, 0, 0)
+		elseif PosLoc == 4 then
+			TP(1795.522, 3899.753, 33.869, 0, 0, 0)
+		elseif PosLoc == 5 then
+			TP(1335.536, 2758.746, 51.099, 0, 0, 0)
+		elseif PosLoc == 6 then
+			TP(2340.418, 3054.188, 47.888, 0, 0, 0)
+		elseif PosLoc == 7 then
+			TP(795.583, 1210.78, 338.962, 0, 0, 0)
+		elseif PosLoc == 8 then
+			TP(-3192.67, 1077.205, 20.594, 0, 0, 0)
+		elseif PosLoc == 9 then
+			TP(-789.719, 5400.921, 33.915, 0, 0, 0)
+		elseif PosLoc == 10 then
+			TP(-24.384, 3048.167, 40.703, 0, 0, 0)
+		elseif PosLoc == 11 then
+			TP(2666.786, 1469.324, 24.237, 0, 0, 0)
+		elseif PosLoc == 12 then
+			TP(-1454.966, 2667.503, 3.2, 0, 0, 0)
+		elseif PosLoc == 13 then
+			TP(1509.183, -2146.795, 76.853, 0, 0, 0)
+		elseif PosLoc == 14 then
+			TP(1137.404, -1358.654, 34.322, 0, 0, 0)
+		elseif PosLoc == 15 then
+			TP(-57.208, -2658.793, 5.737, 0, 0, 0)
+		elseif PosLoc == 16 then
+			TP(1905.017, 565.222, 175.558, 0, 0, 0)
+		elseif PosLoc == 17 then
+			TP(974.484, -1718.798, 30.296, 0, 0, 0)
+		elseif PosLoc == 18 then
+			TP(733.99, -736.803, 26.165, 0, 0, 0)
+		elseif PosLoc == 19 then
+			TP(-1694.632, -454.082, 40.712, 0, 0, 0)
+		elseif PosLoc == 20 then
+			TP(779.077, -3266.297, 5.719, 0, 0, 0)
+		elseif PosLoc == 21 then
+			TP(-587.728, -1637.208, 19.611, 0, 0, 0)
+		elseif PosLoc == 22 then
+			TP(-1330.726, -1163.948, 4.313, 0, 0, 0)
+		elseif PosLoc == 23 then
+			TP(-496.618, 40.231, 52.316, 0, 0, 0)
+		elseif PosLoc == 24 then
+			TP(275.527, 66.509, 94.108, 0, 0, 0)
+		elseif PosLoc == 25 then
+			TP(260.928, -763.35, 30.559, 0, 0, 0)
+		elseif PosLoc == 26 then
+			TP(-478.025, -741.45, 30.299, 0, 0, 0)
+		elseif PosLoc == 27 then
+			TP(894.94, 3603.911, 32.56, 0, 0, 0)
+		elseif PosLoc == 28 then
+			TP(-2166.511, 4289.503, 48.733, 0, 0, 0)
+		elseif PosLoc == 29 then
+			TP(1465.633,  6553.67, 13.771, 0, 0, 0)
+		elseif PosLoc == 30 then
+			TP(1101.032, -335.172, 66.944, 0, 0, 0)
+		elseif PosLoc == 31 then
+			TP(149.683, -1655.674, 29.028, 0, 0, 0)
+		end
+		a100 = PosLoc
+	end)
+
+			weapons_hash = {
+				-656458692, -- 1
+				-1786099057, -- 2
+				-853065399, -- 3
+				-102323637, -- 4
+				-2067956739, -- 5
+				-1834847097, -- 6
+				-1951375401, -- 7
+				1317494643, -- 8
+				-102973651, -- 9
+				-1716189206, -- 10
+				-581044007, -- 11
+				1737195953, -- 12
+				-1810795771, -- 13
+				-538741184, -- 14
+				419712736, -- 15
+				584646201, -- 16
+				727643628, -- 17
+				1593441988, -- 18
+				-1746263880, -- 19
+				1198879012, -- 20
+				1470379660, -- 21
+				-771403250, -- 22
+				-598887786, -- 23
+				-1853920116, -- 24
+				453432689, -- 25
+				-1075685676, -- 26
+				-1716589765, -- 27
+				-1355376991, -- 28
+				-1045183535, -- 29
+				-879347409, -- 30
+				-1076751822, -- 31
+				-2009644972, -- 32
+				137902532, -- 33
+				1171102963, -- 34
+				-270015777, -- 35
+				171789620, -- 36
+				-619010992, -- 37
+				324215364, -- 38
+				-1121678507, -- 39
+				736523883, -- 40
+				2024373456, -- 41
+				350597077, -- 42
+				-1357824103, -- 43
+				-1074790547, -- 44
+				961495388, -- 45
+				2132975508, -- 46
+				-2066285827, -- 47
+				-2084633992, -- 48
+				-86904375, -- 49
+				1649403952, -- 50
+				-947031628, -- 51
+				-1658906650, -- 52
+				-1063057011, -- 53
+				-1768145561, -- 54
+				-774507221, -- 55
+				-494615257, -- 56
+				317205821, -- 57
+				-1654528753, -- 58
+				94989220, -- 59
+				-275439685, -- 60
+				984333226, -- 61
+				487013001, -- 62
+				1432025498, -- 63
+				2017895192, -- 64
+				-1466123874, -- 65
+				2144741730, -- 66
+				-608341376, -- 67
+				1627465347, -- 68
+				-1660422300, -- 69
+				1198256469, -- 70
+				205991906, -- 71
+				177293209, -- 72
+				-952879014, -- 73
+				1785463520, -- 74
+				1853742572, -- 75
+				100416529, -- 76
+				125959754, -- 77
+				-618237638, -- 78
+				2138347493, -- 79
+				-1568386805, -- 80
+				1672152130, -- 81
+				1119849093, -- 82
+				-22923932, -- 83
+				-1238556825, -- 84
+				-1312131151, -- 85
+				-1813897027, -- 86
+				615608432, -- 87
+				-1169823560, -- 88
+				-1420407917, -- 89
+				-37975472, -- 90
+				741814745, -- 91
+				883325847 -- 92
+			}
+			weapons_name = {
+				"Knuckle Duster", -- 1
+				"Baseball Bat", -- 2
+				"Battle Axe", -- 3
+				"Bottle", -- 4
+				"Crowbar", -- 5
+				"Antique Cavalry Dagger", -- 6
+				"Flashlight", -- 7
+				"Hammer", -- 8
+				"Hatchet", -- 9
+				"Knife", -- 10
+				"Machete", -- 11
+				"Nightstick", -- 12
+				"Pool Cue", -- 13
+				"Switchblade", -- 14
+				"Pipe Wrench", -- 15
+				"AP Pistol", -- 16
+				"Ceramic Pistol", -- 17
+				"Combat Pistol", -- 18
+				"Double Action Revolver", -- 19
+				"Flare Gun", -- 20
+				"Perico Pistol", -- 21
+				"Heavy Pistol", -- 22
+				"Marksman Pistol", -- 23
+				"Navy Revolver", -- 24
+				"Pistol", -- 25
+				"Pistol Mk II", -- 26
+				"Pistol .50", -- 27
+				"Up-n-Atomizer", -- 28
+				"Heavy Revolver", -- 29
+				"Heavy Revolver Mk II", -- 30
+				"SNS Pistol", -- 31
+				"SNS Pistol Mk II", -- 32
+				"Vintage Pistol", -- 33
+				"Stun Gun", -- 34
+				"Assault SMG", -- 35
+				"Combat PDW", -- 36
+				"Machine Pistol", -- 37
+				"Micro SMG", -- 38
+				"Mini SMG", -- 39
+				"SMG", -- 40
+				"SMG Mk II", -- 41
+				"Tactical SMG", -- 42
+				"Advanced Rifle", -- 43
+				"Assault Rifle", -- 44
+				"Assault Rifle Mk II", -- 45
+				"Bullpup Rifle", -- 46
+				"Bullpup Rifle Mk II", -- 47
+				"Carbine Rifle", -- 48
+				"Carbine Rifle Mk II", -- 49
+				"Compact Rifle", -- 50
+				"Heavy Rifle", -- 51
+				"Military Rifle", -- 52
+				"Special Carbine", -- 53
+				"Special Carbine Mk II", -- 54
+				"Service Carbine", -- 55
+				"Assault Shotgun", -- 56
+				"Sweeper Shotgun", -- 57
+				"Bullpup Shotgun", -- 58
+				"Combat Shotgun", -- 59
+				"Double Barrel Shotgun", -- 60
+				"Heavy Shotgun", -- 61
+				"Pump Shotgun", -- 62
+				"Pump Shotgun Mk II", -- 63
+				"Sawed-Off Shotgun", -- 64
+				"Musket", -- 65
+				"Combat MG", -- 66
+				"Combat MG Mk II", -- 67
+				"Gusenberg Sweeper", -- 68
+				"MG", -- 69
+				"Unholy Hellbringer", -- 70
+				"Heavy Sniper", -- 71
+				"Heavy Sniper Mk II", -- 72
+				"Marksman Rifle", -- 73
+				"Marksman Rifle Mk II", -- 74
+				"Precision Rifle", -- 75
+				"Sniper Rifle", -- 76
+				"Compact Grenade Launcher", -- 77
+				"Compact EMP Launcher", -- 78
+				"Firework Launcher", -- 79
+				"Grenade Launcher", -- 80
+				"Homing Launcher", -- 81
+				"Minigun", -- 82
+				"Railgun", -- 83
+				"Widowmaker", -- 84
+				"RPG", -- 85
+				"Grenade", -- 86
+				"Molotov", -- 87
+				"Pipe Bomb", -- 88
+				"Proximity Mine", -- 89
+				"Tear Gas", -- 90
+				"Sticky Bomb", -- 91
+				"Jerry Can", -- 92
+			}
+
+	GunVanWeapons = GunVan:add_submenu("Weapons")
+
+	WSlot1 = GunVanWeapons:add_submenu("1-slot")
+		for i = 1, 85 do
+			WSlot1:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 1) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 1, weapons_hash[i])
+				end)
+		end
+
+	WSlot2 = GunVanWeapons:add_submenu("2-slot")
+		for i = 1, 85 do
+			WSlot2:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 2) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 2, weapons_hash[i])
+				end)
+		end
+
+	WSlot3 = GunVanWeapons:add_submenu("3-slot")
+		for i = 1, 85 do
+			WSlot3:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 3) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 3, weapons_hash[i])
+				end)
+		end
+
+	WSlot4 = GunVanWeapons:add_submenu("4-slot")
+		for i = 1, 85 do
+			WSlot4:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 4) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 4, weapons_hash[i])
+				end)
+		end
+
+	WSlot5 = GunVanWeapons:add_submenu("5-slot")
+		for i = 1, 85 do
+			WSlot5:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 5) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 5, weapons_hash[i])
+				end)
+		end
+
+	WSlot6 = GunVanWeapons:add_submenu("6-slot")
+		for i = 1, 85 do
+			WSlot6:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 6) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 6, weapons_hash[i])
+				end)
+		end
+
+	WSlot7 = GunVanWeapons:add_submenu("7-slot")
+		for i = 1, 85 do
+			WSlot7:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 7) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 7, weapons_hash[i])
+				end)
+		end
+
+	WSlot8 = GunVanWeapons:add_submenu("8-slot")
+		for i = 1, 85 do
+			WSlot8:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 8) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 8, weapons_hash[i])
+				end)
+		end
+
+	WSlot9 = GunVanWeapons:add_submenu("9-slot")
+		for i = 1, 85 do
+			WSlot9:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34094 + 9) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(262145 + 34131, 0)
+					globals.set_int(FMG + 34094 + 9, weapons_hash[i])
+				end)
+		end
+
+	GunVanThorwables = GunVan:add_submenu("Throwables")
+
+	TSlot1 = GunVanThorwables:add_submenu("1-slot")
+		for i = 86, 92 do
+			TSlot1:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34116 + 1) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(FMG + 34116 + 1, weapons_hash[i])
+				end)
+		end
+
+	TSlot2 = GunVanThorwables:add_submenu("2-slot")
+		for i = 86, 92 do
+			TSlot2:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34116 + 2) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(FMG + 34116 + 2, weapons_hash[i])
+				end)
+		end
+
+	TSlot3 = GunVanThorwables:add_submenu("3-slot")
+		for i = 86, 92 do
+			TSlot3:add_toggle(weapons_name[i],
+				function()
+					if weapons_hash[i] == globals.get_int(FMG + 34116 + 3) then
+						return true
+					else
+						return false
+					end
+				end,
+				function()
+					globals.set_int(FMG + 34116 + 3, weapons_hash[i])
+				end)
+		end
+
+			a99 = false
+		local function Discounts(Enabled)
+			if Enabled then
+				for i = 1, 9 do
+					globals.set_int(FMG + 34105 + i, 1036831744)
+				end
+				for i = 1, 3 do
+					globals.set_int(FMG + 34120 + i, 1036831744)
+				end
+				for i = 1, 5 do
+					globals.set_int(FMG + 34124 + i, 1036831744)
+				end
+			else
+				for i = 1, 9 do
+					globals.set_int(FMG + 34105 + i, 0)
+				end
+				for i = 1, 3 do
+					globals.set_int(FMG + 34120 + i, 0)
+				end
+				for i = 1, 5 do
+					globals.set_int(FMG + 34124 + i, 0)
+				end
+			end
+		end
+	GunVan:add_toggle("Jewish Trade Skills (-10%)", function() return a99 end, function() a99 = not a99 Discounts(a99) end)
+
 	Misc:add_action("Unlock All Tattoos",
 		function()
 			stats.set_int(MPX .. "TATTOO_FM_CURRENT_32", -1)
@@ -7970,18 +8515,6 @@
 			stats.set_bool(MPX .. "SR_TIER_1_REWARD", true)
 			stats.set_bool(MPX .. "SR_TIER_3_REWARD", true)
 			stats.set_bool(MPX .. "SR_INCREASE_THROW_CAP", true)
-		end)
-
-	Misc:add_action("Unlock Gun Van Guns",
-		function()
-			globals.set_int(262145 + 34131, 0)
-			globals.set_int(FMG + 34094 + 3, -22923932) -- Railgun
-			globals.set_int(FMG + 34094 + 4, 1171102963) -- Stungun
-			globals.set_int(FMG + 34094 + 5, -1355376991) -- Up-n-Atomizer
-			globals.set_int(FMG + 34094 + 6, -1238556825) -- Widowmaker
-			globals.set_int(FMG + 34094 + 7, 1198256469) -- Hellbringer
-			globals.set_int(FMG + 34094 + 8, -1786099057) -- Bat
-			globals.set_int(FMG + 34094 + 9, -1716189206) -- Knife
 		end)
 
 	Misc:add_action("", null)
