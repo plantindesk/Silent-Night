@@ -8,8 +8,8 @@
 
 --Required Stats--
 
-			MPX = PI
 			PI = stats.get_int("MPPLY_LAST_MP_CHAR")
+			MPX = "MP0_"
 		if PI == 0 then
 			MPX = "MP0_"
 		else
@@ -206,8 +206,10 @@
 
 	AC15mil = AC:add_submenu("15mil Payout")
 
-			a73 = 1
+	AC15mil:add_action("Skip Cutscene", function() menu.end_cutscene() end)
+
 			CashReceivers = 1
+			a73 = 1
 	AC15mil:add_array_item("Cash Receivers", {"All", "Only Crew", "Only Me"},
 		function()
 			return a73
@@ -3274,8 +3276,8 @@
 
 	ManualMode = SpecialCargoVIP:add_submenu("Manual Mode")
 
-			a53 = 1
 			DefDelay2 = 0.5
+			a53 = 1
 	ManualMode:add_array_item("Delays", {"Default", "Fast", "Medium", "Slow"},
 		function()
 			return a53
@@ -3550,8 +3552,8 @@
 
 	NightLoop = MoneyTool:add_submenu("Night Loop (Safe)")
 
-			a64 = 1
 			DefDelay4 = 0.6
+			a64 = 1
 	NightLoop:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"},
 		function()
 			return a64
@@ -3655,8 +3657,8 @@
 
 	OPLoop = MoneyTool:add_submenu("OP Loop (Safe)")
 
-		DefDelay5 = 1
-		a87 = 1
+			DefDelay5 = 1
+			a87 = 1
 	OPLoop:add_array_item("Delay", {"Default", "Faster", "Flash"},
 		function()
 			return a87
@@ -6988,6 +6990,26 @@
 
 	Characteristics = CharactersStats:add_submenu("Characteristics")
 
+	Characteristics:add_toggle("Max Stats",
+		function()
+			Get = stats.get_int
+			if Get(MPX .. "STAMINA") == 100 and Get(MPX .. "SHOOTING_ABILITY") == 100 and Get(MPX .. "SHOOTING_ABILITY") and Get(MPX .. "STRENGTH") == 100
+				and Get(MPX .. "STEALTH_ABILITY") == 100 and Get(MPX .. "FLYING_ABILITY") == 100 and Get(MPX .. "WHEELIE_ABILITY") == 100 and Get(MPX .. "LUNG_CAPACITY") == 100 then
+				return true
+			else
+				return false
+			end
+		end,
+		function()
+			stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 100)
+			stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 100)
+			stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 100)
+			stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 100)
+			stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 100)
+			stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 100)
+			stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 100)
+		end)
+
 			a58 = false
 		local function FastRunNReload(Enabled)
 			if Enabled then
@@ -7004,42 +7026,118 @@
 		end
 	Characteristics:add_toggle("Fast Run n Reload", function() return a58 end, function() a58 = not a58 FastRunNReload(a58) end)
 
-			a98 = 1
-	Characteristics:add_array_item("Presets", {"Select", "Max", "Default"},
+	Characteristics:add_bare_item("",
 		function()
-			return a98
-		end,
-		function(Pre)
-			if Pre == 1 then
-				a98 = 1
-			elseif Pre == 2 then
-				stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 100)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 100)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 100)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 100)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 100)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 100)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 100)
-			elseif Pre == 3 then
-				stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 0)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 0)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 0)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 0)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 0)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 0)
-				stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 0)
+			stamina = stats.get_int(MPX .. "STAMINA")
+			if stamina <= 25 then
+				status = "(lung cancer)"
+			elseif stamina > 25 and stamina <= 50 then
+				status = "(fat ass)"
+			elseif stamina > 50 and stamina <= 75 then
+				status = "(athlete)"
+			elseif stamina > 75 and stamina <= 99
+				then status = "(pro)"
+			else status = "(Usain Bolt)"
 			end
-			a98 = Pre
+			return "Stamina: " .. stamina .. "/100 " .. status
+		end, null, null, null)
+	Characteristics:add_bare_item("",
+		function()
+			shooting = stats.get_int(MPX .. "SHOOTING_ABILITY")
+			if shooting <= 25 then
+				status = "(cataract)"
+			elseif shooting > 25 and shooting <= 50 then
+				status = "(american)"
+			elseif shooting > 50 and shooting <= 75 then
+				status = "(policeman)"
+			elseif shooting > 75 and shooting <= 99
+				then status = "(pvp kid)"
+			else status = "(John Wick)"
+			end
+			return "Shooting: " .. shooting .. "/100 " .. status
+		end, null, null, null)
+	Characteristics:add_bare_item("",
+		function()
+			strength = stats.get_int(MPX .. "STRENGTH")
+			if strength <= 25 then
+				status = "(anorexia)"
+			elseif strength > 25 and strength <= 50 then
+				status = "(weak af)"
+			elseif strength > 50 and strength <= 75 then
+				status = "(boxer)"
+			elseif strength > 75 and strength <= 99
+				then status = "(builder)"
+			else status = "(Gym Rat)"
+			end
+			return "Strength: " .. strength .. "/100 " .. status
+			end, null, null, null)
+	Characteristics:add_bare_item("",
+		function()
+			stealth = stats.get_int(MPX .. "STEALTH_ABILITY")
+			if stealth <= 25 then
+				status = "(gorlock the destroyer)"
+			elseif stealth > 25 and stealth <= 50 then
+				status = "(drunk teenager)"
+			elseif stealth > 50 and stealth <= 75 then
+				status = "(thief)"
+			elseif stealth > 75 and stealth <= 99
+				then status = "(assassin)"
+			else status = "(Agent 47)"
+			end
+			return "Stealth: " .. stealth .. "/100 " .. status
+		end, null, null, null)
+	Characteristics:add_bare_item("",
+		function()
+			flying = stats.get_int(MPX .. "FLYING_ABILITY")
+			if flying <= 25 then
+				status = "(kamikaze)"
+			elseif flying > 25 and flying <= 50 then
+				status = "(german)"
+			elseif flying > 50 and flying <= 75 then
+				status = "(pilot)"
+			elseif flying > 75 and flying <= 99
+				then status = "(war thunder enjoyer)"
+			else status = "(«Maverick» Mitchell)"
+			end
+			return "Flying: " .. flying .. "/100 " .. status
+		end, null, null, null)
+	Characteristics:add_bare_item("",
+		function()
+			driving = stats.get_int(MPX .. "WHEELIE_ABILITY")
+			if driving <= 25 then
+				status = "(grandma)"
+			elseif driving > 25 and driving <= 50 then
+				status = "(amateur)"
+			elseif driving > 50 and driving <= 75 then
+				status = "(taxi driver)"
+			elseif driving > 75 and driving <= 99
+				then status = "(drifter)"
+			else status = "(Ken Block)"
+			end
+			return "Driving: " .. driving .. "/100 " .. status
+		end, null, null, null)
+	Characteristics:add_bare_item("",
+		function()
+			swimming = stats.get_int(MPX .. "LUNG_CAPACITY")
+			if swimming <= 25 then
+				status = "(rock)"
+			elseif swimming > 25 and swimming <= 50 then
+				status = "(wood)"
+			elseif swimming > 50 and swimming <= 75 then
+				status = "(fisherman)"
+			elseif swimming > 75 and swimming <= 99
+				then status = "(dolphine)"
+			else status = "(Poseidon)"
+			end
+			return "Swimming: " .. swimming .. "/100 " .. status
+		end, null, null, null)
+	Characteristics:add_float_range("Mental State", 0.1, 0, 100,
+		function()
+			return stats.get_float(MPX .. "PLAYER_MENTAL_STATE")
+		end,
+		function(Men)
+			stats.set_float(MPX .. "PLAYER_MENTAL_STATE", Men)
 		end)
-
-	Characteristics:add_int_range("Stamina", 2, 0, 100, function() return stats.get_int(MPX .. "STAMINA") end, function(Sta) stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_STAM", Sta - stats.get_int(MPX .. "STAMINA")) end)
-	Characteristics:add_int_range("Shooting", 2, 0, 100, function() return stats.get_int(MPX .. "SHOOTING_ABILITY") end, function(Sho) stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_SHO", Sho - stats.get_int(MPX .. "SHOOTING_ABILITY")) end)
-	Characteristics:add_int_range("Strength", 2, 0, 100, function() return stats.get_int(MPX .. "STRENGTH") end, function(Str) stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_STRN", Str - stats.get_int(MPX .. "STRENGTH")) end)
-	Characteristics:add_int_range("Stealth", 2, 0, 100, function() return stats.get_int(MPX .. "STEALTH_ABILITY") end, function(Ste) stats.set_int(MPX .. "SCRIPT_INCREASE_STL", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_STL", Ste - stats.get_int(MPX .. "STEALTH_ABILITY")) end)
-	Characteristics:add_int_range("Flying", 2, 0, 100, function() return stats.get_int(MPX .. "FLYING_ABILITY") end, function(Fly) stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_FLY", Fly - stats.get_int(MPX .. "FLYING_ABILITY")) end)
-	Characteristics:add_int_range("Driving", 2, 0, 100, function() return stats.get_int(MPX .. "WHEELIE_ABILITY") end, function(Dri) stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_DRIV", Dri - stats.get_int(MPX .. "WHEELIE_ABILITY")) end)
-	Characteristics:add_int_range("Swimming", 2, 0, 100, function() return stats.get_int(MPX .. "LUNG_CAPACITY") end, function(Swi) stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", 0) sleep(5) stats.set_int(MPX .. "SCRIPT_INCREASE_LUNG", Swi - stats.get_int(MPX .. "LUNG_CAPACITY")) end)
-	Characteristics:add_float_range("Psychics", 2, 0, 100, function() return stats.get_float(MPX .. "PLAYER_MENTAL_STATE") end, function(Men) stats.set_float(MPX .. "PLAYER_MENTAL_STATE", Men) end)
 
 	Characteristics:add_action("", null)
 
@@ -7047,8 +7145,6 @@
 
 	CharacteristicsNote:add_action("                  Fast Run n Reload:", null)
 	CharacteristicsNote:add_action("      Change session to apply the result", null)
-	CharacteristicsNote:add_action("", null)
-	CharacteristicsNote:add_action("    After changing one stat wait ≈5 secs", null)
 
 --Collectibles--
 
@@ -7172,12 +7268,12 @@
 				NewCrewRank = tonumber(DefNum33 .. DefNum34 .. DefNum35 .. DefNum36)
 			end
 			if NewCrewRank == 0 then
-				NewCrewRank = " "
+				NewCrewRank = ""
 			end
 			return "Set Crew Rank: " .. NewCrewRank
 		end,
 		function()
-			stats.set_int("MPPLY_CREW_LOCAL_XP_" .. a77, RPtoRank[NewCrewRank] + 100)
+			stats.set_int("MPPLY_CREW_LOCAL_XP_" .. a77, RPtoRank[NewCrewRank])
 			if a78 == true then
 				DefNum33Cur = 1
 				DefNum34Cur = 1
@@ -7276,12 +7372,12 @@
 				NewRank = tonumber(DefNum29 .. DefNum30 .. DefNum31 .. DefNum32)
 			end
 			if NewRank == 0 then
-				NewRank = " "
+				NewRank = ""
 			end
 		return "Set Rank: " .. NewRank
 		end,
 		function()
-			stats.set_int(MPX .. "CHAR_SET_RP_GIFT_ADMIN", RPtoRank[NewRank] + 100)
+			stats.set_int(MPX .. "CHAR_SET_RP_GIFT_ADMIN", RPtoRank[NewRank])
 			sleep(2)
 			globals.set_int(1575020, 8)
 			globals.set_int(1574589, 1)
@@ -7442,7 +7538,7 @@
 		function()
 			stats.set_float("MPPLY_KILL_DEATH_RATIO", ValueToChange)
 			stats.set_int("MPPLY_KILLS_PLAYERS", ValueToChange)
-			stats.set_float("MPPLY_DEATHS_PLAYER", 0)
+			stats.set_int("MPPLY_DEATHS_PLAYER", 0)
 			if a97 == true then
 				sleep(1)
 				DefNum37Cur = 1
@@ -7468,8 +7564,62 @@
 			end
 		end, null, null)
 
-				a97 = true
+			a97 = true
 	KDChanger:add_toggle("Reset Value", function() return a97 end, function() a97 = not a97 end)
+
+	KDChangerDM = KDChanger:add_submenu("Detailed Method")
+
+	KDChangerDM:add_bare_item("",
+		function()
+			return "Current K/D Ratio: " .. stats.get_float("MPPLY_KILL_DEATH_RATIO")
+		end, null, null, null)
+
+			kills = 0
+	KDChangerDM:add_int_range("New Kills", 1, kills, 2147483646,
+		function()
+			return kills
+		end,
+		function(Kil)
+			kills = Kil
+		end)
+
+			deaths = 0
+	KDChangerDM:add_int_range("New Deaths", 1, deaths, 2147483646,
+		function()
+			return deaths
+		end,
+		function(Dea)
+			deaths = Dea
+		end)
+
+	KDChangerDM:add_bare_item("",
+		function()
+			newkd = tonumber(string.format("%.2f", kills / deaths))
+			if newkd == nil then
+				newkd = 0
+			end
+			return "Set K/D Ratio: " .. newkd
+		end,
+		function()
+			stats.set_float("MPPLY_KILL_DEATH_RATIO", newkd)
+			stats.set_int("MPPLY_KILLS_PLAYERS", kills)
+			stats.set_int("MPPLY_DEATHS_PLAYER", deaths)
+			if b2 == true then
+				kills = 0
+				deaths = 0
+				newkd = nil
+			end
+		end, null, null)
+
+			b2 = true
+	KDChangerDM:add_toggle("Reset Value", function() return b2 end, function() b2 = not b2 end)
+
+	KDChangerDM:add_action("", null)
+
+	KDChangerDMNote = KDChangerDM:add_submenu("Read Me")
+
+	KDChangerDMNote:add_action("                        Reset Value:", null)
+	KDChangerDMNote:add_action("  Resets «Set K/D Ratio» value after using", null)
 
 	KDChanger:add_action("", null)
 
@@ -7601,24 +7751,20 @@
 	ArenaWar:add_action("", null)
 
 	ArenaWarNote = ArenaWar:add_submenu("Read Me")
-
+	
+	ArenaWarNote:add_action("                     Unlock Vehicle:", null)
 	ArenaWarNote:add_action("       First, make the following settings:", null)
 	ArenaWarNote:add_action("Join Next Mode from Spectator Box: Open", null)
 	ArenaWarNote:add_action("                Allow Spectators: On", null)
 	ArenaWarNote:add_action("                 Matchmaking: Open", null)
-	ArenaWarNote:add_action("", null)
-	ArenaWarNote:add_action("    Select the vehicle you want to unlock", null)
-	ArenaWarNote:add_action("", null)
+	ArenaWarNote:add_action("    select the vehicle you want to unlock;", null)
 	ArenaWarNote:add_action("                        Navigate to:", null)
 	ArenaWarNote:add_action("    Online -> Jobs -> Rockstar Created ->", null)
 	ArenaWarNote:add_action("        -> Arena War -> Start Wreck It I", null)
-	ArenaWarNote:add_action("", null)
-	ArenaWarNote:add_action("      If you receive an Alert, press Enter", null)
-	ArenaWarNote:add_action("", null)
-	ArenaWarNote:add_action("    Wait for the carnage to begin, suicide", null)
-	ArenaWarNote:add_action("     and spin the wheel until you get AP", null)
-	ArenaWarNote:add_action("", null)
-	ArenaWarNote:add_action("   If you've used Arena War awards unlock", null)
+	ArenaWarNote:add_action("       if you receive an Alert, press Enter;", null)
+	ArenaWarNote:add_action("    wait for the carnage to begin, suicide", null)
+	ArenaWarNote:add_action("     and spin the wheel until you get AP;", null)
+	ArenaWarNote:add_action("   if you've used Arena War awards unlock", null)
 	ArenaWarNote:add_action(" before, all unlocks will be temporary only", null)
 
 --Bunker--
@@ -7937,15 +8083,39 @@
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
 				localplayer:get_current_vehicle():set_number_plate_text(DefNum21 .. DefNum22 .. DefNum23 .. DefNum24 .. DefNum25 .. DefNum26 .. DefNum27 .. DefNum28)
 			end
+			if b3 == true then
+				sleep(1)
+				DefNum21Cur = 1
+				DefNum22Cur = 1
+				DefNum23Cur = 1
+				DefNum24Cur = 1
+				DefNum25Cur = 1
+				DefNum26Cur = 1
+				DefNum27Cur = 1
+				DefNum28Cur = 1
+				DefNum21 = PlateChar[1]
+				DefNum22 = PlateChar[1]
+				DefNum23 = PlateChar[1]
+				DefNum24 = PlateChar[1]
+				DefNum25 = PlateChar[1]
+				DefNum26 = PlateChar[1]
+				DefNum27 = PlateChar[1]
+				DefNum28 = PlateChar[1]
+			end
 		end, null, null)
+
+			b3 = true
+	CustomPlate:add_toggle("Reset Value", function() return b3 end, function() b3 = not b3 end)
 
 	CustomPlate:add_action("", null)
 
 	CustomPlateNote = CustomPlate:add_submenu("Read Me")
 
-	CustomPlateNote:add_action("                        «.» = space", null)
-	CustomPlateNote:add_action("", null)
+	CustomPlateNote:add_action("                        «.» = space;", null)
 	CustomPlateNote:add_action("      Use in LSC and buy a plate to save", null)
+	CustomPlateNote:add_action("", null)
+	CustomPlateNote:add_action("                        Reset Value:", null)
+	CustomPlateNote:add_action("    Resets «Apply Plate» value after using", null)
 
 	LSCustoms:add_action("", null)
 
@@ -8001,17 +8171,17 @@
 
 	GunVan = Misc:add_submenu("Modify Gun Van Weapons")
 
-			a100 = 1
+			b1 = 1
 	GunVan:add_array_item("Possible Locations", {"Select", "Paleto Bay", "Grapeseed Store", "Sandy Shores", "Grand Senora #1", "Grand Senora #2", "Vinewood Sign",
 										   "Chumash", "Paleto Forest", "Zancudo River", "Power Station", "Lago Zancudo", "El Burro Heights", "Murrieta Heights", "Elysian Island",
 										   "Tataviam Mountains", "La Mesa #1", "La Mesa #2", "Del Perro", "Dock Terminal", "La Puerta", "Vespucci Beach", "West Vinewood", "Downtown Vinewood", "Pillbox Hill",
 										   "Little Seoul", "Alamo Sea", "Hookies", "Truck Terminal", "Mirror Park", "Davis"},
 	function()
-		return a100
+		return b1
 	end,
 	function(PosLoc)
 		if PosLoc == 1 then
-			a100 = 1
+			b1 = 1
 		elseif PosLoc == 2 then
 			TP(-29.532, 6435.136, 31.162, 0, 0, 0)
 		elseif PosLoc == 3 then
@@ -8073,7 +8243,7 @@
 		elseif PosLoc == 31 then
 			TP(149.683, -1655.674, 29.028, 0, 0, 0)
 		end
-		a100 = PosLoc
+		b1 = PosLoc
 	end)
 
 			weapons_hash = {
