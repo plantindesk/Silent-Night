@@ -247,13 +247,14 @@
 			else
 				globals.set_int(1936399, 60)
 				globals.set_int(1936400, 40)
-				globals.set_int(1938365 + 3008 + 1, 60)
 				sleep(1)
 				if b17 == false then
 					menu.send_key_press(13)
 					sleep(1)
 				end
 				menu.send_key_press(27)
+				sleep(1)
+				globals.set_int(1938365 + 3008 + 1, 60)
 			end
 		end
 	AC15mil:add_toggle("The Freeca Job (Normal)", function() return a67 end, function() a67 = not a67 Freeca15mil(a67) end)
@@ -264,6 +265,8 @@
 				if CashReceivers == 1 then
 					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 4))
 					globals.set_int(1936397 + 1 + 2, 2142)
+					globals.set_int(1936397 + 1 + 3, 2142)
+					globals.set_int(1936397 + 1 + 4, 2142)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -273,8 +276,10 @@
 					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 2142)
 				elseif CashReceivers == 2 then
-					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 2))
+					globals.set_int(1936397 + 1 + 1, 100 - (2142 * 4))
 					globals.set_int(1936397 + 1 + 2, 2142)
+					globals.set_int(1936397 + 1 + 3, 2142)
+					globals.set_int(1936397 + 1 + 4, 2142)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -289,13 +294,14 @@
 				globals.set_int(1936397 + 1 + 2, 15)
 				globals.set_int(1936397 + 1 + 3, 15)
 				globals.set_int(1936397 + 1 + 4, 15)
-				globals.set_int(1938365 + 3008 + 1, 55)
 				sleep(1)
 				if b17 == false then
 					menu.send_key_press(13)
 					sleep(1)
 				end
 				menu.send_key_press(27)
+				sleep(1)
+				globals.set_int(1938365 + 3008 + 1, 55)
 			end
 		end
 	AC15mil:add_toggle("The Prison Break (Normal)", function() return a68 end, function() a68 = not a68 PrisonBreak15mil(a68) end)
@@ -306,6 +312,8 @@
 				if CashReceivers == 1 then
 					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 4))
 					globals.set_int(1936397 + 1 + 2, 1587)
+					globals.set_int(1936397 + 1 + 3, 1587)
+					globals.set_int(1936397 + 1 + 4, 1587)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -315,8 +323,10 @@
 					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 1587)
 				elseif CashReceivers == 2 then
-					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 2))
+					globals.set_int(1936397 + 1 + 1, 100 - (1587 * 4))
 					globals.set_int(1936397 + 1 + 2, 1587)
+					globals.set_int(1936397 + 1 + 3, 1587)
+					globals.set_int(1936397 + 1 + 4, 1587)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -331,13 +341,14 @@
 				globals.set_int(1936397 + 1 + 2, 15)
 				globals.set_int(1936397 + 1 + 3, 15)
 				globals.set_int(1936397 + 1 + 4, 15)
-				globals.set_int(1938365 + 3008 + 1, 55)
 				sleep(1)
 				if b17 == false then
 					menu.send_key_press(13)
 					sleep(1)
 				end
 				menu.send_key_press(27)
+				sleep(1)
+				globals.set_int(1938365 + 3008 + 1, 55)
 			end
 		end
 	AC15mil:add_toggle("The Humane Labs Raid (Normal)", function() return a69 end, function() a69 = not a69 HumaneLabs15mil(a69) end)
@@ -348,6 +359,8 @@
 				if CashReceivers == 1 then
 					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 4))
 					globals.set_int(1936397 + 1 + 2, 2121)
+					globals.set_int(1936397 + 1 + 3, 2121)
+					globals.set_int(1936397 + 1 + 4, 2121)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -357,8 +370,10 @@
 					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 2121)
 				elseif CashReceivers == 2 then
-					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 2))
+					globals.set_int(1936397 + 1 + 1, 100 - (2121 * 4))
 					globals.set_int(1936397 + 1 + 2, 2121)
+					globals.set_int(1936397 + 1 + 3, 2121)
+					globals.set_int(1936397 + 1 + 4, 2121)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -373,13 +388,14 @@
 				globals.set_int(1936397 + 1 + 2, 15)
 				globals.set_int(1936397 + 1 + 3, 15)
 				globals.set_int(1936397 + 1 + 4, 15)
-				globals.set_int(1938365 + 3008 + 1, 55)
 				sleep(1)
 				if b17 == false then
 					menu.send_key_press(13)
 					sleep(1)
 				end
 				menu.send_key_press(27)
+				sleep(1)
+				globals.set_int(1938365 + 3008 + 1, 55)
 			end
 		end
 	AC15mil:add_toggle("Series A Funding (Normal)", function() return a70 end, function() a70 = not a70 SeriesA15mil(a70) end)
@@ -390,6 +406,8 @@
 				if CashReceivers == 1 then
 					globals.set_int(1936397 + 1 + 1, 100 - (1000 * 4))
 					globals.set_int(1936397 + 1 + 2, 1000)
+					globals.set_int(1936397 + 1 + 3, 1000)
+					globals.set_int(1936397 + 1 + 4, 1000)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -399,8 +417,10 @@
 					sleep(1)
 					globals.set_int(1938365 + 3008 + 1, 1000)
 				elseif CashReceivers == 2 then
-					globals.set_int(1936397 + 1 + 1, 100 - (1000 * 2))
+					globals.set_int(1936397 + 1 + 1, 100 - (1000 * 4))
 					globals.set_int(1936397 + 1 + 2, 1000)
+					globals.set_int(1936397 + 1 + 3, 1000)
+					globals.set_int(1936397 + 1 + 4, 1000)
 					sleep(1)
 					if b17 == false then
 						menu.send_key_press(13)
@@ -415,13 +435,14 @@
 				globals.set_int(1936397 + 1 + 2, 15)
 				globals.set_int(1936397 + 1 + 3, 15)
 				globals.set_int(1936397 + 1 + 4, 15)
-				globals.set_int(1938365 + 3008 + 1, 55)
 				sleep(1)
 				if b17 == false then
 					menu.send_key_press(13)
 					sleep(1)
 				end
 				menu.send_key_press(27)
+				sleep(1)
+				globals.set_int(1938365 + 3008 + 1, 55)
 			end
 		end
 	AC15mil:add_toggle("The Pacific Standard Job (Normal)", function() return a71 end, function() a71 = not a71 PacificStandard15mil(a71) end)
