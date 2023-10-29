@@ -3775,9 +3775,7 @@
 			if not localplayer then return end
 			while a44 do
 				PlayerID = localplayer:get_player_id()
-				if not PlayerID == nil then
-					SafeValue = 1853988 + 1 + (PlayerID * 867) + 267 + 354 + 5
-				end
+				SafeValue = 1853988 + 1 + (PlayerID * 867) + 267 + 354 + 5
 				for i = IncomeStart, IncomeEnd do
 					globals.set_int(FMG + i, SafeAmount)
 				end
