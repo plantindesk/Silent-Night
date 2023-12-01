@@ -32,7 +32,9 @@
 			end
 
 		local function TP(x, y, z, yaw, roll, pitch)
-			if not localplayer then return end
+			if not localplayer then
+				return
+			end
 			if localplayer ~= nil then
 				localplayer:set_position(x, y, z)
 				localplayer:set_rotation(yaw, roll, pitch)
@@ -736,6 +738,10 @@
 			stats.set_int(MPX() .. "H4CNF_ARM_DISRP", 3)
 			stats.set_int(MPX() .. "H4CNF_HEL_DISRP", 3)
 			stats.set_int(MPX() .. "H4_PLAYTHROUGH_STATUS", 10)
+			sleep(1)
+			if HIP:is_active() then
+				HIP:set_int(1526, 2)
+			end
 		end)
 
 	CPDS:add_action("", null)
@@ -1089,7 +1095,7 @@
 				TarIslAmount = 16777203
 			elseif TarAmo == 24 then
 				TarIslAmount = 16777211
-			elseif TarAmo == 24 then
+			elseif TarAmo == 25 then
 				TarIslAmount = 16777215
 			end
 			stats.set_int(MPX() .. "H4LOOT_" .. CayoTarget2 .. "_I", TarIslAmount)
@@ -1288,6 +1294,10 @@
 			stats.set_int(MPX() .. "H4CNF_BS_ENTR", 63)
 			stats.set_int(MPX() .. "H4CNF_BS_ABIL", 63)
 			stats.set_int(MPX() .. "H4CNF_APPROACH", -1)
+			sleep(1)
+			if HIP:is_active() then
+				HIP:set_int(1526, 2)
+			end
 		end)
 
 	CPE:add_action("", null)
@@ -2153,15 +2163,7 @@
 
 --Bunker Crash--
 
-	BunkerCrash = MoneyTool:add_submenu("Bunker Crash (Semi-Detected)")
-
-	BunkerCrash:add_action("Start Solo Session",
-		function()
-			globals.set_int(1575020, 8)
-			globals.set_int(1574589, 1)
-			sleep(3)
-			globals.set_int(1574589, 0)
-		end)
+	BunkerCrash = MoneyTool:add_submenu("Bunker Crash (Safe)")
 
 	BunkerCrash:add_action("Teleport to Laptop (use inside bunker)",
 		function()
@@ -2174,18 +2176,17 @@
 
 	BunkerCrash:add_action("Get Supplies", function() globals.set_int(2764608, 121) end)
 
-	BunkerCrash:add_action("Trigger Production", function() menu.trigger_bunker_production() end)
+			b20 = false
+		local function TurkishSupplier2()
+			while b20 do
+				menu.trigger_bunker_production()
+				sleep(1)
+			end
+		end
+	BunkerCrash:add_toggle("Turkish Supplier", function() return b20 end, function() b20 = not b20 TurkishSupplier2() end)
 
-			a41 = 0
-	BunkerCrash:add_int_range("Instant Sell [Outdated]", 100000, 0, 2500000,
+	BunkerCrash:add_action("⚠ Instant Sell",
 		function()
-			return a41
-		end,
-		function(InsSel)
-			globals.set_int(FMG + 21689, InsSel)
-			a41 = InsSel
-			GB:set_int(1206, 15)
-			sleep(1)
 			GB:set_int(1980, 0)
 		end)
 
@@ -2255,13 +2256,6 @@
 
 	BunkerCrashNote = BunkerCrash:add_submenu("Read Me")
 
-	BunkerCrashNote:add_action("       Sell all goods for «Default» price", null)
-	BunkerCrashNote:add_action("          before selecting higher preset;", null)
-	BunkerCrashNote:add_action("   always choose to sell in Blaine County;", null)
-	BunkerCrashNote:add_action("", null)
-	BunkerCrashNote:add_action("                   Start Solo Session:", null)
-	BunkerCrashNote:add_action("        Use if you aren't alone in session", null)
-	BunkerCrashNote:add_action("", null)
 	BunkerCrashNote:add_action("                  Teleport to Laptop:", null)
 	BunkerCrashNote:add_action("   Use to tp to laptop inside your bunker;", null)
 	BunkerCrashNote:add_action("              it also automatically sits", null)
@@ -2270,19 +2264,15 @@
 	BunkerCrashNote:add_action("                      Get Supplies:", null)
 	BunkerCrashNote:add_action("               Use to refill your stock", null)
 	BunkerCrashNote:add_action("", null)
-	BunkerCrashNote:add_action("                 Trigger Production:", null)
-	BunkerCrashNote:add_action("         Use once you got some stock,", null)
-	BunkerCrashNote:add_action("     so you can get a bit goods for sale", null)
+	BunkerCrashNote:add_action("                    Turkish Supplier:", null)
+	BunkerCrashNote:add_action("          Use this to get goods; ≈1u/1s", null)
 	BunkerCrashNote:add_action("", null)
 	BunkerCrashNote:add_action("                        Instant Sell:", null)
-	BunkerCrashNote:add_action("         Start the sale mission and then", null)
-	BunkerCrashNote:add_action("         choose the preset and activate", null)
+	BunkerCrashNote:add_action("Start the sale mission and then activate", null)
 
 --Money Editor--
 
 	MoneyEditor = MoneyTool:add_submenu("Money Editor (Safe)")
-
---Cash Remover--
 
 	CashRemover = MoneyEditor:add_submenu("Cash Remover (Real)")
 
@@ -2443,8 +2433,6 @@
 	CashRemoverNote:add_action("                        Reset Value:", null)
 	CashRemoverNote:add_action("  Resets «Remove Cash» value after using", null)
 
---Story Characters--
-
 	StoryCharacters = MoneyEditor:add_submenu("Story Characters (Real)")
 
 	StoryCharacters:add_int_range("Michael's Cash", 1000000, 0, 2147483646,
@@ -2470,8 +2458,6 @@
 		function(MicCas)
 			stats.set_int("SP2_TOTAL_CASH", MicCas)
 		end)
-
---Earned n Spent--
 
 	Totals = MoneyEditor:add_submenu("Earned n Spent (Stats)")
 
@@ -2842,13 +2828,13 @@
 	NightclubHelper:add_toggle("Cooldown Killer", function() return a85 end, function() a85 = not a85 NigCooKil(a85) end)
 
 			a86 = false
-		local function TurkishSupplier()
+		local function TurkishSupplier1()
 			while a86 do
 				menu.trigger_nightclub_production()
 				sleep(10)
 			end
 		end
-	NightclubHelper:add_toggle("Turkish Supplier", function() return a86 end, function() a86 = not a86 TurkishSupplier() end)
+	NightclubHelper:add_toggle("Turkish Supplier", function() return a86 end, function() a86 = not a86 TurkishSupplier1() end)
 
 			a84 = 1
 	NightclubHelper:add_array_item("Popularity", {"Select", "Max", "Min"},
@@ -2997,7 +2983,7 @@
 
 --Special Cargo VIP--
 
-	SpecialCargoVIP = MoneyTool:add_submenu("Special Cargo VIP (Semi-Detected)")
+	SpecialCargoVIP = MoneyTool:add_submenu("Special Cargo VIP (Safe)")
 
 	AFKMode = SpecialCargoVIP:add_submenu("AFK Mode")
 
@@ -3243,7 +3229,7 @@
 			end
 			LoopStop = 0
 		end
-	AFKMode:add_toggle("Toggle AFK Mode (buggy)", function() return a50 end, function() a50 = not a50 AfkMode(a50) end)
+	AFKMode:add_toggle("⚠ Toggle AFK Mode (buggy)", function() return a50 end, function() a50 = not a50 AfkMode(a50) end)
 
 	AFKMode:add_action("", null)
 
@@ -3531,7 +3517,7 @@
 			end
 		end, null, null, null)
 
-	ManualMode:add_action("Instant Sell",
+	ManualMode:add_action("⚠ Instant Sell",
 		function()
 			if NoRP == false then
 				globals.set_float(FMG + 1, 1)
@@ -3612,7 +3598,9 @@
 			MoneyMade4 = 0
 			a42 = false
 		local function CheapLoop1()
-			if not localplayer then return end
+			if not localplayer then
+				return
+			end
 			while a42 do
 				if DefCash4 > 0 then
 					if MoneyCount4 >= DefCash4 then
@@ -3684,7 +3672,9 @@
 			MoneyMade1 = 0
 			a76 = false
 		local function DeathLoop1()
-			if not localplayer then return end
+			if not localplayer then
+				return
+			end
 			while a76 do
 				if DefCash1 > 0 then
 					if MoneyCount1 >= DefCash1 then
@@ -3772,7 +3762,9 @@
 			MoneyMade2 = 0
 			a44 = false
 		local function NightLoop1()
-			if not localplayer then return end
+			if not localplayer then
+				return
+			end
 			while a44 do
 				PlayerID = localplayer:get_player_id()
 				SafeValue = 1853988 + 1 + (PlayerID * 867) + 267 + 354 + 5
@@ -3867,7 +3859,9 @@
 			MoneyMade3 = 0
 			a75 = false
 		local function OPLoop1()
-			if not localplayer then return end
+			if not localplayer then
+				return
+			end
 			while a75 do
 				if DefCash3 > 0 then
 					if MoneyCount3 >= DefCash3 then
@@ -3914,7 +3908,9 @@
 
 			a45 = false
 		local function OrbitalLoop1()
-			if not localplayer then return end
+			if not localplayer then
+				return
+			end
 			while a45 do
 				globals.set_int(1969112, 2)
 				sleep(3)
@@ -7421,17 +7417,6 @@
 	TCollectibles:add_bare_item("",
 		function()
 			if not localplayer then
-				return "Jack o Lantern: In Menu"
-			else
-				return "Jack o Lantern: " .. globals.get_int(2765084 + 591) .. "/10"
-			end
-		end,
-		function()
-			globals.set_int(2765084 + 591, 10)
-		end, null, null)
-	TCollectibles:add_bare_item("",
-		function()
-			if not localplayer then
 				return "Movie Props: In Menu"
 			else
 				return "Movie Props: " .. globals.get_int(2765084 + 494) .. "/10"
@@ -7534,17 +7519,6 @@
 	PCollectibles:add_bare_item("",
 		function()
 			if not localplayer then
-				return "Jack o Lantern: In Menu"
-			else
-				return "Jack o Lantern: " .. globals.get_int(2765084 + 591) .. "/10"
-			end
-		end,
-		function()
-			globals.set_int(2765084 + 591, 9)
-		end, null, null)
-	PCollectibles:add_bare_item("",
-		function()
-			if not localplayer then
 				return "Movie Props: In Menu"
 			else
 				return "Movie Props: " .. globals.get_int(2765084 + 494) .. "/10"
@@ -7553,6 +7527,39 @@
 		function()
 			globals.set_int(2765084 + 494, 9)
 		end, null, null)
+
+	PJackOLanterns = PCollectibles:add_submenu("Jack O' Lantern")
+
+			b19 = 1
+	PJackOLanterns:add_array_item("Unlock", {"Select", "Mask", "T-Shirt"},
+		function()
+			return b19
+		end,
+		function(Unl)
+			if Unl == 1 then
+				Unl = 1
+			elseif Unl == 2 then
+				globals.set_int(2765084 + 591, 9)
+			elseif Unl == 3 then
+				globals.set_int(2765084 + 591, 199)
+			end
+			b19 = Unl
+		end)
+
+	PJackOLanterns:add_int_range("Set Jack O' Lanterns", 1, 0, 200,
+		function()
+			return globals.get_int(2765084 + 591)
+		end,
+		function(Unl)
+			globals.set_int(2765084 + 591, Unl)
+		end)
+
+	PJackOLanterns:add_action("", null)
+
+	PJackOLanternsNote = PJackOLanterns:add_submenu("Read Me")
+
+	PJackOLanternsNote:add_action("     First, find the item you want, select", null)
+	PJackOLanternsNote:add_action("    an option, and then pick up the item", null)
 
 	PCollectibles:add_action("", null)
 
@@ -7651,17 +7658,19 @@
 			return "Set Crew Rank: " .. NewCrewRank
 		end,
 		function()
-			stats.set_int("MPPLY_CREW_LOCAL_XP_" .. a77, RPtoRank[NewCrewRank])
-			if a78 == true then
-				sleep(1)
-				DefNum33Cur = 1
-				DefNum34Cur = 1
-				DefNum35Cur = 1
-				DefNum36Cur = 1
-				DefNum33 = NumberList2[1]
-				DefNum34 = NumberList1[1]
-				DefNum35 = NumberList1[1]
-				DefNum36 = NumberList1[1]
+			if NewCrewRank ~= "Not Selected" then
+				stats.set_int("MPPLY_CREW_LOCAL_XP_" .. a77, RPtoRank[NewCrewRank])
+				if a78 == true then
+					sleep(1)
+					DefNum33Cur = 1
+					DefNum34Cur = 1
+					DefNum35Cur = 1
+					DefNum36Cur = 1
+					DefNum33 = NumberList2[1]
+					DefNum34 = NumberList1[1]
+					DefNum35 = NumberList1[1]
+					DefNum36 = NumberList1[1]
+				end
 			end
 		end, null, null)
 
@@ -7760,27 +7769,29 @@
 			return "Set Rank: " .. NewRank
 		end,
 		function()
-			stats.set_int(MPX() .. "CHAR_SET_RP_GIFT_ADMIN", RPtoRank[NewRank])
-			if b16 == true then
-				stats.set_int("MPPLY_GLOBALXP", RPtoRank[NewRank])
-			end
-			if b6 == false then
-				sleep(2)
-				globals.set_int(1575020, 8)
-				globals.set_int(1574589, 1)
-				sleep(3)
-				globals.set_int(1574589, 0)
-			end
-			if a79 == true then
-				sleep(1)
-				DefNum29Cur = 1
-				DefNum30Cur = 1
-				DefNum31Cur = 1
-				DefNum32Cur = 1
-				DefNum29 = NumberList2[1]
-				DefNum30 = NumberList1[1]
-				DefNum31 = NumberList1[1]
-				DefNum32 = NumberList1[1]
+			if NewRank ~= "Not Selected" then
+				stats.set_int(MPX() .. "CHAR_SET_RP_GIFT_ADMIN", RPtoRank[NewRank])
+				if b16 == true then
+					stats.set_int("MPPLY_GLOBALXP", RPtoRank[NewRank])
+				end
+				if b6 == false then
+					sleep(2)
+					globals.set_int(1575020, 8)
+					globals.set_int(1574589, 1)
+					sleep(3)
+					globals.set_int(1574589, 0)
+				end
+				if a79 == true then
+					sleep(1)
+					DefNum29Cur = 1
+					DefNum30Cur = 1
+					DefNum31Cur = 1
+					DefNum32Cur = 1
+					DefNum29 = NumberList2[1]
+					DefNum30 = NumberList1[1]
+					DefNum31 = NumberList1[1]
+					DefNum32 = NumberList1[1]
+				end
 			end
 		end, null, null)
 
@@ -8084,16 +8095,16 @@
 				a61 = 1
 			elseif AreWarVeh == 2 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 24)
-				stats.set_int(MPX() .. "ARENAWARS_AP", 249)
+				stats.set_int(MPX() .. "ARENAWARS_AP", 289)
 			elseif AreWarVeh == 3 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 49)
-				stats.set_int(MPX() .. "ARENAWARS_AP", 479)
+				stats.set_int(MPX() .. "ARENAWARS_AP", 539)
 			elseif AreWarVeh == 4 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 74)
-				stats.set_int(MPX() .. "ARENAWARS_AP", 749)
+				stats.set_int(MPX() .. "ARENAWARS_AP", 789)
 			elseif AreWarVeh == 5 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 99)
-				stats.set_int(MPX() .. "ARENAWARS_AP", 999)
+				stats.set_int(MPX() .. "ARENAWARS_AP", 1039)
 			elseif AreWarVeh == 6 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 199)
 				stats.set_int(MPX() .. "ARENAWARS_AP", 2039)
@@ -8102,27 +8113,53 @@
 				stats.set_int(MPX() .. "ARENAWARS_AP", 3039)
 			elseif AreWarVeh == 8 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 499)
-				stats.set_int(MPX() .. "ARENAWARS_AP", 4999)
+				stats.set_int(MPX() .. "ARENAWARS_AP", 5039)
 			elseif AreWarVeh == 9 then
 				stats.set_int(MPX() .. "ARENAWARS_AP_TIER", 999)
-				stats.set_int(MPX() .. "ARENAWARS_AP", 10029)
+				stats.set_int(MPX() .. "ARENAWARS_AP", 10039)
 			end
+			a61 = AreWarVeh
 			if AreWarVeh > 1 then
 				if b7 == false then
 					sleep(2)
-					globals.set_int(1575020, 8)
+					globals.set_int(1575020, 0)
 					globals.set_int(1574589, 1)
 					sleep(3)
 					globals.set_int(1574589, 0)
 				end
 			end
-			a61 = AreWarVeh
 		end)
 
 	ArenaWar:add_action("Suicide", function() menu.suicide_player() end)
 
 			b7 = false
 	ArenaWar:add_toggle("Fix Story Mode Issue", function() return b7 end, function() b7 = not b7 end)
+
+	ArenaWarDM = ArenaWar:add_submenu("Detailed Method")
+
+	ArenaWarDM:add_int_range("Sponsorship Tier", 1, 0, 1000,
+		function()
+			return stats.get_int(MPX() .. "ARENAWARS_AP_TIER")
+		end,
+		function(SpoTie)
+			stats.set_int(MPX() .. "ARENAWARS_AP_TIER", SpoTie)
+		end)
+
+	ArenaWarDM:add_int_range("Arena Points", 10, 0, 10040,
+		function()
+			return stats.get_int(MPX() .. "ARENAWARS_AP")
+		end,
+		function(ArePoi)
+			stats.set_int(MPX() .. "ARENAWARS_AP", ArePoi)
+		end)
+
+	ArenaWarDM:add_action("Change Session",
+		function()
+			globals.set_int(1575020, 8)
+			globals.set_int(1574589, 1)
+			sleep(3)
+			globals.set_int(1574589, 0)
+		end)
 
 	ArenaWar:add_action("", null)
 
@@ -8148,20 +8185,6 @@
 
 	BunkerUnlocks = FacilitiesUnlocks:add_submenu("Bunker")
 
-	BunkerUnlocks:add_action("Unlock All (Temporarily)",
-		function()
-			for i = 0, 63 do
-				for j = 0, 2 do
-					stats.set_bool_masked(MPX() .. "DLCGUNPSTAT_BOOL" .. j, true, i, MPX())
-				end
-				for j = 0, 5 do
-					stats.set_bool_masked(MPX() .. "GUNTATPSTAT_BOOL" .. j, true, i, MPX())
-				end
-			end
-		end)
-
-	PBunkerUnlocks = BunkerUnlocks:add_submenu("Unlock All (Permanently)")
-
 			a63 = false
 		local function ResUnlocker(Enabled)
 			if Enabled then
@@ -8185,14 +8208,14 @@
 				sleep(11)
 			end
 		end
-	PBunkerUnlocks:add_toggle("Unlock All", function() return a63 end, function() a63 = not a63 ResUnlocker(a63) end)
+	BunkerUnlocks:add_toggle("Unlock All", function() return a63 end, function() a63 = not a63 ResUnlocker(a63) end)
 
-	PBunkerUnlocks:add_action("", null)
+	BunkerUnlocks:add_action("", null)
 
-	PBunkerUnlocksNote = PBunkerUnlocks:add_submenu("Read Me")
+	BunkerUnlocksNote = BunkerUnlocks:add_submenu("Read Me")
 
-	PBunkerUnlocksNote:add_action("         Set staff equally, activate and", null)
-	PBunkerUnlocksNote:add_action(" then all researches will unlock one by one", null)
+	BunkerUnlocksNote:add_action("         Set staff equally, activate and", null)
+	BunkerUnlocksNote:add_action(" then all researches will unlock one by one", null)
 
 --LS Car Meet--
 
@@ -8503,6 +8526,17 @@
 --Misc--
 
 	Misc = UnlockTool:add_submenu("Misc (Safe)")
+
+			b18 = 0
+	Misc:add_int_range("Acquire Chips Limit", 1000000, 0, 2147483646,
+		function()
+			return b18
+		end,
+		function(ChiBuyLim)
+			globals.set_int(262145 + 27167, ChiBuyLim)
+			globals.set_int(262145 + 27168, ChiBuyLim)
+			b18 = ChiBuyLim
+		end)
 
 			a74 = 1
 	Misc:add_array_item("Bad Sport Label", {"Select", "Add", "Remove"},
@@ -9041,6 +9075,13 @@
 			end
 		end)
 
+	Misc:add_action("Unlock Diamond Casino Outfits", function()
+		stats.set_bool_masked(MPX .. "CASINOHSTPSTAT_BOOL1", true, 63)
+		for i = 0, 22 do
+			stats.set_bool_masked(MPX .. "CASINOHSTPSTAT_BOOL2", true, i)
+		end
+	end)
+
 	Misc:add_action("Unlock Flight School Gold Medals",
 		function()
 			stats.set_int("MPPLY_NUM_CAPTURES_CREATED", 100)
@@ -9082,7 +9123,7 @@
 	Credits:add_action("Helpers #1: Mr. Robot, Big Smoke, gaymer", null)
 	Credits:add_action("Helpers #2: Killa`B, Slon, L7NEG", null)
 	Credits:add_action("Helpers #3: Professor, Zeiger", null)
-	Credits:add_action("Helpers #4: Amnesia, Pewpew", null)
+	Credits:add_action("Helpers #4: Amnesia, Pewpew, CheatChris", null)
 	Credits:add_action("", null)
 	Credits:add_action("Discord: silentsalo", null)
 
