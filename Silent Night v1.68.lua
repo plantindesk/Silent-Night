@@ -1,4 +1,4 @@
----[[ Developer: Silent, Last Changes: January 08 2024 ]]---
+---[[ Developer: Silent, Last Changes: January 17 2024 ]]---
 
 --Game Version & Submenu Start--
 
@@ -24,7 +24,7 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		end
 	end
 
-	local function ChangeSession(session)
+	local function SessionChanger(session)
 		globals.set_int(CSg1, session)
 		if session == -1 then
 			globals.set_int(CSg3, -1)
@@ -35,7 +35,7 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		globals.set_int(CSg2, 0)
 	end
 
-	local function FormatMoney(n)
+	local function MoneyFormatter(n)
 		n = tostring(n)
 		return n:reverse():gsub("%d%d%d", "%1,"):reverse():gsub("^,", "")
 	end
@@ -163,29 +163,30 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		CR = script("casinoroulette")
 		CS = script("casino_slots")
 		TCP = script("three_card_poker")
+		GS = script("gb_smuggler")
 
 --Globals & Locals & Variables--
 
 		FMg = 262145 -- free mode global ("CASH_MULTIPLIER")
-		APg = 32071 -- agency payout global ("FIXER_FINALE_LEADER_CASH_REWARD")
+		APg = FMg + 32071 -- agency payout global ("FIXER_FINALE_LEADER_CASH_REWARD")
 		AIFl1 = 38397 -- agency instant finish local 1 (outdated)
 		AIFl2 = 39772 -- agency instant finish local 2 (outdated)
-		ACKg = 32022 -- agency cooldown killer global ("FIXER_STORY_COOLDOWN_POSIX")
-		ASPg1 = 31323 + 1 -- auto shop payout global 1 ("TUNER_ROBBERY_LEADER_CASH_REWARD0")
-		ASPg2 = 31323 + 8 -- auto shop payout global 2 ("TUNER_ROBBERY_LEADER_CASH_REWARD7")
-		ASCKg = 31342 -- auto shop cooldown global ("TUNER_ROBBERY_COOLDOWN_TIME")
+		ACKg = FMg + 32022 -- agency cooldown killer global ("FIXER_STORY_COOLDOWN_POSIX")
+		ASPg1 = FMg + 31323 + 1 -- auto shop payout global 1 ("TUNER_ROBBERY_LEADER_CASH_REWARD0")
+		ASPg2 = FMg + 31323 + 8 -- auto shop payout global 2 ("TUNER_ROBBERY_LEADER_CASH_REWARD7")
+		ASCKg = FMg + 31342 -- auto shop cooldown global ("TUNER_ROBBERY_COOLDOWN_TIME")
 		ASIFl1 = 48513 + 1 -- auto shop instant finish local 1
-		ASIFl2 = 48513 + 1378 + 1 -- auto shop finish local 2
+		ASIFl2 = 48513 + 1765 + 1 -- auto shop finish local 2
 		ACg1 = 1928233 + 1 + 1 -- global apartment player 1 cut global
 		ACg2 = 1928233 + 1 + 2 -- global apartment player 2 cut global
 		ACg3 = 1928233 + 1 + 3 -- global apartment player 3 cut global
 		ACg4 = 1928233 + 1 + 4 -- global apartment player 4 cut global
 		ACg5 = 1930201 + 3008 + 1 -- local apartment player 1 cut global
-		AUAJg1 = 9237 -- apartment unlock all jobs global 1 ("ROOT_ID_HASH_THE_FLECCA_JOB")
-		AUAJg2 = 9242 -- apartment unlock all jobs global 2 ("ROOT_ID_HASH_THE_PRISON_BREAK")
-		AUAJg3 = 9249 -- apartment unlock all jobs global 3 ("ROOT_ID_HASH_THE_HUMANE_LABS_RAID")
-		AUAJg4 = 9255 -- apartment unlock all jobs global 4 ("ROOT_ID_HASH_SERIES_A_FUNDING")
-		AUAJg5 = 9261 -- apartment unlock all jobs global 5 ("ROOT_ID_HASH_THE_PACIFIC_STANDARD_JOB")
+		AUAJg1 = FMg + 9237 -- apartment unlock all jobs global 1 ("ROOT_ID_HASH_THE_FLECCA_JOB")
+		AUAJg2 = FMg + 9242 -- apartment unlock all jobs global 2 ("ROOT_ID_HASH_THE_PRISON_BREAK")
+		AUAJg3 = FMg + 9249 -- apartment unlock all jobs global 3 ("ROOT_ID_HASH_THE_HUMANE_LABS_RAID")
+		AUAJg4 = FMg + 9255 -- apartment unlock all jobs global 4 ("ROOT_ID_HASH_SERIES_A_FUNDING")
+		AUAJg5 = FMg + 9261 -- apartment unlock all jobs global 5 ("ROOT_ID_HASH_THE_PACIFIC_STANDARD_JOB")
 		AIFl3 = 19728 -- apartment instant finish local 1
 		AIFl4 = 28347 + 1 -- apartment instant finish local 2
 		AIFl5 = 31603 + 69 -- apartment instant finish local 3
@@ -197,10 +198,10 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		CPCg3 = 1970744 + 831 + 56 + 3 -- cayo perico player 3 cut global
 		CPCg4 = 1970744 + 831 + 56 + 4 -- cayo perico player 4 cut global
 		GCg = 2685249 + 6615 -- global cut global (value2 = value2 * (num / 100f);)
-		CPBl = 30009 -- cayo perico bag local (1859395035)
+		CPBg = FMg + 30009 -- cayo perico bag global (1859395035)
 		CPFHl = 24333 -- cayo perico fingerprint hack local
 		CPPCCl = 30357 + 3 -- cayo perico plasma cutter cut local ("DLC_H4_anims_glass_cutter_Sounds")
-		CPSTCl = 29118 -- cayo perico sewer tunnel cut local
+		CPSTCl = 29118 -- cayo perico drainage pipe cut local
 		CPIFl1 = 48513 + 1 -- cayo perico instant finish local 1
 		CPIFl2 = 48513 + 1765 + 1 -- cayo perico instant finish local 2
 		DCCg1 = 1963945 + 1497 + 736 + 92 + 1 -- diamond casino player 1 cut global
@@ -223,22 +224,20 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		DIFl2 = 19728 + 2686 -- doomsday instant finish local 2
 		DIFl3 = 28347 + 1 -- doomsday instant finish local 3
 		DIFl4 = 31603 + 69 -- doomsday instant finish local 4
-		SYRTg = 34080 -- salvage yard robbery type global ("SALV23_VEHICLE_ROBBERY_0")
-		SYCKg = 34084 -- salvage yard can keep global ("SALV23_VEHICLE_ROBBERY_CAN_KEEP_0")
-		SYVTg1 = 34088 + 1 -- salvage yard vehicle type global 1 ("SALV23_VEHICLE_ROBBERY_ID_0")
-		SYVTg2 = 34088 + 2 -- salvage yard vehicle type global 2 ("SALV23_VEHICLE_ROBBERY_ID_1")
-		SYVTg3 = 34088 + 3 -- salvage yard vehicle type global ("SALV23_VEHICLE_ROBBERY_ID_2")
-		SYVVg = 34092 -- salvage yard vehicle value global ("SALV23_VEHICLE_ROBBERY_VALUE_0")
-		SYWCg = 34108 -- salvage yard weekly cooldown global (488207018)
-		SYCg1 = 34118 --  salvage yard cooldown global ("SALV23_VEH_ROB_COOLDOWN_TIME")
-		SYCg2 = 34119 --  salvage yard cooldown global ("SALV23_CFR_COOLDOWN_TIME")
-		SYCPg = 34129 -- salvage yard claim price global ("SALV23_VEHICLE_CLAIM_PRICE")
-		SYCPDg = 34130 -- salvage yard claim price discount global ("SALV23_VEHICLE_CLAIM_PRICE_FORGERY_DISCOUNT")
-		SYSMg = 34100 -- salvage yard salvage multiplier global ("SALV23_VEHICLE_SALVAGE_VALUE_MULTIPLIER")
-		SYSPg = 36063 -- salvage yard setup price global (71522671)
+		SYRTg = FMg + 34080 -- salvage yard robbery type global ("SALV23_VEHICLE_ROBBERY_0")
+		SYCKg = FMg + 34084 -- salvage yard can keep global ("SALV23_VEHICLE_ROBBERY_CAN_KEEP_0")
+		SYVTg = FMg + 34088 -- salvage yard vehicle type global 1 ("SALV23_VEHICLE_ROBBERY_ID_0")
+		SYVVg = FMg + 34092 -- salvage yard vehicle value global ("SALV23_VEHICLE_ROBBERY_VALUE_0")
+		SYWCg = FMg + 34108 -- salvage yard weekly cooldown global (488207018)
+		SYCg1 = FMg + 34118 --  salvage yard cooldown global ("SALV23_VEH_ROB_COOLDOWN_TIME")
+		SYCg2 = FMg + 34119 --  salvage yard cooldown global ("SALV23_CFR_COOLDOWN_TIME")
+		SYCPg = FMg +  34129 -- salvage yard claim price global ("SALV23_VEHICLE_CLAIM_PRICE")
+		SYCPDg = FMg + 34130 -- salvage yard claim price discount global ("SALV23_VEHICLE_CLAIM_PRICE_FORGERY_DISCOUNT")
+		SYSMg = FMg + 34100 -- salvage yard salvage multiplier global ("SALV23_VEHICLE_SALVAGE_VALUE_MULTIPLIER")
+		SYSPg = FMg + 36063 -- salvage yard setup price global (71522671)
 		BCISl = 1983 -- bunker crash instant sell local
-		CMACLg1 = 27237 -- casino master acquire chips limit global 1 ("VC_CASINO_CHIP_MAX_BUY")
-		CMACLg2 = 27238 -- casino master acquire chips limit global 2 ("VC_CASINO_CHIP_MAX_BUY_PENTHOUSE")
+		CMACLg1 = FMg + 27237 -- casino master acquire chips limit global 1 ("VC_CASINO_CHIP_MAX_BUY")
+		CMACLg2 = FMg + 27238 -- casino master acquire chips limit global 2 ("VC_CASINO_CHIP_MAX_BUY_PENTHOUSE")
 		CMBJCl = 114 -- casino master bjackjack cards local
 		CMBJDl = 846 -- casino master bjackjack decks local
 		CMBJPTl = 1774 -- casino master bjackjack player's table local
@@ -256,23 +255,30 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		CMROTl = 1357 -- casino master roulette outcomes table local
 		CMRBTl = 153 -- casino master roulette ball table local
 		CMSRRTl = 1346 -- casino master slots random results table local
+		HCVSCg1 = FMg + 22961 -- hangar cargo vip source cooldown global ("SMUG_STEAL_EASY_COOLDOWN_TIMER")
+		HCVACg = FMg + 22964 -- hangar cargo vip additional cooldown global (1722502526)
+		HCVSCg2 = FMg + 23002 -- hangar cargo vip sale cooldown global (-1525481945)
+		HCVPg = FMg + 23020 -- hangar cargo vip payout global (-954321460)
+		HCVRCg = FMg + 23003 -- hangar cargo vip ron's cut (1232447926)
+		HCVISl1 = 1932 + 1078 -- hangar cargo vip instant sell local 1
+		HCVISl2 = 2700 -- hangar cargo vip instant sell local 2
 		CRg = 2707037 + 36 -- cash remover global (/*You paid $~1~ to repair this vehicle for storage.*/)
-		NHCNSg = 24599 -- nightclub helper cargo n shipments global (1162393585)
-		NHSGg = 24593 -- nightclub helper sporting goods global (-1523050891)
-		NHSAIg = 24594 -- nightclub helper s.a. imports global (147773667)
-		NHPRg = 24595 -- nightclub helper pharmaceutical reseacrh global (-1188700671)
-		NHOPg = 24596 -- nightclub helper organic produce global (-1188963032)
-		NHPNCg = 24597 -- nightclub helper printing n copying global (967514627)
-		NHCCg = 24598 -- nightclub helper cash creation global (1983962738)
-		NHCKg1 = 24659 -- nightclub helper cooldown killer global 1 (1763921019)
-		NHCKg2 = 24701 -- nightclub helper cooldown killer global 2 (-1004589438)
-		NHCKg3 = 24702 -- nightclub helper cooldown killer global 3 (464940095)
+		NHCNSg = FMg + 24599 -- nightclub helper cargo n shipments global (1162393585)
+		NHSGg = FMg + 24593 -- nightclub helper sporting goods global (-1523050891)
+		NHSAIg = FMg + 24594 -- nightclub helper s.a. imports global (147773667)
+		NHPRg = FMg + 24595 -- nightclub helper pharmaceutical reseacrh global (-1188700671)
+		NHOPg = FMg + 24596 -- nightclub helper organic produce global (-1188963032)
+		NHPNCg = FMg + 24597 -- nightclub helper printing n copying global (967514627)
+		NHCCg = FMg + 24598 -- nightclub helper cash creation global (1983962738)
+		NHCKg1 = FMg + 24659 -- nightclub helper cooldown killer global 1 (1763921019)
+		NHCKg2 = FMg + 24701 -- nightclub helper cooldown killer global 2 (-1004589438)
+		NHCKg3 = FMg + 24702 -- nightclub helper cooldown killer global 3 (464940095)
 		CSg1 = 1575032 -- change session (type) global 1 (NETWORK::UGC_SET_USING_OFFLINE_CONTENT(false);)
 		CSg2 = 1574589 -- change session (switch) global 2 ("MP_POST_MATCH_TRANSITION_SCENE")
 		CSg3 = 1574589 + 2 -- change session (quit) global 3 ("MP_POST_MATCH_TRANSITION_SCENE")
-		SCVPg = 15991 -- special cargo vip price global ("EXEC_CONTRABAND_SALE_VALUE_THRESHOLD1")
-		SCVCKg1 = 15756 -- special cargo vip cooldown global 1 ("EXEC_BUY_COOLDOWN")
-		SCVCKg2 = 15757 -- special cargo vip cooldown global 2 ("EXEC_SELL_COOLDOWN")
+		SCVPg = FMg + 15991 -- special cargo vip price global ("EXEC_CONTRABAND_SALE_VALUE_THRESHOLD1")
+		SCVCKg1 = FMg + 15756 -- special cargo vip cooldown global 1 ("EXEC_BUY_COOLDOWN")
+		SCVCKg2 = FMg + 15757 -- special cargo vip cooldown global 2 ("EXEC_SELL_COOLDOWN")
 		BTEg1 = 4537356 -- bypass transaction error global 1
 		BTEg2 = 4537357 -- bypass transaction error global 2
 		BTEg3 = 4537358 -- bypass transaction error global 3
@@ -290,16 +296,10 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		SCVIBl4 = 601 + 192 -- special cargo vip instant buy local 4
 		CLg = 1963515 -- cheap loop global ("MPPLY_CASINO_MEM_BONUS")
 		TTg = 4537212 -- trigger transaction global
-		TTg1 = TTg + 1 -- trigger transaction global 1
-		TTg2 = TTg + 7 -- trigger transaction global 2
-		TTg3 = TTg + 6 -- trigger transaction global 3
-		TTg4 = TTg + 5 -- trigger transaction global 4
-		TTg5 = TTg + 3 -- trigger transaction global 5
-		TTg6 = TTg + 2 -- trigger transaction global 6
 		NLCl = 183 + 32 + 1 -- night loop collect local
-		NLSCg = 24257 -- night loop safe capacity global ("NIGHTCLUBMAXSAFEVALUE")
-		NLISg = 24234 -- night loop income start global ("NIGHTCLUBINCOMEUPTOPOP5")
-		NLIEg = 24253 -- night loop income end global ("NIGHTCLUBINCOMEUPTOPOP100")
+		NLSCg = FMg + 24257 -- night loop safe capacity global ("NIGHTCLUBMAXSAFEVALUE")
+		NLISg = FMg + 24234 -- night loop income start global ("NIGHTCLUBINCOMEUPTOPOP5")
+		NLIEg = FMg + 24253 -- night loop income end global ("NIGHTCLUBINCOMEUPTOPOP100")
 		ORg = 1961347 -- orbital refund global ("ORB_CAN_QUIT1")
 		AUg = 4543283 + 1 -- achievements unlocker global (PLAYER::HAS_ACHIEVEMENT_BEEN_PASSED(iParam0) && iParam1 == 1)
 		CUg = 2707706 -- collectibles unlocker global ("cellphone_badger")
@@ -310,88 +310,73 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		So = 600 -- snowmen offset
 		MPo = 494 -- movie props offset
 		JOLo = 591 -- jack o lanterns offset
-		SCCg = 19321 -- sex changer change appearance cooldown global ("CHARACTER_APPEARANCE_COOLDOWN")
-		BUCg1 = 21505 -- bunker unlocker cooldown global 1 (946764522)
-		BUCg2 = 21757 -- bunker unlocker cooldown global 2 ("GR_RESEARCH_CAPACITY")
-		BUCg3 = 21758 -- bunker unlocker cooldown global 3 ("GR_RESEARCH_PRODUCTION_TIME")
-		BUCg4 = 21759 -- bunker unlocker cooldown global 4 ("GR_RESEARCH_UPGRADE_EQUIPMENT_REDUCTION_TIME")
-		BUAg1 = 21761 -- bunker unlocker additional global 1 (1485279815)
-		BUAg2 = 21762 -- bunker unlocker additional global 2 (2041812011)
-		LSCMMg1 = 31944 -- ls car meet multiplier global 1 ("TUNER_SPRINT_FIRST_TIME_BONUS_XP_MULTIPLIER")
-		LSCMMg2 = 31973 -- ls car meet multiplier global 2 ("TUNER_MERCH_PURCHASE_XP_MULTIPLIER")
-		GSIg1 = 1662873 + 1 -- get supplies (cash) instantly global ("OR_PSUP_DEL)
-		GSIg2 = 1662873 + 2 -- get supplies (coke) instantly global ("OR_PSUP_DEL)
-		GSIg3 = 1662873 + 3 -- get supplies (weed) instantly global ("OR_PSUP_DEL)
-		GSIg4 = 1662873 + 4 -- get supplies (meth) instantly global ("OR_PSUP_DEL)
-		GSIg5 = 1662873 + 5 -- get supplies (documents) instantly global ("OR_PSUP_DEL)
-		GSIg6 = 1662873 + 6 -- get supplies (bunker) instantly global ("OR_PSUP_DEL)
-		GSIg7 = 1662873 + 7 -- get supplies (acid) instantly global ("OR_PSUP_DEL)
+		SCCg = FMg + 19321 -- sex changer change appearance cooldown global ("CHARACTER_APPEARANCE_COOLDOWN")
+		BUCg1 = FMg + 21505 -- bunker unlocker cooldown global 1 (946764522)
+		BUCg2 = FMg + 21757 -- bunker unlocker cooldown global 2 ("GR_RESEARCH_CAPACITY")
+		BUCg3 = FMg + 21758 -- bunker unlocker cooldown global 3 ("GR_RESEARCH_PRODUCTION_TIME")
+		BUCg4 = FMg + 21759 -- bunker unlocker cooldown global 4 ("GR_RESEARCH_UPGRADE_EQUIPMENT_REDUCTION_TIME")
+		BUAg1 = FMg + 21761 -- bunker unlocker additional global 1 (1485279815)
+		BUAg2 = FMg + 21762 -- bunker unlocker additional global 2 (2041812011)
+		LSCMMg1 = FMg + 31944 -- ls car meet multiplier global 1 ("TUNER_SPRINT_FIRST_TIME_BONUS_XP_MULTIPLIER")
+		LSCMMg2 = FMg + 31973 -- ls car meet multiplier global 2 ("TUNER_MERCH_PURCHASE_XP_MULTIPLIER")
+		GSIg = 1662873 -- get supplies instantly global ("OR_PSUP_DEL)
 		GVLg = 2652572 + 2650 + 1 -- gun van location global (NETWORK::NETWORK_GET_NUM_PARTICIPANTS())
-		GVWSg1 = 34328 + 1 -- modify gun van weapon slot 1 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_0")
-		GVWSg2 = 34328 + 2 -- modify gun van weapon slot 2 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_1")
-		GVWSg3 = 34328 + 3 -- modify gun van weapon slot 3 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_2")
-		GVWSg4 = 34328 + 4 -- modify gun van weapon slot 4 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_3")
-		GVWSg5 = 34328 + 5 -- modify gun van weapon slot 5 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_4")
-		GVWSg6 = 34328 + 6 -- modify gun van weapon slot 6 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_5")
-		GVWSg7 = 34328 + 7 -- modify gun van weapon slot 7 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_6")
-		GVWSg8 = 34328 + 8 -- modify gun van weapon slot 8 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_7")
-		GVWSg9 = 34328 + 9 -- modify gun van weapon slot 9 global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_8")
-		GVTSg1 = 34350 + 1 -- modify gun van throwable slot 1 global ("XM22_GUN_VAN_SLOT_THROWABLE_TYPE_0")
-		GVTSg2 = 34350 + 2 -- modify gun van throwable slot 2 global ("XM22_GUN_VAN_SLOT_THROWABLE_TYPE_1")
-		GVTSg3 = 34350 + 3 -- modify gun van throwable slot 3 global ("XM22_GUN_VAN_SLOT_THROWABLE_TYPE_2")
-		GVWDg = 34339 -- modify gun van weapon slot 1 discount global ("XM22_GUN_VAN_SLOT_WEAPON_DISCOUNT_0")
-		GVTDg = 34354 -- modify gun van throwable discount global ("XM22_GUN_VAN_SLOT_THROWABLE_DISCOUNT_0")
-		GVADg = 34358 -- modify gun van armor discount global ("XM22_GUN_VAN_SLOT_ARMOUR_DISCOUNT_0")
-		GVSg = 34365 -- modify gun van skins for knife and bat (1490225691)
-		EVg1 = 14936 -- enable vehicles global 1 ("ENABLE_LOWRIDER2_VIRGO3")
-		EVg2 = 14941 -- enable vehicles global 2 ("ENABLE_LOWRIDER2_SLAMVAN")
-		EVg3 = 17682 -- enable vehicles global 3 ("ENABLE_BIKER_DEFILER")
-		EVg4 = 17703 -- enable vehicles global 4 ("ENABLE_BIKER_RATBIKE")
-		EVg5 = 19341 -- enable vehicles global 5 ("ENABLE_IE_VOLTIC2")
-		EVg6 = 19365 -- enable vehicles global 6 ("ENABLE_IE_TEMPESTA")
-		EVg7 = 21304 -- enable vehicles global 7 ("ENABLE_XA21")
-		EVg8 = 21309 -- enable vehicles global 8 ("ENABLE_NIGHTSHARK")
-		EVg9 = 22103 -- enable vehicles global 9 ("ENABLE_ULTRALIGHT")
-		EVg10 = 22122 -- enable vehicles global 10 ("ENABLE_LAZER")
-		EVg11 = 23071 -- enable vehicles global 11 ("ENABLE_DELUXO")
-		EVg12 = 23098 -- enable vehicles global 12 ("ENABLE_KAMACHO")
-		EVg13 = 24292 -- enable vehicles global 13 ("ENABLE_HOTRING")
-		EVg14 = 24307 -- enable vehicles global 14 ("ENABLE_JESTER3")
-		EVg15 = 24383 -- enable vehicles global 15 ("ENABLE_TERBYTE")
-		EVg16 = 24405 -- enable vehicles global 16 ("ENABLE_HABANERO")
-		EVg17 = 26039 -- enable vehicles global 17 ("ENABLE_VEHICLE_TOROS")
-		EVg18 = 26045 -- enable vehicles global 18 ("ENABLE_VEHICLE_BANDITO")
-		EVg19 = 26050 -- enable vehicles global 19 ("ENABLE_VEHICLE_THRAX")
-		EVg20 = 26070 -- enable vehicles global 20 ("ENABLE_VEHICLE_PARAGON")
-		EVg21 = 27026 -- enable vehicles global 21 ("ENABLE_VEHICLE_DEVESTE")
-		EVg22 = 27027 -- enable vehicles global 22 ("ENABLE_VEHICLE_VAMOS")
-		EVg23 = 28888 -- enable vehicles global 23 ("ENABLE_VEHICLE_FORMULA_PODIUM")
-		EVg24 = 28910 -- enable vehicles global 24 ("ENABLE_VEHICLE_BLAZER2")
-		EVg25 = 28933 -- enable vehicles global 25 ("ENABLE_VEHICLE_FORMULA")
-		EVg26 = 28936 -- enable vehicles global 26 ("ENABLE_VEHICLE_FORMULA2")
-		EVg27 = 28941 -- enable vehicles global 27 ("ENABLE_VEHICLE_IMORGEN")
-		EVg28 = 28943 -- enable vehicles global 28 ("ENABLE_VEHICLE_VSTR")
-		EVg29 = 29953 -- enable vehicles global 29 ("ENABLE_VEH_TIGON")
-		EVg30 = 29611 -- enable vehicles global 30 ("ENABLE_VEH_DUKES3")
-		EVg31 = 30418 -- enable vehicles global 31 ("ENABLE_VEHICLE_TOREADOR")
-		EVg32 = 30434 -- enable vehicles global 32 ("ENABLE_VEHICLE_VERUS")
-		EVg33 = 31290 -- enable vehicles global 33 ("ENABLE_VEHICLE_TAILGATER2")
-		EVg34 = 31306 -- enable vehicles global 34 ("ENABLE_VEHICLE_COMET6")
-		EVg35 = 32214 -- enable vehicles global 35 ("ENABLE_VEHICLE_CHAMPION")
-		EVg36 = 32228 -- enable vehicles global 36 ("ENABLE_VEHICLE_BALLER7")
-		EVg37 = 33463 -- enable vehicles global 37 ("ENABLE_VEHICLE_OMNISEGT")
-		EVg38 = 33481 -- enable vehicles global 38 ("ENABLE_VEHICLE_SENTINEL4")
-		EVg39 = 34446 -- enable vehicles global 39 ("ENABLE_VEHICLE_ENTITY3")
-		EVg40 = 34461 -- enable vehicles global 40 ("ENABLE_VEHICLE_BOOR")
-		EVg41 = 35402 -- enable vehicles global 41 ("ENABLE_VEHICLE_EXEMPLAR")
-		EVg42 = 35678 -- enable vehicles global 42 ("ENABLE_VEHICLE_MONSTER")
-		EVg43 = 35697 -- enable vehicles global 43 ("ENABLE_VEHICLE_L35")
-		EVg44 = 35709 -- enable vehicles global 44 ("ENABLE_VEHICLE_BRIGHAM")
-		EVg47 = 24414 -- enable vehicles global 47 ("ENABLE_COQUETTE_MODS")
-		EDVg1 = 36285 -- enable dripfeed vehicles global 1 ("ENABLE_VEHICLE_FR36")
-		EDVg2 = 36304 -- enable dripfeed vehicles global 2 ("ENABLE_VEHICLE_BENSON2")
+		GVWSg = FMg + 34328 -- modify gun van weapon slot global ("XM22_GUN_VAN_SLOT_WEAPON_TYPE_0")
+		GVTSg = FMg + 34350 -- modify gun van throwable slot 1 global ("XM22_GUN_VAN_SLOT_THROWABLE_TYPE_0")
+		GVWDg = FMg + 34339 -- modify gun van weapon slot 1 discount global ("XM22_GUN_VAN_SLOT_WEAPON_DISCOUNT_0")
+		GVTDg = FMg + 34354 -- modify gun van throwable discount global ("XM22_GUN_VAN_SLOT_THROWABLE_DISCOUNT_0")
+		GVADg = FMg + 34358 -- modify gun van armor discount global ("XM22_GUN_VAN_SLOT_ARMOUR_DISCOUNT_0")
+		GVSg = FMg + 34365 -- modify gun van skins for knife and bat (1490225691)
+		EVg1 = FMg + 14936 -- enable vehicles global 1 ("ENABLE_LOWRIDER2_VIRGO3")
+		EVg2 = FMg + 14941 -- enable vehicles global 2 ("ENABLE_LOWRIDER2_SLAMVAN")
+		EVg3 = FMg + 17682 -- enable vehicles global 3 ("ENABLE_BIKER_DEFILER")
+		EVg4 = FMg + 17703 -- enable vehicles global 4 ("ENABLE_BIKER_RATBIKE")
+		EVg5 = FMg + 19341 -- enable vehicles global 5 ("ENABLE_IE_VOLTIC2")
+		EVg6 = FMg + 19365 -- enable vehicles global 6 ("ENABLE_IE_TEMPESTA")
+		EVg7 = FMg + 21304 -- enable vehicles global 7 ("ENABLE_XA21")
+		EVg8 = FMg + 21309 -- enable vehicles global 8 ("ENABLE_NIGHTSHARK")
+		EVg9 = FMg + 22103 -- enable vehicles global 9 ("ENABLE_ULTRALIGHT")
+		EVg10 = FMg + 22122 -- enable vehicles global 10 ("ENABLE_LAZER")
+		EVg11 = FMg + 23071 -- enable vehicles global 11 ("ENABLE_DELUXO")
+		EVg12 = FMg + 23098 -- enable vehicles global 12 ("ENABLE_KAMACHO")
+		EVg13 = FMg + 24292 -- enable vehicles global 13 ("ENABLE_HOTRING")
+		EVg14 = FMg + 24307 -- enable vehicles global 14 ("ENABLE_JESTER3")
+		EVg15 = FMg + 24383 -- enable vehicles global 15 ("ENABLE_TERBYTE")
+		EVg16 = FMg + 24405 -- enable vehicles global 16 ("ENABLE_HABANERO")
+		EVg17 = FMg + 26039 -- enable vehicles global 17 ("ENABLE_VEHICLE_TOROS")
+		EVg18 = FMg + 26045 -- enable vehicles global 18 ("ENABLE_VEHICLE_BANDITO")
+		EVg19 = FMg + 26050 -- enable vehicles global 19 ("ENABLE_VEHICLE_THRAX")
+		EVg20 = FMg + 26070 -- enable vehicles global 20 ("ENABLE_VEHICLE_PARAGON")
+		EVg21 = FMg + 27026 -- enable vehicles global 21 ("ENABLE_VEHICLE_DEVESTE")
+		EVg22 = FMg + 27027 -- enable vehicles global 22 ("ENABLE_VEHICLE_VAMOS")
+		EVg23 = FMg + 28888 -- enable vehicles global 23 ("ENABLE_VEHICLE_FORMULA_PODIUM")
+		EVg24 = FMg + 28910 -- enable vehicles global 24 ("ENABLE_VEHICLE_BLAZER2")
+		EVg25 = FMg + 28933 -- enable vehicles global 25 ("ENABLE_VEHICLE_FORMULA")
+		EVg26 = FMg + 28936 -- enable vehicles global 26 ("ENABLE_VEHICLE_FORMULA2")
+		EVg27 = FMg + 28941 -- enable vehicles global 27 ("ENABLE_VEHICLE_IMORGEN")
+		EVg28 = FMg + 28943 -- enable vehicles global 28 ("ENABLE_VEHICLE_VSTR")
+		EVg29 = FMg + 29953 -- enable vehicles global 29 ("ENABLE_VEH_TIGON")
+		EVg30 = FMg + 29611 -- enable vehicles global 30 ("ENABLE_VEH_DUKES3")
+		EVg31 = FMg + 30418 -- enable vehicles global 31 ("ENABLE_VEHICLE_TOREADOR")
+		EVg32 = FMg + 30434 -- enable vehicles global 32 ("ENABLE_VEHICLE_VERUS")
+		EVg33 = FMg + 31290 -- enable vehicles global 33 ("ENABLE_VEHICLE_TAILGATER2")
+		EVg34 = FMg + 31306 -- enable vehicles global 34 ("ENABLE_VEHICLE_COMET6")
+		EVg35 = FMg + 32214 -- enable vehicles global 35 ("ENABLE_VEHICLE_CHAMPION")
+		EVg36 = FMg + 32228 -- enable vehicles global 36 ("ENABLE_VEHICLE_BALLER7")
+		EVg37 = FMg + 33463 -- enable vehicles global 37 ("ENABLE_VEHICLE_OMNISEGT")
+		EVg38 = FMg + 33481 -- enable vehicles global 38 ("ENABLE_VEHICLE_SENTINEL4")
+		EVg39 = FMg + 34446 -- enable vehicles global 39 ("ENABLE_VEHICLE_ENTITY3")
+		EVg40 = FMg + 34461 -- enable vehicles global 40 ("ENABLE_VEHICLE_BOOR")
+		EVg41 = FMg + 35402 -- enable vehicles global 41 ("ENABLE_VEHICLE_EXEMPLAR")
+		EVg42 = FMg + 35678 -- enable vehicles global 42 ("ENABLE_VEHICLE_MONSTER")
+		EVg43 = FMg + 35697 -- enable vehicles global 43 ("ENABLE_VEHICLE_L35")
+		EVg44 = FMg + 35709 -- enable vehicles global 44 ("ENABLE_VEHICLE_BRIGHAM")
+		EVg47 = FMg + 24414 -- enable vehicles global 47 ("ENABLE_COQUETTE_MODS")
+		EDVg1 = FMg + 36285 -- enable dripfeed vehicles global 1 ("ENABLE_VEHICLE_FR36")
+		EDVg2 = FMg + 36304 -- enable dripfeed vehicles global 2 ("ENABLE_VEHICLE_BENSON2")
 		INT_MAX = 2147483646 -- max integer value
-		SPACE = "➖ | ➖"
+		SPACE = "➖ | ➖" -- just space
+		README = "Read Me" -- just read me
 
 ---Heist Tool---
 
@@ -424,9 +409,9 @@ Agency:add_action("Complete Preps",
 		stats.set_int(MPX() .. "FIXER_STORY_COOLDOWN", -1)
 	end)
 
-Agency:add_action("Max Payout (after start)", function() globals.set_int(FMg + APg, 2500000) end)
+Agency:add_action("Max Payout (after start)", function() globals.set_int(APg, 2500000) end)
 
-Agency:add_action("Cooldown Killer", function() globals.set_int(FMg + ACKg, 0) end)
+Agency:add_action("Cooldown Killer", function() globals.set_int(ACKg, 0) end)
 
 Agency:add_action("Skip Cutscene", function() menu.end_cutscene() end)
 
@@ -438,7 +423,7 @@ Agency:add_action("Instant Finish (solo only) [Outdated]",
 
 Agency:add_action(SPACE, null)
 
-AgencyNote = Agency:add_submenu("Read Me")
+AgencyNote = Agency:add_submenu(README)
 
 AgencyNote:add_action("                 After all choices and", null)
 AgencyNote:add_action("            pressing «Complete Preps»", null)
@@ -470,14 +455,14 @@ AutoShop:add_action("Complete Preps",
 		end
 	end)
 
-AutoShop:add_action("Max Payout (after start)", function() globals_set_ints(FMg + ASPg1, FMg + ASPg2, 1, 2000000) end)
+AutoShop:add_action("Max Payout (after start)", function() globals_set_ints(ASPg1, ASPg2, 1, 2000000) end)
 
 AutoShop:add_action("Cooldown Killer",
 	function()
 		for i = 0, 7 do
 			stats.set_int(MPX() .. "TUNER_CONTRACT" .. i .. "_POSIX", 0)
 		end
-		globals.set_int(FMg + ASCKg, 0)
+		globals.set_int(ASCKg, 0)
 	end)
 
 AutoShop:add_action("Instant Finish (solo only)",
@@ -488,7 +473,7 @@ AutoShop:add_action("Instant Finish (solo only)",
 
 AutoShop:add_action(SPACE, null)
 
-AutoShopNote = AutoShop:add_submenu("Read Me")
+AutoShopNote = AutoShop:add_submenu(README)
 
 AutoShopNote:add_action("                 After all choices and", null)
 AutoShopNote:add_action("            pressing «Complete Preps»", null)
@@ -498,7 +483,7 @@ AutoShopNote:add_action("       leave autoshop and come back in", null)
 
 Apartment = HeistTool:add_submenu("Apartment | Safe")
 
-Apartment:add_action("Change Session", function() ChangeSession(1) end)
+Apartment:add_action("Change Session", function() SessionChanger(1) end)
 
 Apartment:add_action("Complete Preps (any heist)", function() stats.set_int(MPX() .. "HEIST_PLANNING_STAGE", -1) end)
 
@@ -542,7 +527,7 @@ AC15mil:add_array_item("Cash Receivers", {"All", "Only Crew", "Only Me"},
 				globals.set_int(ACg1, 100 - (cut * players))
 				globals.set_int(ACg2, cut)
 				if players ~= 2 then
-					globals_set_ints(ACg3, ACg4, 1, 15)
+					globals_set_ints(ACg3, ACg4, 1, cut)
 				end
 				sleep(1)
 				if config == false then
@@ -593,7 +578,7 @@ AC15mil:add_toggle("The Pacific Standard Job (Normal)", function() return a8 end
 
 AC15mil:add_action(SPACE, null)
 
-AC15milNote = AC15mil:add_submenu("Read Me")
+AC15milNote = AC15mil:add_submenu(README)
 
 AC15milNote:add_action("                     Cash Receivers:", null)
 AC15milNote:add_action("       Choose who'll receive the money", null)
@@ -613,11 +598,8 @@ AC15milNote:add_action(SPACE, null)
 AC15milNote:add_action("                    For «Only Me»:", null)
 AC15milNote:add_action("         Activate option on cuts screen", null)
 
-		cut_presets = {
-			"Select",
-			"85 All",
-			"100 All"
-		}
+		cut_presets = {"Select", "85 All", "100 All"}
+		cut_values = {85, 100}
 
 		a9 = 1
 	local function ApartmentCutsPresetter(cut)
@@ -629,23 +611,21 @@ AC:add_array_item("Presets", cut_presets,
 		return a9
 	end,
 	function(preset)
-		if preset == 2 then
-			ApartmentCutsPresetter(85)
-		elseif preset == 3 then
-			ApartmentCutsPresetter(100)
+		if preset ~= 1 then
+			ApartmentCutsPresetter(cut_values[preset - 1])
 		end
 		a9 = preset
 	end)
 
-AC:add_int_range("Player 1", 5, 0, 999, function() return globals.get_int(ACg1) end, function(cut) globals.set_int(ACg1, 100 - (cut * 4)) end)
-AC:add_int_range("Player 2", 5, 0, 999, function() return globals.get_int(ACg2) end, function(cut) globals.set_int(ACg2, cut) end)
-AC:add_int_range("Player 3", 5, 0, 999, function() return globals.get_int(ACg3) end, function(cut) globals.set_int(ACg3, cut) end)
-AC:add_int_range("Player 4", 5, 0, 999, function() return globals.get_int(ACg4) end, function(cut) globals.set_int(ACg4, cut) end)
+AC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(ACg1) end, function(cut) globals.set_int(ACg1, 100 - (cut * 4)) end)
+AC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(ACg2) end, function(cut) globals.set_int(ACg2, cut) end)
+AC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(ACg3) end, function(cut) globals.set_int(ACg3, cut) end)
+AC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(ACg4) end, function(cut) globals.set_int(ACg4, cut) end)
 AC:add_action("Set Negative to Positive (own)", function() globals.set_int(ACg5, -1 * (-100 + globals.get_int(ACg1)) / 4) end)
 
 AC:add_action(SPACE, null)
 
-ACNote = AC:add_submenu("Read Me")
+ACNote = AC:add_submenu(README)
 
 ACNote:add_action("         Choose cuts within 1st 30 secs", null)
 ACNote:add_action("   after the cutsene ends (on cuts screen);", null)
@@ -656,27 +636,29 @@ ACNote:add_action("    after this change your cut to positive", null)
 
 AE = Apartment:add_submenu("Extra")
 
+AE:add_action("Skip Cutscene", function() menu.end_cutscene() end)
+
 AE:add_action("Bypass Fleeca Hack", function() FMC:set_int(AFHl, 7) end)
 
 AE:add_action("Bypass Fleeca Drill", function() FMC:set_float(AFDl, 100) end)
 
 AE:add_action("Unlock All Jobs",
 	function()
-		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_0", globals.get_int(FMg + AUAJg1))
+		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_0", globals.get_int(AUAJg1))
 		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_0_L", 5)
-		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_1", globals.get_int(FMg + AUAJg2))
+		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_1", globals.get_int(AUAJg2))
 		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_1_L", 5)
-		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_2", globals.get_int(FMg + AUAJg3))
+		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_2", globals.get_int(AUAJg3))
 		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_2_L", 5)
-		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_3", globals.get_int(FMg + AUAJg4))
+		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_3", globals.get_int(AUAJg4))
 		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_3_L", 5)
-		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_4", globals.get_int(FMg + AUAJg5))
+		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_4", globals.get_int(AUAJg5))
 		stats.set_int(MPX() .. "HEIST_SAVED_STRAND_4_L", 5)
 	end)
 
 AE:add_action(SPACE, null)
 
-AENote = AE:add_submenu("Read Me")
+AENote = AE:add_submenu(README)
 
 AENote:add_action("                     Unlock All Jobs:", null)
 AENote:add_action("  Activate the option and restart the game", null)
@@ -690,7 +672,7 @@ Apartment:add_action("Instant Finish (self only)",
 
 Apartment:add_action(SPACE, null)
 
-ApartmentNote = Apartment:add_submenu("Read Me")
+ApartmentNote = Apartment:add_submenu(README)
 
 ApartmentNote:add_action("           Complete Preps (for fleeca):", null)
 ApartmentNote:add_action("    Pay for the preparation, start the first", null)
@@ -710,7 +692,7 @@ CayoPerico = HeistTool:add_submenu("Cayo Perico | Safe")
 
 CPDS = CayoPerico:add_submenu("Data Saver")
 
-		cayo_targets = {"Tequila", "Necklace", "Bonds", "Diamond", "Statue"}
+		cayo_targets = {"Tequila", "Necklace", "Bonds", "Diamond", "Madrazo Files", "Statue"}
 CPDS:add_bare_item("",
 	function()
 		cayo_target = stats.get_int(MPX() .. "H4CNF_TARGET")
@@ -824,22 +806,35 @@ CPDS:add_bare_item("",
 		return "Weapons: " .. cayo_weapon_show
 	end, null, null, null)
 
-CPDS:add_action("Save Heist Preset",
+		cayo_preset = false
+CPDS:add_bare_item("Save Heist Preset",
 	function()
-		cayo_primary_preset = cayo_target
-		compound_cash_preset = compound_cash
-		compound_weed_preset = compound_weed
-		compound_coke_preset = compound_coke
-		compound_gold_preset = compound_gold
-		compound_arts_preset = compound_arts
-		island_cash_preset = island_cash
-		island_weed_preset = island_weed
-		island_coke_preset = island_coke
-		island_gold_preset = island_gold
-		cayo_difficulty_preset = cayo_difficulty
-		cayo_approach_preset = cayo_approach
-		cayo_weapons_preset = cayo_weapon
-	end)
+		if cayo_preset ~= false then
+			status = "Saved"
+		else
+			status = "Unsaved"
+		end
+		return "Save Heist Preset | 〔" .. status .. "〕"
+	end,
+	function()
+		cayo_preset = not cayo_preset
+		sleep(0.5)
+		if cayo_preset == true then
+			cayo_primary_preset = cayo_target
+			compound_cash_preset = compound_cash
+			compound_weed_preset = compound_weed
+			compound_coke_preset = compound_coke
+			compound_gold_preset = compound_gold
+			compound_arts_preset = compound_arts
+			island_cash_preset = island_cash
+			island_weed_preset = island_weed
+			island_coke_preset = island_coke
+			island_gold_preset = island_gold
+			cayo_difficulty_preset = cayo_difficulty
+			cayo_approach_preset = cayo_approach
+			cayo_weapons_preset = cayo_weapon
+		end
+	end, null, null)
 
 	local function CayoCompletePreps()
 		stats.set_int(MPX() .. "H4CNF_UNIFORM", -1)
@@ -887,7 +882,7 @@ CPDS:add_action("Replay Heist Again",
 
 CPDS:add_action(SPACE, null)
 
-CPDSNote = CPDS:add_submenu("Read Me")
+CPDSNote = CPDS:add_submenu(README)
 
 CPDSNote:add_action("                    Save Heist Preset:", null)
 CPDSNote:add_action("    Use to save your heist planning screen", null)
@@ -906,6 +901,8 @@ CPP:add_array_item("Primary Target", {"Select", "Tequila", "Necklace", "Bonds", 
 	function(target)
 		if primary_target ~= 1 then
 			stats.set_int(MPX() .. "H4CNF_TARGET", target - 2)
+		elseif primary_target == 6 then
+			stats.set_int(MPX() .. "H4CNF_TARGET", target - 1)
 		end
 		a10 = primary_target
 	end)
@@ -1122,7 +1119,7 @@ CPP:add_action("Complete Preps", function() CayoCompletePreps() end)
 
 CPP:add_action(SPACE, null)
 
-CPPNote = CPP:add_submenu("Read Me")
+CPPNote = CPP:add_submenu(README)
 
 CPPNote:add_action("                 After all choices and", null)
 CPPNote:add_action("            pressing «Complete Preps»", null)
@@ -1141,19 +1138,17 @@ CPC:add_array_item("Presets", cut_presets,
 		return a22
 	end,
 	function(preset)
-		if preset == 2 then
-			CutsPresetter(CPCg1, CPCg4, 85)
-		elseif preset == 3 then
-			CutsPresetter(CPCg1, CPCg4, 100)
+		if preset ~= 1 then
+			CutsPresetter(CPCg1, CPCg4, cut_values[preset - 1])
 		end
 		a22 = preset
 	end)
 
-CPC:add_int_range("Player 1", 5, 0, 999, function() return globals.get_int(CPCg1) end, function(Cut) globals.set_int(CPCg1, Cut) end)
-CPC:add_int_range("Player 2", 5, 0, 999, function() return globals.get_int(CPCg2) end, function(Cut) globals.set_int(CPCg2, Cut) end)
-CPC:add_int_range("Player 3", 5, 0, 999, function() return globals.get_int(CPCg3) end, function(Cut) globals.set_int(CPCg3, Cut) end)
-CPC:add_int_range("Player 4", 5, 0, 999, function() return globals.get_int(CPCg4) end, function(Cut) globals.set_int(CPCg4, Cut) end)
-CPC:add_int_range("Self (non-host)", 5, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
+CPC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(CPCg1) end, function(Cut) globals.set_int(CPCg1, Cut) end)
+CPC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(CPCg2) end, function(Cut) globals.set_int(CPCg2, Cut) end)
+CPC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(CPCg3) end, function(Cut) globals.set_int(CPCg3, Cut) end)
+CPC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(CPCg4) end, function(Cut) globals.set_int(CPCg4, Cut) end)
+CPC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
 
 CPE = CayoPerico:add_submenu("Extra")
 
@@ -1182,32 +1177,35 @@ CPCL:add_array_item("Session", {"Go Offline", "Go Online"},
 	end,
 	function(session)
 		if session == 1 then
-			ChangeSession(-1)
+			SessionChanger(-1)
 		else
-			ChangeSession(8)
+			SessionChanger(8)
 		end
 		a23 = session
 	end)
 
 CPCL:add_action(SPACE, null)
 
-CPCLNote = CPCL:add_submenu("Read Me")
+CPCLNote = CPCL:add_submenu(README)
 
 CPCLNote:add_action("         Choose a cooldown, go offline", null)
 CPCLNote:add_action("                and come back online", null)
 
 		a24 = false
 	local function CayoBypasses()
-		if FMC20:is_active() then
+		if FMC20:get_int(CPFHl) == 4 then
 			FMC20:set_int(CPFHl, 5)
-			FMC20:set_float(CPPCCl, 100)
 		end
+		if FMC20:get_int(CPSTCl) >= 3 or FMC20:get_int(CPSTCl) <= 6 then
+			FMC20:set_int(CPSTCl, 6)
+		end
+		FMC20:set_float(CPPCCl, 100)
 	end
 	local function CayoHeckerToggler(Enabled)
 		if Enabled then
-			hecker_hotkey = menu.register_hotkey(72, CayoBypasses)
+			cayo_hecker_hotkey = menu.register_hotkey(72, CayoBypasses)
 		else
-			menu.remove_hotkey(hecker_hotkey)
+			menu.remove_hotkey(cayo_hecker_hotkey)
 		end
 	end
 CPE:add_toggle("Hecker", function() return a24 end, function() a24 = not a24 CayoHeckerToggler(a24) end)
@@ -1216,9 +1214,9 @@ CPE:add_toggle("Hecker", function() return a24 end, function() a24 = not a24 Cay
 	local function CayoWomansBagToggler(Enabled)
 		if localplayer ~= nil then
 			if Enabled then
-				globals.set_int(FMg + CPBl, 99999)
+				globals.set_int(CPBg, 99999)
 			else
-				globals.set_int(FMg + CPBl, 1800)
+				globals.set_int(CPBg, 1800)
 			end
 		end
 	end
@@ -1233,7 +1231,7 @@ CPE:add_action("Bypass Fingerprint Hack",
 
 CPE:add_action("Bypass Plasma Cutter Cut", function() FMC20:set_float(CPPCCl, 100) end)
 
-CPE:add_action("Bypass Sewer Tunnel Cut",
+CPE:add_action("Bypass Drainage Pipe Cut",
 	function()
 		if FMC20:get_int(CPSTCl) >= 3 or FMC20:get_int(CPSTCl) <= 6 then
 			FMC20:set_int(CPSTCl, 6)
@@ -1252,7 +1250,7 @@ CPE:add_action("Unlock All POI",
 
 CPE:add_action(SPACE, null)
 
-CPENote = CPE:add_submenu("Read Me")
+CPENote = CPE:add_submenu(README)
 
 CPENote:add_action("                           Hecker:", null)
 CPENote:add_action(" Pressing «H» will trigger bypass any hack", null)
@@ -1562,24 +1560,37 @@ DDC:add_bare_item("",
 	function()
 		casino_mask = stats.get_int(MPX() .."H3OPT_MASKS")
 		casino_masks_show = casino_masks[casino_mask + 1]
-		if mask > 0 then
+		if casino_mask > 0 then
 			return "Masks: " .. casino_masks_show .. " Set"
 		else
 			return "Masks: " .. casino_masks_show
 		end
 	end, null, null, null)
 
-DDC:add_action("Save Heist Preset",
+		casino_preset = false
+DDC:add_bare_item("",
 	function()
-		casino_target_preset = casino_target
-		casino_approach_preset = casino_approach
-		casino_hard_approach_preset = casino_hard_approach
-		casino_last_approach_preset = stats.get_int(MPX() .. "H3_LAST_APPROACH")
-		casino_gunman_preset = casino_gunman
-		casino_driver_preset = casino_driver
-		casino_hacker_preset = casino_hacker
-		casino_masks_preset = casino_mask
-	end)
+		if casino_preset ~= false then
+			status = "Saved"
+		else
+			status = "Unsaved"
+		end
+		return "Save Heist Preset | 〔" .. status .. "〕"
+	end,
+	function()
+		casino_preset = not casino_preset
+		sleep(0.5)
+		if casino_preset == true then
+			casino_target_preset = casino_target
+			casino_approach_preset = casino_approach
+			casino_hard_approach_preset = casino_hard_approach
+			casino_last_approach_preset = stats.get_int(MPX() .. "H3_LAST_APPROACH")
+			casino_gunman_preset = casino_gunman
+			casino_driver_preset = casino_driver
+			casino_hacker_preset = casino_hacker
+			casino_masks_preset = casino_masks
+		end
+	end, null, null)
 
 	local function CasinoCompletePreps()
 		stats.set_int(MPX() .. "H3OPT_DISRUPTSHIP", 3)
@@ -1606,7 +1617,7 @@ DDC:add_action("Replay Heist Again",
 
 DDC:add_action(SPACE, null)
 
-DDCNote = DDC:add_submenu("Read Me")
+DDCNote = DDC:add_submenu(README)
 
 DDCNote:add_action("                    Save Heist Preset:", null)
 DDCNote:add_action("    Use to save your heist planning screen", null)
@@ -1720,7 +1731,7 @@ DCP:add_action("Reset Preps",
 
 DCP:add_action(SPACE, null)
 
-DCPNote = DCP:add_submenu("Read Me")
+DCPNote = DCP:add_submenu(README)
 
 DCPNote:add_action("                 After all choices and", null)
 DCPNote:add_action("            pressing «Complete Preps»", null)
@@ -1734,19 +1745,17 @@ DCC:add_array_item("Presets", cut_presets,
 		return a43
 	end,
 	function(preset)
-		if preset == 2 then
-			CutsPresetter(DCCg1, DCCg4, 85)
-		elseif preset == 3 then
-			CutsPresetter(DCCg1, DCCg4, 100)
+		if preset ~= 1 then
+			CutsPresetter(DCCg1, DCCg4, cut_values[preset - 1])
 		end
 		a43 = preset
 	end)
 
-DCC:add_int_range("Player 1", 5, 0, 999, function() return globals.get_int(DCCg1) end, function(Cut) globals.set_int(DCCg1, Cut) end)
-DCC:add_int_range("Player 2", 5, 0, 999, function() return globals.get_int(DCCg2) end, function(Cut) globals.set_int(DCCg2, Cut) end)
-DCC:add_int_range("Player 3", 5, 0, 999, function() return globals.get_int(DCCg3) end, function(Cut) globals.set_int(DCCg3, Cut) end)
-DCC:add_int_range("Player 4", 5, 0, 999, function() return globals.get_int(DCCg4) end, function(Cut) globals.set_int(DCCg4, Cut) end)
-DCC:add_int_range("Self (non-host)", 5, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
+DCC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(DCCg1) end, function(Cut) globals.set_int(DCCg1, Cut) end)
+DCC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(DCCg2) end, function(Cut) globals.set_int(DCCg2, Cut) end)
+DCC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(DCCg3) end, function(Cut) globals.set_int(DCCg3, Cut) end)
+DCC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(DCCg4) end, function(Cut) globals.set_int(DCCg4, Cut) end)
+DCC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
 
 DCE = DiamondCasino:add_submenu("Extra")
 
@@ -1769,7 +1778,7 @@ DCE:add_action("Cooldown Killer",
 			sleep(0.1)
 		end
 	end
-DCE:add_toggle("Autograbber", function() return b12 end, function() b12 = not b12 CasinoAutograbber() end)
+DCE:add_toggle("Autograbber (slow af)", function() return b12 end, function() b12 = not b12 CasinoAutograbber() end)
 
 		a44 = false
 	local function CasinoBypasses()
@@ -1780,9 +1789,9 @@ DCE:add_toggle("Autograbber", function() return b12 end, function() b12 = not b1
 	end
 	local function CasinoHeckerToggler(Enabled)
 		if Enabled then
-			hecker_hotkey = menu.register_hotkey(72, CasinoBypasses)
+			casino_hecker_hotkey = menu.register_hotkey(72, CasinoBypasses)
 		else
-			menu.remove_hotkey(hecker_hotkey)
+			menu.remove_hotkey(casino_hecker_hotkey)
 		end
 	end
 DCE:add_toggle("Hecker", function() return a44 end, function() a44 = not a44 CasinoHeckerToggler(a44) end)
@@ -1817,7 +1826,7 @@ DCE:add_action("Unlock Cancellation",
 
 DCE:add_action(SPACE, null)
 
-DCENote = DCE:add_submenu("Read Me")
+DCENote = DCE:add_submenu(README)
 
 DCENote:add_action("                    Cooldown Killer:", null)
 DCENote:add_action("    Use outside arcade, wait up to 5 mins", null)
@@ -1918,7 +1927,7 @@ DP:add_action("Reset Preps", function()	DoomsdayActSetter(240, 0) end)
 
 DP:add_action(SPACE, null)
 
-DPNote = DP:add_submenu("Read Me")
+DPNote = DP:add_submenu(README)
 
 DPNote:add_action("                 After all choices and", null)
 DPNote:add_action("            pressing «Complete Preps»", null)
@@ -1932,19 +1941,17 @@ DC:add_array_item("Presets", cut_presets,
 		return a49
 	end,
 	function(preset)
-		if preset == 2 then
-			CutsPresetter(DCg1, DCg4, 85)
-		elseif preset == 3 then
-			CutsPresetter(DCg1, DCg4, 100)
+		if preset ~= 1 then
+			CutsPresetter(DCg1, DCg4, cut_values[preset - 1])
 		end
 		a49 = preset
 	end)
 
-DC:add_int_range("Player 1", 5, 0, 999, function() return globals.get_int(DCg1) end, function(Cut) globals.set_int(DCg1, Cut) end)
-DC:add_int_range("Player 2", 5, 0, 999, function() return globals.get_int(DCg2) end, function(Cut) globals.set_int(DCg2, Cut) end)
-DC:add_int_range("Player 3", 5, 0, 999, function() return globals.get_int(DCg3) end, function(Cut) globals.set_int(DCg3, Cut) end)
-DC:add_int_range("Player 4", 5, 0, 999, function() return globals.get_int(DCg4) end, function(Cut) globals.set_int(DCg4, Cut) end)
-DC:add_int_range("Self (non-host)", 5, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
+DC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(DCg1) end, function(Cut) globals.set_int(DCg1, Cut) end)
+DC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(DCg2) end, function(Cut) globals.set_int(DCg2, Cut) end)
+DC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(DCg3) end, function(Cut) globals.set_int(DCg3, Cut) end)
+DC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(DCg4) end, function(Cut) globals.set_int(DCg4, Cut) end)
+DC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
 
 DE = Doomsday:add_submenu("Extra")
 
@@ -1978,32 +1985,32 @@ SVVV = SalvageYard:add_submenu("⚠ Alter Vehicle Cost")
 
 SVVV:add_float_range("Salvage Value Multiplier", 0.2, 0, 999,
 	function()
-		return globals.get_float(FMg + SYSMg)
+		return globals.get_float(SYSMg)
 	end,
 	function(SalMul)
-		globals.set_float(FMg + SYSMg, SalMul)
+		globals.set_float(SYSMg, SalMul)
 	end)
 
 SYVS = SalvageYard:add_submenu("Alter Vehicle Status")
 
 SYVS:add_bare_item("",
 	function()
-		claim_price = globals.get_int(FMg + SYCPg)
+		claim_price = globals.get_int(SYCPg)
 		if claim_price ~= nil and claim_price == 0 then
 			status = "On"
 		else
 			status = "Off"
 		end
-		return "Claim For Free|〔" .. status .. "〕"
+		return "Claim For Free | 〔" .. status .. "〕"
 	end,
 	function()
-		claim_price = globals.get_int(FMg + SYCPg)
+		claim_price = globals.get_int(SYCPg)
 		if claim_price ~= nil and claim_price == 0 then
-			globals.set_int(FMg + SYCPg, 20000)
-			globals.set_int(FMg + SYCPDg, 10000)
+			globals.set_int(SYCPg, 20000)
+			globals.set_int(SYCPDg, 10000)
 		else
-			globals.set_int(FMg + SYCPg, 0)
-			globals.set_int(FMg + SYCPDg, 0)
+			globals.set_int(SYCPg, 0)
+			globals.set_int(SYCPDg, 0)
 		end
 	end, null, null)
 
@@ -2014,7 +2021,7 @@ SYAS = SalvageYard:add_submenu("Alter Availability Status")
 for i = 1, 3 do
 	SYRT:add_array_item("Vehicle " .. i .. " Robbery", yard_robberies,
 		function()
-			robbery_type = globals.get_int(FMg + SYRTg + i)
+			robbery_type = globals.get_int(SYRTg + i)
 			if robbery_type ~= nil then
 				return robbery_type + 2
 			else
@@ -2023,21 +2030,21 @@ for i = 1, 3 do
 		end,
 		function(robbery)
 			if robbery ~= 1 then
-				globals.set_int(FMg + SYRTg + i, robbery - 2)
+				globals.set_int(SYRTg + i, robbery - 2)
 			end
 		end)
 
 	SVVV:add_int_range("Vehicle " .. i .. " Sell Value", 100000, 0, INT_MAX,
 		function()
-			return globals.get_int(FMg + SYVVg + i)
+			return globals.get_int(SYVVg + i)
 		end,
 		function(cost)
-			globals.set_int(FMg + SYVVg + i, cost)
+			globals.set_int(SYVVg + i, cost)
 		end)
 
 	SYVS:add_bare_item("",
 		function()
-			vehicle_status = globals.get_int(FMg + SYCKg + i)
+			vehicle_status = globals.get_int(SYCKg + i)
 			if vehicle_status ~= nil and vehicle_status == 1 then
 				status = "Claimable"
 			elseif vehicle_status ~= nil and vehicle_status == 0 then
@@ -2045,15 +2052,15 @@ for i = 1, 3 do
 			else
 				status = "Unknown"
 			end
-			return "Vehicle " .. i .. " Status|〔" .. status .. "〕"
+			return "Vehicle " .. i .. " Status | 〔" .. status .. "〕"
 		end,
 		function()
-			vehicle_status = globals.get_int(FMg + SYCKg + i)
+			vehicle_status = globals.get_int(SYCKg + i)
 			if vehicle_status ~= nil then
 				if vehicle_status == 0 then
-					globals.set_int(FMg + SYCKg + i, 1)
+					globals.set_int(SYCKg + i, 1)
 				else
-					globals.set_int(FMg + SYCKg + i, 0)
+					globals.set_int(SYCKg + i, 0)
 				end
 			end
 		end, null, null)
@@ -2066,7 +2073,7 @@ for i = 1, 3 do
 			else
 				status = yard_vehicle_statuses[1]
 			end
-			return "Vehicle " .. i .. " Status|〔" .. status .. "〕"
+			return "Vehicle " .. i .. " Status | 〔" .. status .. "〕"
 		end,
 		function()
 			status_id = stats.get_int(MPX() .. "SALV23_VEHROB_STATUS" .. i - 1)
@@ -2181,57 +2188,57 @@ end
 for i = 1, 500 do
 	SYVT1:add_toggle(yard_vehicles[i],
 		function()
-			if i == globals.get_int(FMg + SYVTg1) then
+			if i == globals.get_int(SYVTg + 1) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + SYVTg1, i)
+			globals.set_int(SYVTg + 1, i)
 		end)
 
 	SYVT2:add_toggle(yard_vehicles[i],
 		function()
-			if i == globals.get_int(FMg + SYVTg2) then
+			if i == globals.get_int(SYVTg + 2) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + SYVTg2, i)
+			globals.set_int(SYVTg + 2, i)
 		end)
 
 	SYVT3:add_toggle(yard_vehicles[i],
 		function()
-			if i == globals.get_int(FMg + SYVTg3) then
+			if i == globals.get_int(SYVTg + 3) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + SYVTg3, i)
+			globals.set_int(SYVTg + 3, i)
 		end)
 end
 
 SalvageYard:add_bare_item("",
 	function()
-		setup_price = globals.get_int(FMg + SYSPg)
+		setup_price = globals.get_int(SYSPg)
 		if setup_price ~= nil and setup_price == 0 then
 			status = "On"
 		else
 			status = "Off"
 		end
-		return "Setup For Free|〔" .. status .. "〕"
+		return "Setup For Free | 〔" .. status .. "〕"
 	end,
 	function()
-		setup_price = globals.get_int(FMg + SYSPg)
+		setup_price = globals.get_int(SYSPg)
 		if setup_price ~= nil and setup_price == 0 then
-			globals.set_int(FMg + SYSPg, 20000)
+			globals.set_int(SYSPg, 20000)
 		else
-			globals.set_int(FMg + SYSPg, 0)
+			globals.set_int(SYSPg, 0)
 		end
 	end, null, null)
 
@@ -2249,13 +2256,13 @@ SalvageYard:add_action("Reset Preps", function() YardPrepsSetter(0) end)
 SalvageYard:add_action("Cooldown Killer",
 	function()
 		current_week = stats.get_int(MPX() .. "SALV23_WEEK_SYNC")
-		globals.set_int(FMg + SYWCg, current_week + 1)
-		globals_set_ints(FMg + SYCg1, FMg + SYCg2, 1, 0)
+		globals.set_int(SYWCg, current_week + 1)
+		globals_set_ints(SYCg1, SYCg2, 1, 0)
 	end)
 
 SalvageYard:add_action(SPACE, null)
 
-SalvageYardNote = SalvageYard:add_submenu("Read Me")
+SalvageYardNote = SalvageYard:add_submenu(README)
 
 SalvageYardNote:add_action(" Do all actions before paying for the setup", null)
 SalvageYardNote:add_action(SPACE, null)
@@ -2340,7 +2347,7 @@ LegalStats:add_bare_item("",
 		if not localplayer then
 			return "Earnings: In Menu"
 		else
-			return "Earnings: $" .. FormatMoney(stats.get_int(MPX() .. "LIFETIME_BKR_SELL_EARNINGS5"))
+			return "Earnings: $" .. MoneyFormatter(stats.get_int(MPX() .. "LIFETIME_BKR_SELL_EARNINGS5"))
 		end
 	end, null, null, null)
 
@@ -2382,14 +2389,14 @@ LegalStats:add_toggle("Don't Apply Earnings", function() return a51 end, functio
 
 LegalStats:add_action(SPACE, null)
 
-LegalStatsNote = LegalStats:add_submenu("Read Me")
+LegalStatsNote = LegalStats:add_submenu(README)
 
 LegalStatsNote:add_action("         To save the legal statistics, you", null)
 LegalStatsNote:add_action("  need to make one more sale for $5,000+", null)
 
 BunkerCrash:add_action(SPACE, null)
 
-BunkerCrashNote = BunkerCrash:add_submenu("Read Me")
+BunkerCrashNote = BunkerCrash:add_submenu(README)
 
 BunkerCrashNote:add_action("                  Teleport to Laptop:", null)
 BunkerCrashNote:add_action("   Use to tp to laptop inside your bunker;", null)
@@ -2415,7 +2422,7 @@ CasinoMaster:add_int_range("Acquire Chips Limit", 50000, 0, INT_MAX,
 		return a52
 	end,
 	function(limit)
-		globals_set_ints(FMg + CMACLg1, FMg + CMACLg2, 1, limit)
+		globals_set_ints(CMACLg1, CMACLg2, 1, limit)
 		a52 = limit
 	end)
 
@@ -2516,10 +2523,12 @@ LuckyWheel:add_array_item("Select Prize (before «S»)", wheel_name,
 		return a53
 	end,
 	function(prize)
-		prize_status = CLW:get_int(117 + 1 + (PlayerID() * 5))
-		if prize_status ~= nil and prize_status ~= -1 then
-			CLW:set_int(CMLWPl, wheel_id[prize])
-			a53 = prize
+		if localplayer ~= nil then
+			prize_status = CLW:get_int(117 + 1 + (PlayerID() * 5))
+			if prize_status ~= nil and prize_status ~= -1 then
+				CLW:set_int(prize_status, wheel_id[prize])
+				a53 = prize
+			end
 		end
 	end)
 
@@ -2592,18 +2601,22 @@ Poker:add_bare_item("",
 
 Poker:add_action("Give Straight Flush",
 	function()
-		current_table = TCP:get_int(CMPTl + 1 + (PlayerID() * CMPTSl) + 2)
-		if current_table ~= nil and current_table ~= -1 then
-			PokerCardsSetter(PlayerID(), current_table, 50, 51, 52)
+		if localplayer ~= nil then
+			current_table = TCP:get_int(CMPTl + 1 + (PlayerID() * CMPTSl) + 2)
+			if current_table ~= nil and current_table ~= -1 then
+				PokerCardsSetter(PlayerID(), current_table, 50, 51, 52)
+			end
 		end
 	end)
 
 Poker:add_action("Trick The Dealer",
 	function()
-		current_table = TCP:get_int(CMPTl + 1 + (PlayerID() * CMPTSl) + 2)
-		if current_table ~= nil and current_table ~= -1 then
-			DealerID = PokerDealersIDGetter(current_table)
-			PokerCardsSetter(DealerID, current_table, 2, 17, 32)
+		if localplayer ~= nil then
+			current_table = TCP:get_int(CMPTl + 1 + (PlayerID() * CMPTSl) + 2)
+			if current_table ~= nil and current_table ~= -1 then
+				DealerID = PokerDealersIDGetter(current_table)
+				PokerCardsSetter(DealerID, current_table, 2, 17, 32)
+			end
 		end
 	end)
 
@@ -2633,6 +2646,147 @@ SlotMachines = CasinoMaster:add_submenu("Slot Machines")
 SlotMachines:add_action("⚠ Rig Slots", function() SlotsStatusSetter(6) end)
 
 SlotMachines:add_action("Lose Slots", function() SlotsStatusSetter(0) end)
+
+--Hangar Cargo VIP--
+
+HangarCargoVIP = MoneyTool:add_submenu("Hangar Cargo VIP | Safe")
+
+HangarCargoVIP:add_action("Start Solo Session", function() SessionChanger(8) end)
+
+	local function HangarCargoGetter()
+		stats.set_bool_masked(MPX() .. "DLC22022PSTAT_BOOL3", true, 9)
+	end
+
+HangarCargoVIP:add_action("Get Some Cargo", function() HangarCargoGetter() end)
+
+		b13 = false
+	local function HangarCargoLoopToggler()
+		while b13 do
+			HangarCargoGetter()
+			sleep(1)
+		end
+	end
+HangarCargoVIP:add_toggle("Cargo Loop", function() return b13 end, function() b13 = not b13 HangarCargoLoopToggler() end)
+
+--[[HangarCargoVIP:add_action("Cooldown Killer",
+	function()
+		globals.set_int(HCVSCg2, 0)
+		globals_set_ints(HCVSCg1, HCVACg, 1, 0)
+	end)]]--
+
+PricePerPiece = HangarCargoVIP:add_submenu("⚠ Price per Piece (max 4mil)")
+
+		hangar_cargo = {"Animal Materials", "Art n Antiques", "Chemicals", "Counterfeit Goods", "Jewel n Gems", "Medical Supplies", "Narcotics", "Tabacco n Alcohol"}
+for i = 1, 8 do
+	PricePerPiece:add_int_range(hangar_cargo[i], 30000, 0, 4000000,
+		function()
+			return globals.get_int(HCVPg + i)
+		end,
+		function(price)
+			globals.set_int(HCVPg + i, price)
+		end)
+end
+
+HangarCargoVIP:add_int_range("Instant Air Cargo Sell", 1, 0, 15,
+	function()
+		return 0
+	end,
+	function(delivered)
+		globals.set_float(HCVRCg, 0)
+		GS:set_int(HCVISl1, delivered)
+		sleep(1)
+		GS:set_int(HCVISl2, -1)
+	end)
+
+LegalStats2 = HangarCargoVIP:add_submenu("Legal Stats")
+
+LegalStats2:add_bare_item("",
+	function()
+		if not localplayer then
+			return "Buy Made/Undertaken: In Menu"
+		else
+			return "Buy Made/Undertaken: " .. stats.get_int(MPX() .. "LFETIME_HANGAR_BUY_COMPLET") .. "/" .. stats.get_int(MPX() .. "LFETIME_HANGAR_BUY_UNDETAK")
+		end
+	end, null, null, null)
+LegalStats2:add_bare_item("",
+	function()
+		if not localplayer then
+			return "Sales Made/Undertaken: In Menu"
+		else
+			return "Sales Made/Undertaken: " .. stats.get_int(MPX() .. "LFETIME_HANGAR_SEL_COMPLET") .. "/" .. stats.get_int(MPX() .. "LFETIME_HANGAR_SEL_UNDETAK")
+		end
+	end, null, null, null)
+LegalStats2:add_bare_item("",
+	function()
+		if not localplayer then
+			return "Earnings: In Menu"
+		else
+			return "Earnings: $" .. MoneyFormatter(stats.get_int(MPX() .. "LFETIME_HANGAR_EARNINGS"))
+		end
+	end, null, null, null)
+
+		new_buy_missions = 1000
+LegalStats2:add_int_range("New Buy Missions", 10, 0, INT_MAX,
+	function()
+		return new_buy_missions
+	end,
+	function(missions)
+		new_buy_missions = missions
+	end)
+
+		new_sell_missions2 = 999
+LegalStats2:add_int_range("New Sell Missions", 10, 0, INT_MAX,
+	function()
+		return new_sell_missions2
+	end,
+	function(missions)
+		new_sell_missions2 = missions
+	end)
+
+		new_earnings2 = 19970000
+LegalStats2:add_int_range("New Earnings", 30000, 0, INT_MAX,
+	function()
+		return new_earnings2
+	end,
+	function(earnings)
+		new_earnings2 = earnings
+	end)
+
+LegalStats2:add_action("Apply New Stats",
+	function()
+		if b14 == false then
+			stats.set_int(MPX() .. "LFETIME_HANGAR_BUY_COMPLET", new_buy_missions)
+			stats.set_int(MPX() .. "LFETIME_HANGAR_BUY_UNDETAK", new_buy_missions)
+			stats.set_int(MPX() .. "LFETIME_HANGAR_SEL_COMPLET", new_sell_missions2)
+			stats.set_int(MPX() .. "LFETIME_HANGAR_SEL_UNDETAK", new_sell_missions2)
+		end
+		if b15 == false then
+			stats.set_int(MPX() .. "LFETIME_HANGAR_EARNINGS", new_earnings2)
+		end
+	end)
+
+		b14 = false
+LegalStats2:add_toggle("Don't Apply Missions", function() return b14 end, function() b14 = not b14 end)
+
+		b15 = false
+LegalStats2:add_toggle("Don't Apply Earnings", function() return b15 end, function() b15 = not b15 end)
+
+LegalStats2:add_action(SPACE, null)
+
+LegalStats2Note = LegalStats2:add_submenu(README)
+
+LegalStats2Note:add_action("         To save the legal statistics, you", null)
+LegalStats2Note:add_action(" need to make one more sale for $30,000+", null)
+
+HangarCargoVIP:add_action(SPACE, null)
+
+HangarCargoVIPNote = HangarCargoVIP:add_submenu(README)
+
+HangarCargoVIPNote:add_action("                   Start Solo Session:", null)
+HangarCargoVIPNote:add_action("        Use if you aren't alone in session", null)
+HangarCargoVIPNote:add_action(SPACE, null)
+HangarCargoVIPNote:add_action("                Instant Air Cargo Sell:", null)
+HangarCargoVIPNote:add_action("      Select number of «Total Delivered»", null)
 
 --Money Editor--
 
@@ -2759,7 +2913,7 @@ CashRemover:add_bare_item("",
 		if cash_to_remove > INT_MAX then
 			cash_to_remove = INT_MAX
 		end
-		return "Remove Cash: $" ..  FormatMoney(cash_to_remove)
+		return "Remove Cash: $" ..  MoneyFormatter(cash_to_remove)
 	end,
 	function()
 		globals.set_int(CRg, cash_to_remove)
@@ -2793,7 +2947,7 @@ CashRemover:add_toggle("Reset Value", function() return a55 end, function() a55 
 
 CashRemover:add_action(SPACE, null)
 
-CashRemoverNote = CashRemover:add_submenu("Read Me")
+CashRemoverNote = CashRemover:add_submenu(README)
 
 CashRemoverNote:add_action("                        Reset Value:", null)
 CashRemoverNote:add_action("  Resets «Remove Cash» value after using", null)
@@ -2849,9 +3003,9 @@ Totals:add_bare_item("",
 		if a57 == 1 then
 			return "Current Earned: " .. earned_from
 		elseif a57 == 2 then
-			return "Current Total Earned: $" .. FormatMoney(stats.get_int(earned_from))
+			return "Current Total Earned: $" .. MoneyFormatter(stats.get_int(earned_from))
 		else
-			return "Current Earned: $" .. FormatMoney(stats.get_int(MPX() .. earned_from))
+			return "Current Earned: $" .. MoneyFormatter(stats.get_int(MPX() .. earned_from))
 		end
 	end, null, null, null)
 Totals:add_bare_item("",
@@ -2859,9 +3013,9 @@ Totals:add_bare_item("",
 		if a58 == 1 then
 			return "Current Spent: " .. spent_on
 		elseif a58 == 2 then
-			return "Current Total Spent: $" .. FormatMoney(stats.get_int(spent_on))
+			return "Current Total Spent: $" .. MoneyFormatter(stats.get_int(spent_on))
 		else
-			return "Current Spent: $" .. FormatMoney(stats.get_int(MPX() .. spent_on))
+			return "Current Spent: $" .. MoneyFormatter(stats.get_int(MPX() .. spent_on))
 		end
 	end, null, null, null)
 
@@ -2978,7 +3132,7 @@ Totals:add_bare_item("",
 		if cash_to_change > INT_MAX then
 			cash_to_change = INT_MAX
 		end
-		return "Change Value: $" .. FormatMoney(cash_to_change)
+		return "Change Value: $" .. MoneyFormatter(cash_to_change)
 	end,
 	function()
 		if a57 == 1 then
@@ -3028,7 +3182,7 @@ Totals:add_action("Make Total Spent n Earned The Same", function() stats.set_int
 
 Totals:add_action(SPACE, null)
 
-TotalsNote = Totals:add_submenu("Read Me")
+TotalsNote = Totals:add_submenu(README)
 
 TotalsNote:add_action("   To save the new statistics, you need to", null)
 TotalsNote:add_action("    earn or spend somehow some money", null)
@@ -3048,7 +3202,7 @@ NightclubHelperInfo:add_bare_item("",
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
 	function()
-		return "Safe: $" .. FormatMoney(stats.get_int(MPX() .. "CLUB_SAFE_CASH_VALUE"))
+		return "Safe: $" .. MoneyFormatter(stats.get_int(MPX() .. "CLUB_SAFE_CASH_VALUE"))
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
 	function()
@@ -3056,7 +3210,7 @@ NightclubHelperInfo:add_bare_item("",
 		if cargo_amount == 0 then
 			return "Cargo n Shipments: $0 (0/50)"
 		else
-			return "Cargo n Shipments: $" .. FormatMoney(globals.get_int(FMg + NHCNSg) * cargo_amount) .. " (" .. cargo_amount .. "/50)"
+			return "Cargo n Shipments: $" .. MoneyFormatter(globals.get_int(NHCNSg) * cargo_amount) .. " (" .. cargo_amount .. "/50)"
 		end
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
@@ -3065,7 +3219,7 @@ NightclubHelperInfo:add_bare_item("",
 		if sporting_amount == 0 then
 			return "Sporting Goods: $0 (0/100)"
 		else
-			return "Sporting Goods: $" .. FormatMoney(globals.get_int(FMg + NHSGg) * sporting_amount) .. " (" .. sporting_amount .. "/100)"
+			return "Sporting Goods: $" .. MoneyFormatter(globals.get_int(NHSGg) * sporting_amount) .. " (" .. sporting_amount .. "/100)"
 		end
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
@@ -3074,7 +3228,7 @@ NightclubHelperInfo:add_bare_item("",
 		if imports_amount == 0 then
 			return "S.A. Imports: $0 (0/10)"
 		else
-			return "S.A. Imports: $" .. FormatMoney(globals.get_int(FMg + NHSAIg) * imports_amount) .. " (" .. imports_amount .. "/10)"
+			return "S.A. Imports: $" .. MoneyFormatter(globals.get_int(NHSAIg) * imports_amount) .. " (" .. imports_amount .. "/10)"
 		end
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
@@ -3083,7 +3237,7 @@ NightclubHelperInfo:add_bare_item("",
 		if pharmaceut_amount == 0 then
 			return "Pharmaceut. Research: $0 (0/20)"
 		else
-			return "Pharmaceut. Research: $" .. FormatMoney(globals.get_int(FMg + NHPRg) * pharmaceut_amount) .. " (" .. pharmaceut_amount .. "/20)"
+			return "Pharmaceut. Research: $" .. MoneyFormatter(globals.get_int(NHPRg) * pharmaceut_amount) .. " (" .. pharmaceut_amount .. "/20)"
 		end
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
@@ -3092,7 +3246,7 @@ NightclubHelperInfo:add_bare_item("",
 		if organic_amount == 0 then
 			return "Organic Produce: $0 (0/80)"
 		else
-			return "Organic Produce: $" .. FormatMoney(globals.get_int(FMg + NHOPg) * organic_amount) .. " (" .. organic_amount .. "/80)"
+			return "Organic Produce: $" .. MoneyFormatter(globals.get_int(NHOPg) * organic_amount) .. " (" .. organic_amount .. "/80)"
 		end
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
@@ -3101,7 +3255,7 @@ NightclubHelperInfo:add_bare_item("",
 		if printing_amount == 0 then
 			return "Printing n Copying: $0 (0/60)"
 		else
-			return "Printing n Copying: $" .. FormatMoney(globals.get_int(FMg + NHPNCg) * printing_amount) .. " (" .. printing_amount .. "/60)"
+			return "Printing n Copying: $" .. MoneyFormatter(globals.get_int(NHPNCg) * printing_amount) .. " (" .. printing_amount .. "/60)"
 		end
 	end, null, null, null)
 NightclubHelperInfo:add_bare_item("",
@@ -3110,20 +3264,20 @@ NightclubHelperInfo:add_bare_item("",
 		if cash_amount == 0 then
 			return "Cash Creation: $0 (0/40)"
 		else
-			return "Cash Creation: $" .. FormatMoney(globals.get_int(FMg + NHCCg) * cash_amount) .. " (" .. cash_amount .. "/40)"
+			return "Cash Creation: $" .. MoneyFormatter(globals.get_int(NHCCg) * cash_amount) .. " (" .. cash_amount .. "/40)"
 		end
 	end, null, null, null)
 
-NightclubHelper:add_action("Start Solo Session", function() ChangeSession(8) end)
+NightclubHelper:add_action("Start Solo Session", function() SessionChanger(8) end)
 
 		a60 = false
 	local function NightclubCooldownKiller(Enabled)
 		if Enabled then
-			globals.set_int(FMg + NHCKg1, 0)
-			globals_set_ints(FMg + NHCKg2, FMg + NHCKg3, 1, 0)
+			globals.set_int(NHCKg1, 0)
+			globals_set_ints(NHCKg2, NHCKg3, 1, 0)
 		else
-			globals.set_int(FMg + NHCKg1, 300000)
-			globals_set_ints(FMg + NHCKg2, FMg + NHCKg3, 1, 300000)
+			globals.set_int(NHCKg1, 300000)
+			globals_set_ints(NHCKg2, NHCKg3, 1, 300000)
 		end
 	end
 NightclubHelper:add_toggle("Cooldown Killer", function() return a60 end, function() a60 = not a60 NightclubCooldownKiller(a60) end)
@@ -3159,8 +3313,8 @@ NightclubHelper:add_array_item("Safe", {"Select", "Fill", "Collect (inside only)
 		if safe == 2 then
 			stats.set_int(MPX() .. "CLUB_POPULARITY", 0)
 			sleep(0.2)
-			globals.set_int(FMg + NLISg, 300000)
-			globals.set_int(FMg + NLSCg, 300000)
+			globals.set_int(NLISg, 300000)
+			globals.set_int(NLSCg, 300000)
 			stats.set_int(MPX() .. "CLUB_PAY_TIME_LEFT", -1)
 			a63 = safe
 		elseif safe == 3 then
@@ -3170,26 +3324,26 @@ NightclubHelper:add_array_item("Safe", {"Select", "Fill", "Collect (inside only)
 	end)
 
 		a64 = 1
-NightclubHelper:add_array_item("⚠ Max Payout", {"Select", "Cargo n Shipments", "Sporting Goods", "S.A. Imports", "Pharmaceut. Research", "Organic Produce", "Printing n Copying", "Cash Creation"},
+NightclubHelper:add_array_item("⚠ Max Payout (4mil)", {"Select", "Cargo n Shipments", "Sporting Goods", "S.A. Imports", "Pharmaceut. Research", "Organic Produce", "Printing n Copying", "Cash Creation"},
 	function()
 		return a64
 	end,
 	function(payout)
 		if localplayer ~= nil then
 			if payout == 2 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_0") ~= 0 then
-				globals.set_int(FMg + NHCNSg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_0")))
+				globals.set_int(NHCNSg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_0")))
 			elseif payout == 3 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_1") ~= 0 then
-				globals.set_int(FMg + NHSGg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_1")))
+				globals.set_int(NHSGg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_1")))
 			elseif payout == 4 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_2") ~= 0 then
-				globals.set_int(FMg + NHSAIg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_2")))
+				globals.set_int(NHSAIg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_2")))
 			elseif payout == 5 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_3") ~= 0 then
-				globals.set_int(FMg + NHPRg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_3")))
+				globals.set_int(NHPRg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_3")))
 			elseif payout == 6 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_4") ~= 0 then
-				globals.set_int(FMg + NHOPg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_4")))
+				globals.set_int(NHOPg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_4")))
 			elseif payout == 7 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_5") ~= 0 then
-				globals.set_int(FMg + NHPNCg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_5")))
+				globals.set_int(NHPNCg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_5")))
 			elseif payout == 8 and stats.get_int(MPX() .. "HUB_PROD_TOTAL_6") ~= 0 then
-				globals.set_int(FMg + NHCCg, math.floor(8000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_6")))
+				globals.set_int(NHCCg, math.floor(4000000 / stats.get_int(MPX() .. "HUB_PROD_TOTAL_6")))
 			end
 		end
 		a64 = payout
@@ -3197,18 +3351,18 @@ NightclubHelper:add_array_item("⚠ Max Payout", {"Select", "Cargo n Shipments",
 
 NightclubHelper:add_action("Default Payout",
 	function()
-		globals.set_int(FMg + NHCNSg, 10000)
-		globals.set_int(FMg + NHSGg, 5000)
-		globals.set_int(FMg + NHSAIg, 27000)
-		globals.set_int(FMg + NHPRg, 11475)
-		globals.set_int(FMg + NHOPg, 2025)
-		globals.set_int(FMg + NHPNCg, 10000)
-		globals.set_int(FMg + NHCCg, 4725)
+		globals.set_int(NHCNSg, 10000)
+		globals.set_int(NHSGg, 5000)
+		globals.set_int(NHSAIg, 27000)
+		globals.set_int(NHPRg, 11475)
+		globals.set_int(NHOPg, 2025)
+		globals.set_int(NHPNCg, 10000)
+		globals.set_int(NHCCg, 4725)
 	end)
 
-LegalStats2 = NightclubHelper:add_submenu("Legal Stats")
+LegalStats3 = NightclubHelper:add_submenu("Legal Stats")
 
-LegalStats2:add_bare_item("",
+LegalStats3:add_bare_item("",
 	function()
 		if not localplayer then
 			return "Sales Made: In Menu"
@@ -3216,59 +3370,59 @@ LegalStats2:add_bare_item("",
 			return "Sales Made: " .. stats.get_int(MPX() .. "HUB_SALES_COMPLETED")
 		end
 	end, null, null, null)
-LegalStats2:add_bare_item("",
+LegalStats3:add_bare_item("",
 	function()
 		if not localplayer then
 			return "Earnings: In Menu"
 		else
-			return "Earnings: $" .. FormatMoney(stats.get_int(MPX() .. "HUB_EARNINGS"))
+			return "Earnings: $" .. MoneyFormatter(stats.get_int(MPX() .. "HUB_EARNINGS"))
 		end
 	end, null, null, null)
 
-		new_sell_missions2 = 999
-LegalStats2:add_int_range("New Sell Missions", 10, 0, INT_MAX,
+		new_sell_missions3 = 999
+LegalStats3:add_int_range("New Sell Missions", 10, 0, INT_MAX,
 	function()
-		return new_sell_missions2
+		return new_sell_missions3
 	end,
 	function(missions)
-		new_sell_missions2 = missions
+		new_sell_missions3 = missions
 	end)
 
-		new_earnings2 = 19990000
-LegalStats2:add_int_range("New Earnings", 10000, 0, INT_MAX,
+		new_earnings3 = 19990000
+LegalStats3:add_int_range("New Earnings", 10000, 0, INT_MAX,
 	function()
-		return new_earnings2
+		return new_earnings3
 	end,
 	function(earnings)
-		new_earnings2 = earnings
+		new_earnings3 = earnings
 	end)
 
-LegalStats2:add_action("Apply New Stats",
+LegalStats3:add_action("Apply New Stats",
 	function()
 		if a65 == false then
-			stats.set_int(MPX() .. "HUB_SALES_COMPLETED", new_sell_missions2)
+			stats.set_int(MPX() .. "HUB_SALES_COMPLETED", new_sell_missions3)
 		end
 		if a66 == false then
-			stats.set_int(MPX() .. "HUB_EARNINGS", new_earnings2)
+			stats.set_int(MPX() .. "HUB_EARNINGS", new_earnings3)
 		end
 	end)
 
 		a65 = false
-LegalStats2:add_toggle("Don't Apply Missions", function() return a65 end, function() a65 = not a65 end)
+LegalStats3:add_toggle("Don't Apply Missions", function() return a65 end, function() a65 = not a65 end)
 
 		a66 = false
-LegalStats2:add_toggle("Don't Apply Earnings", function() return a66 end, function() a66 = not a66 end)
+LegalStats3:add_toggle("Don't Apply Earnings", function() return a66 end, function() a66 = not a66 end)
 
-LegalStats2:add_action(SPACE, null)
+LegalStats3:add_action(SPACE, null)
 
-LegalStats2Note = LegalStats2:add_submenu("Read Me")
+LegalStats3Note = LegalStats3:add_submenu(README)
 
-LegalStats2Note:add_action("         To save the legal statistics, you", null)
-LegalStats2Note:add_action("  need to make one more sale for $5,000+", null)
+LegalStats3Note:add_action("         To save the legal statistics, you", null)
+LegalStats3Note:add_action("  need to make one more sale for $5,000+", null)
 
 NightclubHelper:add_action(SPACE, null)
 
-NightclubHelperNote = NightclubHelper:add_submenu("Read Me")
+NightclubHelperNote = NightclubHelper:add_submenu(README)
 
 NightclubHelperNote:add_action("                   Start Solo Session:", null)
 NightclubHelperNote:add_action("        Use if you aren't alone in session", null)
@@ -3327,9 +3481,9 @@ AFKMode:add_toggle("Infinity $$$", function() return inf_mode end, function() in
 		a70 = false
 	local function CargoAfkMode(part, option1, option2)
 		if part == 1 then
-			globals.set_int(FMg + SCVPg, 6000000)
-			globals.set_int(FMg + SCVCKg1, 0)
-			globals.set_int(FMg + SCVCKg2, 0)
+			globals.set_int(SCVPg, 6000000)
+			globals.set_int(SCVCKg1, 0)
+			globals.set_int(SCVCKg2, 0)
 			globals.set_int(BTEg1, 0)
 			globals.set_int(BTEg2, 0)
 			globals.set_int(BTEg3, 0)
@@ -3341,9 +3495,9 @@ AFKMode:add_toggle("Infinity $$$", function() return inf_mode end, function() in
 			ASS:set_int(SCVAl3, 3012)
 		elseif part == 3 then
 			if option2 == false then
-				globals.set_float(FMg + 1, 1)
+				globals.set_float(1, 1)
 			else
-				globals.set_float(FMg + 1, 0)
+				globals.set_float(1, 0)
 			end
 			GCS:set_int(SCVAl4, 1)
 			GCS:set_int(SCVAl5, 1)
@@ -3473,7 +3627,7 @@ AFKMode:add_toggle("⚠ Toggle AFK Mode (buggy)", function() return a70 end, fun
 
 AFKMode:add_action(SPACE, null)
 
-AFKModeNote = AFKMode:add_submenu("Read Me")
+AFKModeNote = AFKMode:add_submenu(README)
 
 AFKModeNote:add_action("                            Delay:", null)
 AFKModeNote:add_action("  Change this if you aren't getting money", null)
@@ -3508,7 +3662,7 @@ EasterEgg:add_action("                   Receive The Prize",
 
 Settings = SpecialCargoVIP:add_submenu("Settings")
 
-Settings:add_action("Start Solo Session", function() ChangeSession(8) end)
+Settings:add_action("Start Solo Session", function() SessionChanger(8) end)
 
 		crate_back = false
 Settings:add_toggle("Disable CrateBack", function() return crate_back end, function() crate_back = not crate_back end)
@@ -3550,15 +3704,15 @@ GetCrates:add_int_range("Instant Buy", 1, 1, 111,
 
 GetCrates:add_action(SPACE, null)
 
-GetCratesNote = GetCrates:add_submenu("Read Me")
+GetCratesNote = GetCrates:add_submenu(README)
 
 GetCratesNote:add_action("                       Instant Buy:", null)
 GetCratesNote:add_action("       Start the buy mission first, select", null)
 GetCratesNote:add_action("      the number of crates and activate", null)
 
-LegalStats3 = Settings:add_submenu("Legal Stats")
+LegalStats4 = Settings:add_submenu("Legal Stats")
 
-LegalStats3:add_bare_item("",
+LegalStats4:add_bare_item("",
 	function()
 		if not localplayer then
 			return "Buy Made/Undertaken: In Menu"
@@ -3566,7 +3720,7 @@ LegalStats3:add_bare_item("",
 			return "Buy Made/Undertaken: " .. stats.get_int(MPX() .. "LIFETIME_BUY_COMPLETE") .. "/" .. stats.get_int(MPX() .. "LIFETIME_BUY_UNDERTAKEN")
 		end
 	end, null, null, null)
-LegalStats3:add_bare_item("",
+LegalStats4:add_bare_item("",
 	function()
 		if not localplayer then
 			return "Sales Made/Undertaken: In Menu"
@@ -3574,35 +3728,35 @@ LegalStats3:add_bare_item("",
 			return "Sales Made/Undertaken: " .. stats.get_int(MPX() .. "LIFETIME_SELL_COMPLETE") .. "/" .. stats.get_int(MPX() .. "LIFETIME_SELL_UNDERTAKEN")
 		end
 	end, null, null, null)
-LegalStats3:add_bare_item("",
+LegalStats4:add_bare_item("",
 	function()
 		if not localplayer then
 			return "Earnings: In Menu"
 		else
-			return "Earnings: $" .. FormatMoney(stats.get_int(MPX() .. "LIFETIME_CONTRA_EARNINGS"))
+			return "Earnings: $" .. MoneyFormatter(stats.get_int(MPX() .. "LIFETIME_CONTRA_EARNINGS"))
 		end
 	end, null, null, null)
 
-		new_buy_missions = 1000
-LegalStats3:add_int_range("New Buy Missions", 10, 0, INT_MAX,
+		new_buy_missions2 = 1000
+LegalStats4:add_int_range("New Buy Missions", 10, 0, INT_MAX,
 	function()
-		return new_buy_missions
+		return new_buy_missions2
 	end,
 	function(missions)
-		new_buy_missions = missions
+		new_buy_missions2 = missions
 	end)
 
-		new_sell_missions3 = 999
-LegalStats3:add_int_range("New Sell Missions", 10, 0, INT_MAX,
+		new_sell_missions4 = 999
+LegalStats4:add_int_range("New Sell Missions", 10, 0, INT_MAX,
 	function()
-		return new_sell_missions3
+		return new_sell_missions4
 	end,
 	function(missions)
-		new_sell_missions3 = missions
+		new_sell_missions4 = missions
 	end)
 
-		new_earnings3 = 19990000
-LegalStats3:add_int_range("New Earnings", 10000, 0, INT_MAX,
+		new_earnings4 = 19990000
+LegalStats4:add_int_range("New Earnings", 10000, 0, INT_MAX,
 	function()
 		return new_earnings3
 	end,
@@ -3610,31 +3764,31 @@ LegalStats3:add_int_range("New Earnings", 10000, 0, INT_MAX,
 		new_earnings3 = earnings
 	end)
 
-LegalStats3:add_action("Apply New Stats",
+LegalStats4:add_action("Apply New Stats",
 	function()
 		if a73 == false then
-			stats.set_int(MPX() .. "LIFETIME_BUY_COMPLETE", new_buy_missions)
-			stats.set_int(MPX() .. "LIFETIME_BUY_UNDERTAKEN", new_buy_missions)
-			stats.set_int(MPX() .. "LIFETIME_SELL_COMPLETE", new_sell_missions3)
-			stats.set_int(MPX() .. "LIFETIME_SELL_UNDERTAKEN", new_sell_missions3)
+			stats.set_int(MPX() .. "LIFETIME_BUY_COMPLETE", new_buy_missions2)
+			stats.set_int(MPX() .. "LIFETIME_BUY_UNDERTAKEN", new_buy_missions2)
+			stats.set_int(MPX() .. "LIFETIME_SELL_COMPLETE", new_sell_missions4)
+			stats.set_int(MPX() .. "LIFETIME_SELL_UNDERTAKEN", new_sell_missions4)
 		end
 		if a74 == false then
-			stats.set_int(MPX() .. "LIFETIME_CONTRA_EARNINGS", new_earnings3)
+			stats.set_int(MPX() .. "LIFETIME_CONTRA_EARNINGS", new_earnings4)
 		end
 	end)
 
 		a73 = false
-LegalStats3:add_toggle("Don't Apply Missions", function() return a73 end, function() a73 = not a73 end)
+LegalStats4:add_toggle("Don't Apply Missions", function() return a73 end, function() a73 = not a73 end)
 
 		a74 = false
-LegalStats3:add_toggle("Don't Apply Earnings", function() return a74 end, function() a74 = not a74 end)
+LegalStats4:add_toggle("Don't Apply Earnings", function() return a74 end, function() a74 = not a74 end)
 
-LegalStats3:add_action(SPACE, null)
+LegalStats4:add_action(SPACE, null)
 
-LegalStats3Note = LegalStats3:add_submenu("Read Me")
+LegalStats4Note = LegalStats4:add_submenu(README)
 
-LegalStats3Note:add_action("         To save the legal statistics, you", null)
-LegalStats3Note:add_action(" need to make one more sale for $10,000+", null)
+LegalStats4Note:add_action("         To save the legal statistics, you", null)
+LegalStats4Note:add_action(" need to make one more sale for $10,000+", null)
 
 Settings:add_action("Clean Office",
 	function()
@@ -3644,12 +3798,12 @@ Settings:add_action("Clean Office",
 		stats.set_int(MPX() .. "LIFETIME_SELL_UNDERTAKEN", 1)
 		stats.set_int(MPX() .. "LIFETIME_CONTRA_EARNINGS", 1)
 		sleep(2)
-		ChangeSession(8)
+		SessionChanger(8)
 	end)
 
 Settings:add_action(SPACE, null)
 
-SettingsNote = Settings:add_submenu("Read Me")
+SettingsNote = Settings:add_submenu(README)
 
 SettingsNote:add_action("                   Start Solo Session:", null)
 SettingsNote:add_action("        Use if you aren't alone in session", null)
@@ -3680,11 +3834,11 @@ ManualMode:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"},
 		a76 = false
 	local function CargoCooldownKiller(Enabled)
 		if Enabled then
-			globals.set_int(FMg + SCVCKg1, 0)
-			globals.set_int(FMg + SCVCKg2, 0)
+			globals.set_int(SCVCKg1, 0)
+			globals.set_int(SCVCKg2, 0)
 		else
-			globals.set_int(FMg + SCVCKg1, 300000)
-			globals.set_int(FMg + SCVCKg2, 1800000)
+			globals.set_int(SCVCKg1, 300000)
+			globals.set_int(SCVCKg2, 1800000)
 		end
 	end
 ManualMode:add_toggle("Cooldown Killer", function() return a76 end, function() a76 = not a76 CargoCooldownKiller(a76) end)
@@ -3697,9 +3851,9 @@ ManualMode:add_toggle("Cooldown Killer", function() return a76 end, function() a
 				stats.set_int(MPX() .. "SPCONTOTALFORWHOUSE" .. i, stats.get_int(MPX() .. "CONTOTALFORWHOUSE" .. i) - 1)
 			end
 		end
-		globals.set_int(FMg + SCVPg, price)
+		globals.set_int(SCVPg, price)
 	end
-ManualMode:add_array_item("Set Price", {"Select", "Min", "Half", "Max", "Max Legal"},
+ManualMode:add_array_item("⚠ Set Price", {"Select", "Min", "Half", "Max", "Max Legal"},
 	function()
 		return a77
 	end,
@@ -3715,16 +3869,16 @@ ManualMode:add_bare_item("",
 		if cargo_values[a77] == 0 then
 			return "Price per Crate: Not Selected"
 		else
-			return "Price per Crate: $" .. FormatMoney(cargo_values[a77])
+			return "Price per Crate: $" .. MoneyFormatter(cargo_values[a77])
 		end
 	end, null, null, null)
 
-ManualMode:add_action("⚠ Instant Sell",
+ManualMode:add_action("Instant Sell",
 	function()
 		if no_rp == false then
-			globals.set_float(FMg + 1, 1)
+			globals.set_float(1, 1)
 		else
-			globals.set_float(FMg + 1, 0)
+			globals.set_float(1, 0)
 		end
 		if crate_back == false then
 			if GCS:is_active() then
@@ -3745,7 +3899,7 @@ ManualMode:add_action("⚠ Instant Sell",
 
 ManualMode:add_action(SPACE, null)
 
-ManualModeNote = ManualMode:add_submenu("Read Me")
+ManualModeNote = ManualMode:add_submenu(README)
 
 ManualModeNote:add_action("                            Delay:", null)
 ManualModeNote:add_action("  Change this if you aren't getting money", null)
@@ -3797,7 +3951,7 @@ CheapLoop:add_int_range("Required Chips (0 - inf)", 50000, 0, INT_MAX,
 						break
 					end
 				end
-				money_made2 = money_made2 + 5000
+				money_made2 = money_made2 + 5
 				money_count2 = money_count2 + 5000
 				globals.set_int(CLg, 1)
 				sleep(cheap_delay)
@@ -3808,12 +3962,16 @@ CheapLoop:add_toggle("5k chips/3s (AFK)", function() return a80 end, function() 
 
 CheapLoop:add_bare_item("",
 	function()
-		return "Chips Made: " .. FormatMoney(money_made2)
+		if money_made2 ~= 0 then
+			return "Chips Made: " .. MoneyFormatter(money_made2 .. "000")
+		else
+			return "Chips Made: " .. MoneyFormatter(money_made2)
+		end
 	end, null, null, null)
 
 CheapLoop:add_action(SPACE, null)
 
-CheapLoopNote = CheapLoop:add_submenu("Read Me")
+CheapLoopNote = CheapLoop:add_submenu(README)
 
 CheapLoopNote:add_action("                     Required Cash:", null)
 CheapLoopNote:add_action("     Сhoose amount of money you want", null)
@@ -3853,12 +4011,12 @@ DeathLoop:add_int_range("Required Cash (0 - inf)", 100000, 0, INT_MAX,
 	end)
 
 	local function TransactionSetter(hash, amount)
-		globals.set_int(TTg1, INT_MAX)
-		globals.set_int(TTg2, INT_MAX + 1)
-		globals.set_int(TTg3, 0)
-		globals.set_int(TTg4, 0)
-		globals.set_int(TTg5, hash)
-		globals.set_int(TTg6, amount)
+		globals.set_int(TTg + 1, INT_MAX)
+		globals.set_int(TTg + 7, INT_MAX + 1)
+		globals.set_int(TTg + 6, 0)
+		globals.set_int(TTg + 5, 0)
+		globals.set_int(TTg + 3, hash)
+		globals.set_int(TTg + 2, amount)
 		globals.set_int(TTg, 1)
 	end
 
@@ -3875,7 +4033,7 @@ DeathLoop:add_int_range("Required Cash (0 - inf)", 100000, 0, INT_MAX,
 						break
 					end
 				end
-				money_made3 = money_made3 + 50000
+				money_made3 = money_made3 + 5
 				money_count3 = money_count3 + 50000
 				TransactionSetter(0x610F9AB4, 50000)
 				sleep(death_delay)
@@ -3886,12 +4044,16 @@ DeathLoop:add_toggle("$50k/1s (AFK)", function() return a83 end, function() a83 
 
 DeathLoop:add_bare_item("",
 	function()
-		return "Money Made: $" .. FormatMoney(money_made3)
+		if money_made3 ~= 0 then
+			return "Money Made: $" .. MoneyFormatter(money_made3 .. "0000")
+		else
+			return "Money Made: $" .. MoneyFormatter(money_made3)
+		end
 	end, null, null, null)
 
 DeathLoop:add_action(SPACE, null)
 
-DeathLoopNote = DeathLoop:add_submenu("Read Me")
+DeathLoopNote = DeathLoop:add_submenu(README)
 
 DeathLoopNote:add_action("                     Required Cash:", null)
 DeathLoopNote:add_action("     Сhoose amount of money you want", null)
@@ -3905,7 +4067,7 @@ DeathLoopNote:add_action("       works better with «Default» delay", null)
 
 NightLoop = MoneyTool:add_submenu("Night Loop | Safe")
 
-		night_delays = {0.6, 0.9, 1.2, 1.5}
+		night_delays = {0.9, 1.2, 1.5, 1.8}
 		night_delay = night_delays[1]
 		a84 = 1
 NightLoop:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"},
@@ -3940,9 +4102,9 @@ NightLoop:add_int_range("Required Cash (0 - inf)", 300000, 0, INT_MAX,
 			while a86 do
 				safe_value = 1845263 + (PlayerID() * 877) + 267 + 354 + 6
 				for i = NLISg, NLIEg do
-					globals.set_int(FMg + i, 300000)
+					globals.set_int(i, 300000)
 				end
-				globals.set_int(FMg + NLSCg, 300000)
+				globals.set_int(NLSCg, 300000)
 				stats.set_int(MPX() .. "CLUB_PAY_TIME_LEFT", -1)
 				sleep(night_delay)
 				if globals.get_int(safe_value) ~= 0 then
@@ -3959,7 +4121,7 @@ NightLoop:add_int_range("Required Cash (0 - inf)", 300000, 0, INT_MAX,
 							break
 						end
 					end
-					money_made4 = money_made4 + 300000
+					money_made4 = money_made4 + 3
 					money_count4 = money_count4 + 300000
 					AMN:set_int(NLCl, 1)
 					sleep(night_delay)
@@ -3971,12 +4133,16 @@ NightLoop:add_toggle("$300k/2s (AFK)", function() return a86 end, function() a86
 
 NightLoop:add_bare_item("",
 	function()
-		return "Money Made: $" .. FormatMoney(money_made4)
+		if money_made4 ~= 0 then
+			return "Money Made: $" .. MoneyFormatter(money_made4 .. "00000")
+		else
+			return "Money Made: $" .. MoneyFormatter(money_made4)
+		end
 	end, null, null, null)
 
 NightLoop:add_action(SPACE, null)
 
-NightLoopNote = NightLoop:add_submenu("Read Me")
+NightLoopNote = NightLoop:add_submenu(README)
 
 NightLoopNote:add_action("  Come inside your nightclub and activate", null)
 NightLoopNote:add_action(SPACE, null)
@@ -4035,7 +4201,7 @@ OPLoop:add_int_range("Required Cash (0 - inf)", 1000000, 0, INT_MAX,
 						break
 					end
 				end
-				money_made5 = money_made5 + 1000000
+				money_made5 = money_made5 + 1
 				money_count5 = money_count5 + 1000000
 				TransactionSetter(0x615762F1, 1000000)
 				sleep(op_delay)
@@ -4046,12 +4212,16 @@ OPLoop:add_toggle("$1m/1s (AFK)", function() return a89 end, function() a89 = no
 
 OPLoop:add_bare_item("",
 	function()
-		return "Money Made: $" .. FormatMoney(money_made5)
+		if money_made5 ~= 0 then
+			return "Money Made: $" .. MoneyFormatter(money_made5 .. "000000")
+		else
+			return "Money Made: $" .. MoneyFormatter(money_made5)
+		end
 	end, null, null, null)
 
 OPLoop:add_action(SPACE, null)
 
-OPLoopNote = OPLoop:add_submenu("Read Me")
+OPLoopNote = OPLoop:add_submenu(README)
 
 OPLoopNote:add_action("                     Required Cash:", null)
 OPLoopNote:add_action("     Сhoose amount of money you want", null)
@@ -4127,7 +4297,7 @@ Achievements:add_toggle("Unlock All", function() return a91 end, function() a91 
 
 Achievements:add_action(SPACE, null)
 
-AchievementsNote = Achievements:add_submenu("Read Me")
+AchievementsNote = Achievements:add_submenu(README)
 
 AchievementsNote:add_action("                         Unlock All:", null)
 AchievementsNote:add_action("  Unlocks all achievements auto; ≈10 mins", null)
@@ -5442,7 +5612,7 @@ Awards:add_action("Reset All",
 
 Awards:add_action(SPACE, null)
 
-AwardsNote = Awards:add_submenu("Read Me")
+AwardsNote = Awards:add_submenu(README)
 
 AwardsNote:add_action("    	 Unlocking «After Hours» awards will ", null)
 AwardsNote:add_action("  cause a transaction error multiple times;", null)
@@ -5541,7 +5711,7 @@ Characteristics:add_float_range("Mental State", 0.1, 0, 100,
 
 Characteristics:add_action(SPACE, null)
 
-CharacteristicsNote = Characteristics:add_submenu("Read Me")
+CharacteristicsNote = Characteristics:add_submenu(README)
 
 CharacteristicsNote:add_action("                  Fast Run n Reload:", null)
 CharacteristicsNote:add_action("      Change session to apply the result", null)
@@ -5714,14 +5884,14 @@ PJackOLanterns:add_int_range("Set Jack O' Lanterns", 1, 0, 200,
 
 PJackOLanterns:add_action(SPACE, null)
 
-PJackOLanternsNote = PJackOLanterns:add_submenu("Read Me")
+PJackOLanternsNote = PJackOLanterns:add_submenu(README)
 
 PJackOLanternsNote:add_action("     First, find the item you want, select", null)
 PJackOLanternsNote:add_action("    an option, and then pick up the item", null)
 
 PCollectibles:add_action(SPACE, null)
 
-PCollectiblesNote = PCollectibles:add_submenu("Read Me")
+PCollectiblesNote = PCollectibles:add_submenu(README)
 
 PCollectiblesNote:add_action("     First, find the item you want, select", null)
 PCollectiblesNote:add_action("    an option, and then pick up the item", null)
@@ -5840,7 +6010,7 @@ CrewRank:add_toggle("Reset Value", function() return a94 end, function() a94 = n
 
 CrewRank:add_action(SPACE, null)
 
-CrewRankNote = CrewRank:add_submenu("Read Me")
+CrewRankNote = CrewRank:add_submenu(README)
 
 CrewRankNote:add_action("     Select one of five crews and set rank;", null)
 CrewRankNote:add_action(" you may need to change session to apply", null)
@@ -5926,7 +6096,7 @@ Rank:add_bare_item("",
 			end
 			if a97 == false then
 				sleep(1)
-				ChangeSession(8)
+				SessionChanger(8)
 			end
 			if a95 == true then
 				sleep(1)
@@ -5953,7 +6123,7 @@ Rank:add_toggle("Fix Story Mode Issue", function() return a97 end, function() a9
 
 Rank:add_action(SPACE, null)
 
-RankNote = Rank:add_submenu("Read Me")
+RankNote = Rank:add_submenu(README)
 
 RankNote:add_action("                        Reset Value:", null)
 RankNote:add_action("      Resets «Set Rank» value after using", null)
@@ -6168,14 +6338,14 @@ KDChangerDM:add_toggle("Reset Value", function() return a99 end, function() a99 
 
 KDChangerDM:add_action(SPACE, null)
 
-KDChangerDMNote = KDChangerDM:add_submenu("Read Me")
+KDChangerDMNote = KDChangerDM:add_submenu(README)
 
 KDChangerDMNote:add_action("                        Reset Value:", null)
 KDChangerDMNote:add_action("  Resets «Set K/D Ratio» value after using", null)
 
 KDChanger:add_action(SPACE, null)
 
-KDChangerNote = KDChanger:add_submenu("Read Me")
+KDChangerNote = KDChanger:add_submenu(README)
 
 KDChangerNote:add_action("                        Reset Value:", null)
 KDChangerNote:add_action("  Resets «Set K/D Ratio» value after using", null)
@@ -6194,7 +6364,7 @@ CharactersStats:add_toggle("Sex Changer", function() return b1 end, function() b
 
 CharactersStats:add_action(SPACE, null)
 
-CharactersStatsNote = CharactersStats:add_submenu("Read Me")
+CharactersStatsNote = CharactersStats:add_submenu(README)
 
 CharactersStatsNote:add_action("                       Sex Changer:", null)
 CharactersStatsNote:add_action("     Unlocks «Change Sex» option while", null)
@@ -6244,7 +6414,7 @@ ArenaWar:add_array_item("Unlock Vehicle", {"Select", "Taxi", "HVY Dozer", "Clown
 		b2 = vehicle
 		if vehicle > 1 and b3 == false then
 			sleep(2)
-			ChangeSession(8)
+			SessionChanger(8)
 		end
 	end)
 
@@ -6271,11 +6441,11 @@ ArenaWarDM:add_int_range("Arena Points", 10, 0, 10040,
 		stats.set_int(MPX() .. "ARENAWARS_AP", points)
 	end)
 
-ArenaWarDM:add_action("Change Session", function() ChangeSession(8) end)
+ArenaWarDM:add_action("Change Session", function() SessionChanger(8) end)
 
 ArenaWar:add_action(SPACE, null)
 
-ArenaWarNote = ArenaWar:add_submenu("Read Me")
+ArenaWarNote = ArenaWar:add_submenu(README)
 
 ArenaWarNote:add_action("                      Unlock Vehicle:", null)
 ArenaWarNote:add_action("       First, make the following settings:", null)
@@ -6299,11 +6469,11 @@ Bunker = FacilitiesUnlocks:add_submenu("Bunker")
 
 		b4 = false
 	local function BunkerResearchSetter(value1, value2, value3, value4, value5)
-		globals.set_int(FMg + BUCg1, value1)
-		globals.set_int(FMg + BUCg2, value2)
-		globals_set_ints(FMg + BUCg3, FMg + BUCg4, 1, value3)
-		globals.set_int(FMg + BUAg1, value4)
-		globals.set_int(FMg + BUAg2, value5)
+		globals.set_int(BUCg1, value1)
+		globals.set_int(BUCg2, value2)
+		globals_set_ints(BUCg3, BUCg4, 1, value3)
+		globals.set_int(BUAg1, value4)
+		globals.set_int(BUAg2, value5)
 	end
 	local function BunkerResearchUnlocker(Enabled)
 		if Enabled then
@@ -6336,7 +6506,7 @@ Bunker:add_action("Unlock Shooting Range Rewards",
 
 Bunker:add_action(SPACE, null)
 
-BunkerNote = Bunker:add_submenu("Read Me")
+BunkerNote = Bunker:add_submenu(README)
 
 BunkerNote:add_action("          Set staff equally, activate and", null)
 BunkerNote:add_action(" then all researches will unlock one by one", null)
@@ -6345,7 +6515,7 @@ BunkerNote:add_action(" then all researches will unlock one by one", null)
 
 LSCarMeet = FacilitiesUnlocks:add_submenu("LS Car Meet")
 
-LSCarMeet:add_action("Unlock All", function() globals_set_ints(FMg + LSCMMg1, FMg + LSCMMg2, 1, 100000) end)
+LSCarMeet:add_action("Unlock All", function() globals_set_ints(LSCMMg1, LSCMMg2, 1, 100000) end)
 
 LSCarMeet:add_action("Unlock Trade Prices For Headlights", function() stats_set_packed_bools(24980, 24991, true) end)
 
@@ -6357,7 +6527,7 @@ LSCarMeet:add_action("Unlock Podium Prize",
 
 LSCarMeet:add_action(SPACE, null)
 
-LSCarMeetNote = LSCarMeet:add_submenu("Read Me")
+LSCarMeetNote = LSCarMeet:add_submenu(README)
 
 LSCarMeetNote:add_action("                         Unlock All:", null)
 LSCarMeetNote:add_action("      Buy a membership, activate, sit in", null)
@@ -6485,7 +6655,7 @@ CustomWheels:add_toggle("Benny's Wheels",
 
 CustomWheels:add_action(SPACE, null)
 
-CustomWheelsNote = CustomWheels:add_submenu("Read Me")
+CustomWheelsNote = CustomWheels:add_submenu(README)
 
 CustomWheelsNote:add_action("    Enable which feature you want to use", null)
 CustomWheelsNote:add_action(" when you're in CEO Office Mod Shop and", null)
@@ -6647,7 +6817,7 @@ CustomPlate:add_toggle("Reset Value", function() return b5 end, function() b5 = 
 
 CustomPlate:add_action(SPACE, null)
 
-CustomPlateNote = CustomPlate:add_submenu("Read Me")
+CustomPlateNote = CustomPlate:add_submenu(README)
 
 CustomPlateNote:add_action("                        «.» = space;", null)
 CustomPlateNote:add_action("      Use in LSC and buy a plate to save", null)
@@ -6657,7 +6827,7 @@ CustomPlateNote:add_action("    Resets «Apply Plate» value after using", null)
 
 LSCustoms:add_action(SPACE, null)
 
-LSCustomsNote = LSCustoms:add_submenu("Read Me")
+LSCustomsNote = LSCustoms:add_submenu(README)
 
 LSCustomsNote:add_action("         Some colors may not be saved", null)
 
@@ -6672,7 +6842,7 @@ Misc = UnlockTool:add_submenu("Miscellaneous | Safe")
 		stats.set_float("MPPLY_OVERALL_BADSPORT", value2)
 		stats.set_bool("MPPLY_CHAR_IS_BADSPORT", value3)
 		sleep(1)
-		ChangeSession(8)
+		SessionChanger(8)
 	end
 Misc:add_array_item("Bad Sport Label", {"Select", "Add", "Remove"},
 	function()
@@ -6686,7 +6856,6 @@ Misc:add_array_item("Bad Sport Label", {"Select", "Add", "Remove"},
 		end
 	end)
 
-		select_supplies = {GSIg1, GSIg2, GSIg3, GSIg4, GSIg5, GSIg6, GSIg7}
 		b7 = 1
 Misc:add_array_item("Get Supplies", {"Select", "All", "Cash", "Coke", "Weed", "Meth", "Documents", "Bunker", "Acid"},
 	function()
@@ -6694,49 +6863,49 @@ Misc:add_array_item("Get Supplies", {"Select", "All", "Cash", "Coke", "Weed", "M
 	end,
 	function(supplies)
 		if supplies ~= 1 and supplies ~= 2 then
-			globals.set_int(select_supplies[supplies - 1], 1)
+			globals.set_int(GSIg + (supplies - 2), 1)
 		else
-			globals_set_ints(GSIg1, GSIg7, 1, 1)
+			globals_set_ints(GSIg + 1, GSIg + 7, 1, 1)
 		end
 	end)
 
 		b8 = false
 	local function DripfeedVehiclesToggler(Enabled)
 		if Enabled then
-			globals_set_bools(FMg + EDVg1, FMg + EDVg2, 1, true)
+			globals_set_bools(EDVg1, EDVg2, 1, true)
 		else
-			globals_set_bools(FMg + EDVg1, FMg + EDVg2, 1, false)
+			globals_set_bools(EDVg1, EDVg2, 1, false)
 		end
 	end
 Misc:add_toggle("Enable Dripfeed Vehicles", function() return b8 end, function() b8 = not b8 DripfeedVehiclesToggler(b8) end)
 
 		b9 = false
 	local function RemovedVehiclesSetter(bool)
-		globals_set_bools(FMg + EVg1, FMg + EVg2, 1, bool)
-		globals_set_bools(FMg + EVg3, FMg + EVg4, 1, bool)
-		globals_set_bools(FMg + EVg5, FMg + EVg6, 1, bool)
-		globals_set_bools(FMg + EVg7, FMg + EVg8, 1, bool)
-		globals_set_bools(FMg + EVg9, FMg + EVg10, 1, bool)
-		globals_set_bools(FMg + EVg11, FMg + EVg12, 1, bool)
-		globals_set_bools(FMg + EVg13, FMg + EVg14, 2, bool)
-		globals_set_bools(FMg + EVg15, FMg + EVg16, 1, bool)
-		globals_set_bools(FMg + EVg17, FMg + EVg18, 1, bool)
-		globals_set_bools(FMg + EVg19, FMg + EVg20, 1, bool)
-		globals_set_bools(FMg + EVg21, FMg + EVg22, 1, bool)
-		globals_set_bools(FMg + EVg23, FMg +  EVg24, 1, bool)
-		globals.set_bool(FMg + EVg25, bool)
-		globals.set_bool(FMg + EVg26, bool)
-		globals_set_bools(FMg + EVg23, FMg + EVg24, 1, bool)
-		globals_set_bools(FMg + EVg25, FMg + EVg26, 1, bool)
-		globals_set_bools(FMg + EVg27, FMg + EVg28, 1, bool)
-		globals_set_bools(FMg + EVg29, FMg + EVg30, 1, bool)
-		globals_set_bools(FMg + EVg31, FMg + EVg32, 1, bool)
-		globals_set_bools(FMg + EVg33, FMg + EVg34, 1, bool)
-		globals_set_bools(FMg + EVg35, FMg + EVg36, 1, bool)
-		globals_set_bools(FMg + EVg37, FMg + EVg38, 1, bool)
-		globals_set_bools(FMg + EVg39, FMg + EVg40, 1, bool)
-		globals_set_bools(FMg + EVg41, FMg + EVg42, 1, bool)
-		globals_set_bools(FMg + EVg43, FMg + EVg44, 1, bool)
+		globals_set_bools(EVg1, EVg2, 1, bool)
+		globals_set_bools(EVg3, EVg4, 1, bool)
+		globals_set_bools(EVg5, EVg6, 1, bool)
+		globals_set_bools(EVg7, EVg8, 1, bool)
+		globals_set_bools(EVg9, EVg10, 1, bool)
+		globals_set_bools(EVg11, EVg12, 1, bool)
+		globals_set_bools(EVg13, EVg14, 2, bool)
+		globals_set_bools(EVg15, EVg16, 1, bool)
+		globals_set_bools(EVg17, EVg18, 1, bool)
+		globals_set_bools(EVg19, EVg20, 1, bool)
+		globals_set_bools(EVg21, EVg22, 1, bool)
+		globals_set_bools(EVg23,  EVg24, 1, bool)
+		globals.set_bool(EVg25, bool)
+		globals.set_bool(EVg26, bool)
+		globals_set_bools(EVg23, EVg24, 1, bool)
+		globals_set_bools(EVg25, EVg26, 1, bool)
+		globals_set_bools(EVg27, EVg28, 1, bool)
+		globals_set_bools(EVg29, EVg30, 1, bool)
+		globals_set_bools(EVg31, EVg32, 1, bool)
+		globals_set_bools(EVg33, EVg34, 1, bool)
+		globals_set_bools(EVg35, EVg36, 1, bool)
+		globals_set_bools(EVg37, EVg38, 1, bool)
+		globals_set_bools(EVg39, EVg40, 1, bool)
+		globals_set_bools(EVg41, EVg42, 1, bool)
+		globals_set_bools(EVg43, EVg44, 1, bool)
 	end
 	local function RemovedVehiclesToggler(Enabled)
 		if Enabled then
@@ -6749,9 +6918,12 @@ Misc:add_toggle("Enable Removed Vehicles", function() return b9 end, function() 
 
 		b10 = false
 	local function SilentNSneakyToggler(Enabled)
-		hide_me = 1845263 + 1 + (PlayerID() * 877) + 205
-		if Enabled then
-			globals.set_int(hide_me, 8)
+		if Enabled and localplayer ~= nil then
+			hide_me = 1845263 + 1 + (PlayerID() * 877) + 205
+			while b10 do
+				globals.set_int(hide_me, 8)
+				sleep(1)
+			end
 		else
 			globals.set_int(hide_me, 9)
 		end
@@ -6798,195 +6970,100 @@ GunVan:add_action("Teleport to Gun Van",
 		TP(gunvan_locs[location][1], gunvan_locs[location][2], gunvan_locs[location][3], 0, 0, 0)
 	end)
 
-		weapons_hash = {
-			-656458692, -- 1
-			-1786099057, -- 2
-			-853065399, -- 3
-			-102323637, -- 4
-			-2067956739, -- 5
-			-1834847097, -- 6
-			-1951375401, -- 7
-			1317494643, -- 8
-			-102973651, -- 9
-			-1716189206, -- 10
-			-581044007, -- 11
-			1737195953, -- 12
-			-1810795771, -- 13
-			-538741184, -- 14
-			419712736, -- 15
-			584646201, -- 16
-			727643628, -- 17
-			1593441988, -- 18
-			-1746263880, -- 19
-			1198879012, -- 20
-			1470379660, -- 21
-			-771403250, -- 22
-			-598887786, -- 23
-			-1853920116, -- 24
-			453432689, -- 25
-			-1075685676, -- 26
-			-1716589765, -- 27
-			-1355376991, -- 28
-			-1045183535, -- 29
-			-879347409, -- 30
-			-1076751822, -- 31
-			-2009644972, -- 32
-			137902532, -- 33
-			1171102963, -- 34
-			-270015777, -- 35
-			171789620, -- 36
-			-619010992, -- 37
-			324215364, -- 38
-			-1121678507, -- 39
-			736523883, -- 40
-			2024373456, -- 41
-			350597077, -- 42
-			-1357824103, -- 43
-			-1074790547, -- 44
-			961495388, -- 45
-			2132975508, -- 46
-			-2066285827, -- 47
-			-2084633992, -- 48
-			-86904375, -- 49
-			1649403952, -- 50
-			-947031628, -- 51
-			-1658906650, -- 52
-			-1063057011, -- 53
-			-1768145561, -- 54
-			-774507221, -- 55
-			1924557585, -- 56
-			-494615257, -- 57
-			317205821, -- 58
-			-1654528753, -- 59
-			94989220, -- 60
-			-275439685, -- 61
-			984333226, -- 62
-			487013001, -- 63
-			1432025498, -- 64
-			2017895192, -- 65
-			-1466123874, -- 66
-			2144741730, -- 67
-			-608341376, -- 68
-			1627465347, -- 69
-			-1660422300, -- 70
-			1198256469, -- 71
-			205991906, -- 72
-			177293209, -- 73
-			-952879014, -- 74
-			1785463520, -- 75
-			1853742572, -- 76
-			100416529, -- 77
-			125959754, -- 78
-			-618237638, -- 79
-			2138347493, -- 80
-			-1568386805, -- 81
-			1672152130, -- 82
-			1119849093, -- 83
-			-22923932, -- 84
-			-1238556825, -- 85
-			-1312131151, -- 86
-			-1813897027, -- 87
-			615608432, -- 88
-			-1169823560, -- 89
-			-1420407917, -- 90
-			-37975472, -- 91
-			741814745, -- 92
-			883325847 -- 93
-		}
-		weapons_name = {
-			"Knuckle Duster", -- 1
-			"Baseball Bat", -- 2
-			"Battle Axe", -- 3
-			"Bottle", -- 4
-			"Crowbar", -- 5
-			"Antique Cavalry Dagger", -- 6
-			"Flashlight", -- 7
-			"Hammer", -- 8
-			"Hatchet", -- 9
-			"Knife", -- 10
-			"Machete", -- 11
-			"Nightstick", -- 12
-			"Pool Cue", -- 13
-			"Switchblade", -- 14
-			"Pipe Wrench", -- 15
-			"AP Pistol", -- 16
-			"Ceramic Pistol", -- 17
-			"Combat Pistol", -- 18
-			"Double Action Revolver", -- 19
-			"Flare Gun", -- 20
-			"Perico Pistol", -- 21
-			"Heavy Pistol", -- 22
-			"Marksman Pistol", -- 23
-			"Navy Revolver", -- 24
-			"Pistol", -- 25
-			"Pistol Mk II", -- 26
-			"Pistol .50", -- 27
-			"Up-n-Atomizer", -- 28
-			"Heavy Revolver", -- 29
-			"Heavy Revolver Mk II", -- 30
-			"SNS Pistol", -- 31
-			"SNS Pistol Mk II", -- 32
-			"Vintage Pistol", -- 33
-			"Stun Gun", -- 34
-			"Assault SMG", -- 35
-			"Combat PDW", -- 36
-			"Machine Pistol", -- 37
-			"Micro SMG", -- 38
-			"Mini SMG", -- 39
-			"SMG", -- 40
-			"SMG Mk II", -- 41
-			"Tactical SMG", -- 42
-			"Advanced Rifle", -- 43
-			"Assault Rifle", -- 44
-			"Assault Rifle Mk II", -- 45
-			"Bullpup Rifle", -- 46
-			"Bullpup Rifle Mk II", -- 47
-			"Carbine Rifle", -- 48
-			"Carbine Rifle Mk II", -- 49
-			"Compact Rifle", -- 50
-			"Heavy Rifle", -- 51
-			"Military Rifle", -- 52
-			"Special Carbine", -- 53
-			"Special Carbine Mk II", -- 54
-			"Service Carbine", -- 55
-			"Battle Rifle", -- 56
-			"Assault Shotgun", -- 57
-			"Sweeper Shotgun", -- 58
-			"Bullpup Shotgun", -- 59
-			"Combat Shotgun", -- 60
-			"Double Barrel Shotgun", -- 61
-			"Heavy Shotgun", -- 62
-			"Pump Shotgun", -- 63
-			"Pump Shotgun Mk II", -- 64
-			"Sawed-Off Shotgun", -- 65
-			"Musket", -- 66
-			"Combat MG", -- 67
-			"Combat MG Mk II", -- 68
-			"Gusenberg Sweeper", -- 69
-			"MG", -- 70
-			"Unholy Hellbringer", -- 71
-			"Heavy Sniper", -- 72
-			"Heavy Sniper Mk II", -- 73
-			"Marksman Rifle", -- 74
-			"Marksman Rifle Mk II", -- 75
-			"Precision Rifle", -- 76
-			"Sniper Rifle", -- 77
-			"Compact Grenade Launcher", -- 78
-			"Compact EMP Launcher", -- 79
-			"Firework Launcher", -- 80
-			"Grenade Launcher", -- 81
-			"Homing Launcher", -- 82
-			"Minigun", -- 83
-			"Railgun", -- 84
-			"Widowmaker", -- 85
-			"RPG", -- 86
-			"Grenade", -- 87
-			"Molotov", -- 88
-			"Pipe Bomb", -- 89
-			"Proximity Mine", -- 90
-			"Tear Gas", -- 91
-			"Sticky Bomb", -- 92
-			"Jerry Can", -- 93
+		weapons_data = {
+			{hash = -656458692, name = "Knuckle Duster"}, -- 1
+			{hash = -1786099057, name = "Baseball Bat"}, -- 2
+			{hash = -853065399, name = "Battle Axe"}, -- 3
+			{hash = -102323637, name = "Bottle"}, -- 4
+			{hash = -2067956739, name = "Crowbar"}, -- 5
+			{hash = -1834847097, name = "Antique Cavalry Dagger"}, -- 6
+			{hash = -1951375401, name = "Flashlight"}, -- 7
+			{hash = 1317494643, name = "Hammer"}, -- 8
+			{hash = -102973651, name = "Hatchet"}, -- 9
+			{hash = -1716189206, name = "Knife"}, -- 10
+			{hash = -581044007, name = "Machete"}, -- 11
+			{hash = 1737195953, name = "Nightstick"}, -- 12
+			{hash = -1810795771, name = "Pool Cue"}, -- 13
+			{hash = -538741184, name = "Switchblade"}, -- 14
+			{hash = 419712736, name = "Pipe Wrench"}, -- 15
+			{hash = 584646201, name = "AP Pistol"}, -- 16
+			{hash = 727643628, name = "Ceramic Pistol"}, -- 17
+			{hash = 1593441988, name = "Combat Pistol"}, -- 18
+			{hash = -1746263880, name = "Double Action Revolver"}, -- 19
+			{hash = 1198879012, name = "Flare Gun"}, -- 20
+			{hash = 1470379660, name = "Perico Pistol"}, -- 21
+			{hash = -771403250, name = "Heavy Pistol"}, -- 22
+			{hash = -598887786, name = "Marksman Pistol"}, -- 23
+			{hash = -1853920116, name = "Navy Revolver"}, -- 24
+			{hash = 453432689, name = "Pistol"}, -- 25
+			{hash = -1075685676, name = "Pistol Mk II"}, -- 26
+			{hash = -1716589765, name = "Pistol .50"}, -- 27
+			{hash = -1355376991, name = "Up-n-Atomizer"}, -- 28
+			{hash = -1045183535, name = "Heavy Revolver"}, -- 29
+			{hash = -879347409, name = "Heavy Revolver Mk II"}, -- 30
+			{hash = -1076751822, name = "SNS Pistol"}, -- 31
+			{hash = -2009644972, name = "SNS Pistol Mk II"}, -- 32
+			{hash = 137902532, name = "Vintage Pistol"}, -- 33
+			{hash = 1171102963, name = "Stun Gun"}, -- 34
+			{hash = -270015777, name = "Assault SMG"}, -- 35
+			{hash = 171789620, name = "Combat PDW"}, -- 36
+			{hash = -619010992, name = "Machine Pistol"}, -- 37
+			{hash = 324215364, name = "Micro SMG"}, -- 38
+			{hash = -1121678507, name = "Mini SMG"}, -- 39
+			{hash = 736523883, name = "SMG"}, -- 40
+			{hash = 2024373456, name = "SMG Mk II"}, -- 41
+			{hash = 350597077, name = "Tactical SMG"}, -- 42
+			{hash = -1357824103, name = "Advanced Rifle"}, -- 43
+			{hash = -1074790547, name = "Assault Rifle"}, -- 44
+			{hash = 961495388, name = "Assault Rifle Mk II"}, -- 45
+			{hash = 2132975508, name = "Bullpup Rifle"}, -- 46
+			{hash = -2066285827, name = "Bullpup Rifle Mk II"}, -- 47
+			{hash = -2084633992, name = "Carbine Rifle"}, -- 48
+			{hash = -86904375, name = "Carbine Rifle Mk II"}, -- 49
+			{hash = 1649403952, name = "Compact Rifle"}, -- 50
+			{hash = -947031628, name = "Heavy Rifle"}, -- 51
+			{hash = -1658906650, name = "Military Rifle"}, -- 52
+			{hash = -1063057011, name = "Special Carbine"}, -- 53
+			{hash = -1768145561, name = "Special Carbine Mk II"}, -- 54
+			{hash = -774507221, name = "Service Carbine"}, -- 55
+			{hash = 1924557585, name = "Battle Rifle"}, -- 56
+			{hash = -494615257, name = "Assault Shotgun"}, -- 57
+			{hash = 317205821, name = "Sweeper Shotgun"}, -- 58
+			{hash = -1654528753, name = "Bullpup Shotgun"}, -- 59
+			{hash = 94989220, name = "Combat Shotgun"}, -- 60
+			{hash = -275439685, name = "Double Barrel Shotgun"}, -- 61
+			{hash = 984333226, name = "Heavy Shotgun"}, -- 62
+			{hash = 487013001, name = "Pump Shotgun"}, -- 63
+			{hash = 1432025498, name = "Pump Shotgun Mk II"}, -- 64
+			{hash = 2017895192, name = "Sawed-Off Shotgun"}, -- 65
+			{hash = -1466123874, name = "Musket"}, -- 66
+			{hash = 2144741730, name = "Combat MG"}, -- 67
+			{hash = -608341376, name = "Combat MG Mk II"}, -- 68
+			{hash = 1627465347, name = "Gusenberg Sweeper"}, -- 69
+			{hash = -1660422300, name = "MG"}, -- 70
+			{hash = 1198256469, name = "Unholy Hellbringer"}, -- 71
+			{hash = 205991906, name = "Heavy Sniper"}, -- 72
+			{hash = 177293209, name = "Heavy Sniper Mk II"}, -- 73
+			{hash = -952879014, name = "Marksman Rifle"}, -- 74
+			{hash = 1785463520, name = "Marksman Rifle Mk II"}, -- 75
+			{hash = 1853742572, name = "Precision Rifle"}, -- 76
+			{hash = 100416529, name = "Sniper Rifle"}, -- 77
+			{hash = 125959754, name = "Compact Grenade Launcher"}, -- 78
+			{hash = -618237638, name = "Compact EMP Launcher"}, -- 79
+			{hash = 2138347493, name = "Firework Launcher"}, -- 80
+			{hash = -1568386805, name = "Grenade Launcher"}, -- 81
+			{hash = 1672152130, name = "Homing Launcher"}, -- 82
+			{hash = 1119849093, name = "Minigun"}, -- 83
+			{hash = -22923932, name = "Railgun"}, -- 84
+			{hash = -1238556825, name = "Widowmaker"}, -- 85
+			{hash = -1312131151, name = "RPG"}, -- 86
+			{hash = -1813897027, name = "Grenade"}, -- 87
+			{hash = 615608432, name = "Molotov"}, -- 88
+			{hash = -1169823560, name = "Pipe Bomb"}, -- 89
+			{hash = -1420407917, name = "Proximity Mine" }, -- 90
+			{hash = -37975472, name = "Tear Gas"}, -- 91
+			{hash = 741814745, name = "Sticky Bomb"}, -- 92
+			{hash = 883325847, name = "Jerry Can"}, -- 93
 		}
 
 GunVanWeapons = GunVan:add_submenu("Weapons")
@@ -7001,121 +7078,121 @@ WSlot7 = GunVanWeapons:add_submenu("7-slot")
 WSlot8 = GunVanWeapons:add_submenu("8-slot")
 WSlot9 = GunVanWeapons:add_submenu("9-slot")
 for i = 1, 86 do
-	WSlot1:add_toggle(weapons_name[i],
+	WSlot1:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg1) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 1) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg1, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 1, weapons_data[i].hash)
 		end)
 
-	WSlot2:add_toggle(weapons_name[i],
+	WSlot2:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg2) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 2) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg2, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 2, weapons_data[i].hash)
 		end)
 
-	WSlot3:add_toggle(weapons_name[i],
+	WSlot3:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg3) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 3) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg3, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 3, weapons_data[i].hash)
 		end)
 
-	WSlot4:add_toggle(weapons_name[i],
+	WSlot4:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg4) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 4) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg4, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 4, weapons_data[i].hash)
 		end)
 
-	WSlot5:add_toggle(weapons_name[i],
+	WSlot5:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg5) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 5) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg5, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 5, weapons_data[i].hash)
 		end)
 
-	WSlot6:add_toggle(weapons_name[i],
+	WSlot6:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg6) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 6) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg6, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 6, weapons_data[i].hash)
 		end)
 
-	WSlot7:add_toggle(weapons_name[i],
+	WSlot7:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg7) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 7) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg7, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 7, weapons_data[i].hash)
 		end)
 
-	WSlot8:add_toggle(weapons_name[i],
+	WSlot8:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg8) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 8) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVSg, 0)
-			globals.set_int(FMg + GVWSg8, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 8, weapons_data[i].hash)
 		end)
 
-	WSlot9:add_toggle(weapons_name[i],
+	WSlot9:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVWSg9) then
+			if weapons_data[i].hash == globals.get_int(GVWSg + 9) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + 34131, 0)
-			globals.set_int(FMg + GVWSg9, weapons_hash[i])
+			globals.set_int(GVSg, 0)
+			globals.set_int(GVWSg + 9, weapons_data[i].hash)
 		end)
 end
 
@@ -7125,54 +7202,48 @@ TSlot1 = GunVanThorwables:add_submenu("1-slot")
 TSlot2 = GunVanThorwables:add_submenu("2-slot")
 TSlot3 = GunVanThorwables:add_submenu("3-slot")
 for i = 87, 93 do
-	TSlot1:add_toggle(weapons_name[i],
+	TSlot1:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVTSg1) then
+			if weapons_data[i].hash == globals.get_int(GVTSg + 1) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVTSg1, weapons_hash[i])
+			globals.set_int(GVTSg + 1, weapons_data[i].hash)
 		end)
 
-	TSlot2:add_toggle(weapons_name[i],
+	TSlot2:add_toggle(weapons_data[i].name,
 			function()
-				if weapons_hash[i] == globals.get_int(FMg + GVTSg2) then
+				if weapons_data[i].hash == globals.get_int(GVTSg + 2) then
 					return true
 				else
 					return false
 				end
 			end,
 			function()
-				globals.set_int(FMg + GVTSg2, weapons_hash[i])
+				globals.set_int(GVTSg + 2, weapons_data[i].hash)
 			end)
 
-	TSlot3:add_toggle(weapons_name[i],
+	TSlot3:add_toggle(weapons_data[i].name,
 		function()
-			if weapons_hash[i] == globals.get_int(FMg + GVTSg3) then
+			if weapons_data[i].hash == globals.get_int(GVTSg + 3) then
 				return true
 			else
 				return false
 			end
 		end,
 		function()
-			globals.set_int(FMg + GVTSg3, weapons_hash[i])
+			globals.set_int(GVTSg + 3, weapons_data[i].hash)
 		end)
 end
 
 		b11 = false
 	local function GunVanDiscountsSetter(value)
-		for i = 1, 9 do
-				globals.set_int(FMg + GVADg + i, value)
-			end
-		for i = 1, 3 do
-			globals.set_int(FMg + GVTDg + i, value)
-		end
-		for i = 1, 5 do
-			globals.set_int(FMg + GVWDg + i, value)
-		end
+		globals_set_ints(GVADg + 1, GVADg + 9, 1, value)
+		globals_set_int(GVTDg + 1, GVTDg + 3, 1, value)
+		globals.set_int(GVWDg + 1, GVWDg + 5, 1, value)
 	end
 	local function GunVanDiscountsToggler(Enabled)
 		if Enabled then
@@ -7220,7 +7291,7 @@ Misc:add_action("Unlock Trade Prices For Cop Cars",
 
 Misc:add_action(SPACE, null)
 
-MiscNote = Misc:add_submenu("Read Me")
+MiscNote = Misc:add_submenu(README)
 
 MiscNote:add_action("                          Hide Me:", null)
 MiscNote:add_action("            Hides you from player list;", null)
