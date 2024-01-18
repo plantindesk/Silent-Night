@@ -1,4 +1,4 @@
----[[ Developer: Silent, Last Changes: January 17 2024 ]]---
+---[[ Developer: Silent, Last Changes: January 18 2024 ]]---
 
 --Game Version & Submenu Start--
 
@@ -483,7 +483,7 @@ AutoShopNote:add_action("       leave autoshop and come back in", null)
 
 Apartment = HeistTool:add_submenu("Apartment | Safe")
 
-Apartment:add_action("Change Session", function() SessionChanger(1) end)
+Apartment:add_action("Change Session", function() SessionChanger(0) end)
 
 Apartment:add_action("Complete Preps (any heist)", function() stats.set_int(MPX() .. "HEIST_PLANNING_STAGE", -1) end)
 
@@ -893,18 +893,17 @@ CPDSNote:add_action("   the same as it was before saving preset", null)
 
 CPP = CayoPerico:add_submenu("Preps")
 
+		cayo_target_id = {0, 1, 2, 3, 5}
 		a10 = 1
 CPP:add_array_item("Primary Target", {"Select", "Tequila", "Necklace", "Bonds", "Diamond", "Statue"},
 	function()
 		return a10
 	end,
 	function(target)
-		if primary_target ~= 1 then
-			stats.set_int(MPX() .. "H4CNF_TARGET", target - 2)
-		elseif primary_target == 6 then
-			stats.set_int(MPX() .. "H4CNF_TARGET", target - 1)
+		if target ~= 1 then
+			stats.set_int(MPX() .. "H4CNF_TARGET", cayo_target_id[target - 1])
 		end
-		a10 = primary_target
+		a10 = target
 	end)
 
 CPST = CPP:add_submenu("Secondary Targets")
@@ -1144,11 +1143,11 @@ CPC:add_array_item("Presets", cut_presets,
 		a22 = preset
 	end)
 
-CPC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(CPCg1) end, function(Cut) globals.set_int(CPCg1, Cut) end)
-CPC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(CPCg2) end, function(Cut) globals.set_int(CPCg2, Cut) end)
-CPC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(CPCg3) end, function(Cut) globals.set_int(CPCg3, Cut) end)
-CPC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(CPCg4) end, function(Cut) globals.set_int(CPCg4, Cut) end)
-CPC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
+CPC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(CPCg1) end, function(cut) globals.set_int(CPCg1, cut) end)
+CPC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(CPCg2) end, function(cut) globals.set_int(CPCg2, cut) end)
+CPC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(CPCg3) end, function(cut) globals.set_int(CPCg3, cut) end)
+CPC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(CPCg4) end, function(cut) globals.set_int(CPCg4, cut) end)
+CPC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(cut) globals.set_int(GCg, cut) end)
 
 CPE = CayoPerico:add_submenu("Extra")
 
@@ -1751,11 +1750,11 @@ DCC:add_array_item("Presets", cut_presets,
 		a43 = preset
 	end)
 
-DCC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(DCCg1) end, function(Cut) globals.set_int(DCCg1, Cut) end)
-DCC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(DCCg2) end, function(Cut) globals.set_int(DCCg2, Cut) end)
-DCC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(DCCg3) end, function(Cut) globals.set_int(DCCg3, Cut) end)
-DCC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(DCCg4) end, function(Cut) globals.set_int(DCCg4, Cut) end)
-DCC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
+DCC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(DCCg1) end, function(cut) globals.set_int(DCCg1, cut) end)
+DCC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(DCCg2) end, function(cut) globals.set_int(DCCg2, cut) end)
+DCC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(DCCg3) end, function(cut) globals.set_int(DCCg3, cut) end)
+DCC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(DCCg4) end, function(cut) globals.set_int(DCCg4, cut) end)
+DCC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(cut) globals.set_int(GCg, cut) end)
 
 DCE = DiamondCasino:add_submenu("Extra")
 
@@ -1947,11 +1946,11 @@ DC:add_array_item("Presets", cut_presets,
 		a49 = preset
 	end)
 
-DC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(DCg1) end, function(Cut) globals.set_int(DCg1, Cut) end)
-DC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(DCg2) end, function(Cut) globals.set_int(DCg2, Cut) end)
-DC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(DCg3) end, function(Cut) globals.set_int(DCg3, Cut) end)
-DC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(DCg4) end, function(Cut) globals.set_int(DCg4, Cut) end)
-DC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(Cut) globals.set_int(GCg, Cut) end)
+DC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(DCg1) end, function(cut) globals.set_int(DCg1, cut) end)
+DC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(DCg2) end, function(cut) globals.set_int(DCg2, cut) end)
+DC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(DCg3) end, function(cut) globals.set_int(DCg3, cut) end)
+DC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(DCg4) end, function(cut) globals.set_int(DCg4, cut) end)
+DC:add_int_range("Self (non-host)", 1, 0, 999, function() return globals.get_int(GCg) end, function(cut) globals.set_int(GCg, cut) end)
 
 DE = Doomsday:add_submenu("Extra")
 
@@ -2619,6 +2618,14 @@ Poker:add_action("Trick The Dealer",
 			end
 		end
 	end)
+
+Poker:add_action(SPACE, null)
+
+PokerNote = Poker:add_submenu(README)
+
+PokerNote:add_action("  Give Straight Flush and Trick The Dealer:", null)
+PokerNote:add_action("       Use features during the animation", null)
+PokerNote:add_action("              where you sit in the chair", null)
 
 Roulette = CasinoMaster:add_submenu("Roulette")
 
@@ -7294,8 +7301,8 @@ Misc:add_action(SPACE, null)
 MiscNote = Misc:add_submenu(README)
 
 MiscNote:add_action("                          Hide Me:", null)
-MiscNote:add_action("            Hides you from player list;", null)
-MiscNote:add_action("    also removes your blip from the map", null)
+MiscNote:add_action("             Hides you from player list;", null)
+MiscNote:add_action("     also removes your blip from the map", null)
 
 ---Credits---
 
