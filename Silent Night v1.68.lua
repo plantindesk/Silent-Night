@@ -1,4 +1,4 @@
----[[ Developer: Silent, Last Changes: January 18 2024 ]]---
+---[[ Developer: Silent, Last Changes: January 31 2024 ]]---
 
 --Game Version & Submenu Start--
 
@@ -174,6 +174,7 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		ACKg = FMg + 32022 -- agency cooldown killer global ("FIXER_STORY_COOLDOWN_POSIX")
 		ASPg1 = FMg + 31323 + 1 -- auto shop payout global 1 ("TUNER_ROBBERY_LEADER_CASH_REWARD0")
 		ASPg2 = FMg + 31323 + 8 -- auto shop payout global 2 ("TUNER_ROBBERY_LEADER_CASH_REWARD7")
+		ASFg = FMg + 31319 -- auto shop fee global ("TUNER_ROBBERY_CONTACT_FEE")
 		ASCKg = FMg + 31342 -- auto shop cooldown global ("TUNER_ROBBERY_COOLDOWN_TIME")
 		ASIFl1 = 48513 + 1 -- auto shop instant finish local 1
 		ASIFl2 = 48513 + 1765 + 1 -- auto shop finish local 2
@@ -202,7 +203,7 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		CPFHl = 24333 -- cayo perico fingerprint hack local
 		CPPCCl = 30357 + 3 -- cayo perico plasma cutter cut local ("DLC_H4_anims_glass_cutter_Sounds")
 		CPSTCl = 29118 -- cayo perico drainage pipe cut local
-		CPIFl1 = 48513 + 1 -- cayo perico instant finish local 1
+		CPIFl1 = 48513 -- cayo perico instant finish local 1
 		CPIFl2 = 48513 + 1765 + 1 -- cayo perico instant finish local 2
 		DCCg1 = 1963945 + 1497 + 736 + 92 + 1 -- diamond casino player 1 cut global
 		DCCg2 = 1963945 + 1497 + 736 + 92 + 2 -- diamond casino player 2 cut global
@@ -255,9 +256,6 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 		CMROTl = 1357 -- casino master roulette outcomes table local
 		CMRBTl = 153 -- casino master roulette ball table local
 		CMSRRTl = 1346 -- casino master slots random results table local
-		HCVSCg1 = FMg + 22961 -- hangar cargo vip source cooldown global ("SMUG_STEAL_EASY_COOLDOWN_TIMER")
-		HCVACg = FMg + 22964 -- hangar cargo vip additional cooldown global (1722502526)
-		HCVSCg2 = FMg + 23002 -- hangar cargo vip sale cooldown global (-1525481945)
 		HCVPg = FMg + 23020 -- hangar cargo vip payout global (-954321460)
 		HCVRCg = FMg + 23003 -- hangar cargo vip ron's cut (1232447926)
 		HCVISl1 = 1932 + 1078 -- hangar cargo vip instant sell local 1
@@ -455,7 +453,11 @@ AutoShop:add_action("Complete Preps",
 		end
 	end)
 
-AutoShop:add_action("Max Payout (after start)", function() globals_set_ints(ASPg1, ASPg2, 1, 2000000) end)
+AutoShop:add_action("Max Payout (after start)",
+	function()
+		globals.set_float(ASFg, 0)
+		globals_set_ints(ASPg1, ASPg2, 1, 2000000)
+	end)
 
 AutoShop:add_action("Cooldown Killer",
 	function()
@@ -601,10 +603,26 @@ AC15milNote:add_action("         Activate option on cuts screen", null)
 		cut_presets = {"Select", "85 All", "100 All"}
 		cut_values = {85, 100}
 
+		apartment_players = 4
+		b16 = false
+	local function ApartmentFleecaSetter(Enabled)
+		if Enabled then
+			apartment_players = 2
+		else
+			apartment_players = 4
+		end
+	end
+AC:add_toggle("The Fleeca Job", function() return b16 end, function() b16 = not b16 ApartmentFleecaSetter(b16) end)
+
 		a9 = 1
 	local function ApartmentCutsPresetter(cut)
-		globals.set_int(ACg1, 100 - (cut * 4))
-		globals_set_ints(ACg2, ACg4, 1, cut)
+		globals.set_int(ACg1, 100 - (cut * apartment_players))
+		globals.set_int(ACg2, cut)
+		if apartment_players ~= 2 then
+			globals_set_ints(ACg3, ACg4, 1, cut)
+		else
+			globals_set_ints(ACg3, ACg4, 1, 0)
+		end
 	end
 AC:add_array_item("Presets", cut_presets,
 	function()
@@ -617,16 +635,19 @@ AC:add_array_item("Presets", cut_presets,
 		a9 = preset
 	end)
 
-AC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(ACg1) end, function(cut) globals.set_int(ACg1, 100 - (cut * 4)) end)
+AC:add_int_range("Player 1", 1, 0, 999, function() return globals.get_int(ACg1) end, function(cut) globals.set_int(ACg1, 100 - (cut * apartment_players)) end)
 AC:add_int_range("Player 2", 1, 0, 999, function() return globals.get_int(ACg2) end, function(cut) globals.set_int(ACg2, cut) end)
 AC:add_int_range("Player 3", 1, 0, 999, function() return globals.get_int(ACg3) end, function(cut) globals.set_int(ACg3, cut) end)
 AC:add_int_range("Player 4", 1, 0, 999, function() return globals.get_int(ACg4) end, function(cut) globals.set_int(ACg4, cut) end)
-AC:add_action("Set Negative to Positive (own)", function() globals.set_int(ACg5, -1 * (-100 + globals.get_int(ACg1)) / 4) end)
+AC:add_action("Set Negative to Positive (own)", function() globals.set_int(ACg5, -1 * (-100 + globals.get_int(ACg1)) / apartment_players) end)
 
 AC:add_action(SPACE, null)
 
 ACNote = AC:add_submenu(README)
 
+ACNote:add_action("                     The Fleeca Job:", null)
+ACNote:add_action("  Toggle this if you're playing fleeca heist", null)
+ACNote:add_action(SPACE, null)
 ACNote:add_action("         Choose cuts within 1st 30 secs", null)
 ACNote:add_action("   after the cutsene ends (on cuts screen);", null)
 ACNote:add_action("       after that select your ingame cut,", null)
@@ -848,36 +869,38 @@ CPDS:add_bare_item("Save Heist Preset",
 		HIP:set_int(CPRBl, 2)
 	end
 
-CPDS:add_action("Replay Heist Again",
+CPDS:add_action("Apply Saved Preset",
 	function()
-		stats.set_int(MPX() .. "H4CNF_TARGET", cayo_primary_preset)
-		stats.set_int(MPX() .. "H4LOOT_CASH_C", compound_cash_preset)
-		stats.set_int(MPX() .. "H4LOOT_CASH_C_SCOPED", compound_cash_preset)
-		stats.set_int(MPX() .. "H4LOOT_WEED_C", compound_weed_preset)
-		stats.set_int(MPX() .. "H4LOOT_WEED_C_SCOPED", compound_weed_preset)
-		stats.set_int(MPX() .. "H4LOOT_COKE_C", compound_coke_preset)
-		stats.set_int(MPX() .. "H4LOOT_COKE_C_SCOPED", compound_coke_preset)
-		stats.set_int(MPX() .. "H4LOOT_GOLD_C", compound_gold_preset)
-		stats.set_int(MPX() .. "H4LOOT_GOLD_C_SCOPED", compound_gold_preset)
-		stats.set_int(MPX() .. "H4LOOT_PAINT", compound_arts_preset)
-		stats.set_int(MPX() .. "H4LOOT_PAINT_SCOPED", compound_arts_preset)
-		stats.set_int(MPX() .. "H4LOOT_CASH_I", island_cash_preset)
-		stats.set_int(MPX() .. "H4LOOT_CASH_I_SCOPED", island_cash_preset)
-		stats.set_int(MPX() .. "H4LOOT_WEED_I", island_weed_preset)
-		stats.set_int(MPX() .. "H4LOOT_WEED_I_SCOPED", island_weed_preset)
-		stats.set_int(MPX() .. "H4LOOT_COKE_I", island_coke_preset)
-		stats.set_int(MPX() .. "H4LOOT_COKE_I_SCOPED", island_coke_preset)
-		stats.set_int(MPX() .. "H4LOOT_GOLD_I", island_gold_preset)
-		stats.set_int(MPX() .. "H4LOOT_GOLD_I_SCOPED", island_gold_preset)
-		stats.set_int(MPX() .. "H4_PROGRESS", cayo_difficulty_preset)
-		stats.set_int(MPX() .. "H4_MISSIONS", cayo_approach_preset)
-		stats.set_int(MPX() .. "H4CNF_WEAPONS", cayo_weapons_preset)
-		stats.set_int(MPX() .. "H4LOOT_CASH_V", 90000)
-		stats.set_int(MPX() .. "H4LOOT_WEED_V", 147870)
-		stats.set_int(MPX() .. "H4LOOT_COKE_V", 200095)
-		stats.set_int(MPX() .. "H4LOOT_GOLD_V", 330350)
-		stats.set_int(MPX() .. "H4LOOT_PAINT_V", 189500)
-		CayoCompletePreps()
+		if cayo_preset == true then
+			stats.set_int(MPX() .. "H4CNF_TARGET", cayo_primary_preset)
+			stats.set_int(MPX() .. "H4LOOT_CASH_C", compound_cash_preset)
+			stats.set_int(MPX() .. "H4LOOT_CASH_C_SCOPED", compound_cash_preset)
+			stats.set_int(MPX() .. "H4LOOT_WEED_C", compound_weed_preset)
+			stats.set_int(MPX() .. "H4LOOT_WEED_C_SCOPED", compound_weed_preset)
+			stats.set_int(MPX() .. "H4LOOT_COKE_C", compound_coke_preset)
+			stats.set_int(MPX() .. "H4LOOT_COKE_C_SCOPED", compound_coke_preset)
+			stats.set_int(MPX() .. "H4LOOT_GOLD_C", compound_gold_preset)
+			stats.set_int(MPX() .. "H4LOOT_GOLD_C_SCOPED", compound_gold_preset)
+			stats.set_int(MPX() .. "H4LOOT_PAINT", compound_arts_preset)
+			stats.set_int(MPX() .. "H4LOOT_PAINT_SCOPED", compound_arts_preset)
+			stats.set_int(MPX() .. "H4LOOT_CASH_I", island_cash_preset)
+			stats.set_int(MPX() .. "H4LOOT_CASH_I_SCOPED", island_cash_preset)
+			stats.set_int(MPX() .. "H4LOOT_WEED_I", island_weed_preset)
+			stats.set_int(MPX() .. "H4LOOT_WEED_I_SCOPED", island_weed_preset)
+			stats.set_int(MPX() .. "H4LOOT_COKE_I", island_coke_preset)
+			stats.set_int(MPX() .. "H4LOOT_COKE_I_SCOPED", island_coke_preset)
+			stats.set_int(MPX() .. "H4LOOT_GOLD_I", island_gold_preset)
+			stats.set_int(MPX() .. "H4LOOT_GOLD_I_SCOPED", island_gold_preset)
+			stats.set_int(MPX() .. "H4_PROGRESS", cayo_difficulty_preset)
+			stats.set_int(MPX() .. "H4_MISSIONS", cayo_approach_preset)
+			stats.set_int(MPX() .. "H4CNF_WEAPONS", cayo_weapons_preset)
+			stats.set_int(MPX() .. "H4LOOT_CASH_V", 90000)
+			stats.set_int(MPX() .. "H4LOOT_WEED_V", 147870)
+			stats.set_int(MPX() .. "H4LOOT_COKE_V", 200095)
+			stats.set_int(MPX() .. "H4LOOT_GOLD_V", 330350)
+			stats.set_int(MPX() .. "H4LOOT_PAINT_V", 189500)
+			CayoCompletePreps()
+		end
 	end)
 
 CPDS:add_action(SPACE, null)
@@ -887,7 +910,7 @@ CPDSNote = CPDS:add_submenu(README)
 CPDSNote:add_action("                    Save Heist Preset:", null)
 CPDSNote:add_action("    Use to save your heist planning screen", null)
 CPDSNote:add_action(SPACE, null)
-CPDSNote:add_action("                  Replay Heist Again:", null)
+CPDSNote:add_action("                  Apply Saved Preset:", null)
 CPDSNote:add_action("   Use to make your heist planning screen", null)
 CPDSNote:add_action("   the same as it was before saving preset", null)
 
@@ -1192,13 +1215,15 @@ CPCLNote:add_action("                and come back online", null)
 
 		a24 = false
 	local function CayoBypasses()
-		if FMC20:get_int(CPFHl) == 4 then
-			FMC20:set_int(CPFHl, 5)
+		if FMC20:is_active() then
+			if FMC20:get_int(CPFHl) == 4 then
+				FMC20:set_int(CPFHl, 5)
+			end
+			if FMC20:get_int(CPSTCl) >= 3 or FMC20:get_int(CPSTCl) <= 6 then
+				FMC20:set_int(CPSTCl, 6)
+			end
+			FMC20:set_float(CPPCCl, 100)
 		end
-		if FMC20:get_int(CPSTCl) >= 3 or FMC20:get_int(CPSTCl) <= 6 then
-			FMC20:set_int(CPSTCl, 6)
-		end
-		FMC20:set_float(CPPCCl, 100)
 	end
 	local function CayoHeckerToggler(Enabled)
 		if Enabled then
@@ -1520,10 +1545,10 @@ DDC:add_bare_item("",
 DDC:add_bare_item("",
 	function()
 		casino_approach = stats.get_int(MPX() .. "H3OPT_APPROACH")
-		hard_approach = stats.get_int(MPX() .. "H3_HARD_APPROACH")
+		casino_hard_approach = stats.get_int(MPX() .. "H3_HARD_APPROACH")
 		casino_approach_show = casino_approaches[casino_approach + 1]
 		if casino_approach ~= 0 then
-			if casino_approach == hard_approach then
+			if casino_approach == casino_hard_approach then
 				casino_hard_approach_show = "(Hard)"
 			else
 				casino_hard_approach_show = "(Normal)"
@@ -1587,7 +1612,7 @@ DDC:add_bare_item("",
 			casino_gunman_preset = casino_gunman
 			casino_driver_preset = casino_driver
 			casino_hacker_preset = casino_hacker
-			casino_masks_preset = casino_masks
+			casino_masks_preset = casino_mask
 		end
 	end, null, null)
 
@@ -1601,17 +1626,19 @@ DDC:add_bare_item("",
 		stats.set_int(MPX() .. "H3OPT_COMPLETEDPOSIX", -1)
 	end
 
-DDC:add_action("Replay Heist Again",
+DDC:add_action("Apply Saved Preset",
 	function()
-		stats.set_int(MPX() .. "H3OPT_TARGET", casino_target_preset)
-		stats.set_int(MPX() .. "H3OPT_APPROACH", casino_approach_preset)
-		stats.set_int(MPX() .. "H3_HARD_APPROACH", casino_hard_approach_preset)
-		stats.set_int(MPX() .. "H3_LAST_APPROACH", casino_last_approach_preset)
-		stats.set_int(MPX() .. "H3OPT_CREWWEAP", casino_gunman_preset)
-		stats.set_int(MPX() .. "H3OPT_CREWDRIVER", casino_driver_preset)
-		stats.set_int(MPX() .. "H3OPT_CREWHACKER", casino_hacker_preset)
-		stats.set_int(MPX() .. "H3OPT_MASKS", casino_masks_preset)
-		CasinoCompletePreps()
+		if casino_preset == true then
+			stats.set_int(MPX() .. "H3OPT_TARGET", casino_target_preset)
+			stats.set_int(MPX() .. "H3OPT_APPROACH", casino_approach_preset)
+			stats.set_int(MPX() .. "H3_HARD_APPROACH", casino_hard_approach_preset)
+			stats.set_int(MPX() .. "H3_LAST_APPROACH", casino_last_approach_preset)
+			stats.set_int(MPX() .. "H3OPT_CREWWEAP", casino_gunman_preset)
+			stats.set_int(MPX() .. "H3OPT_CREWDRIVER", casino_driver_preset)
+			stats.set_int(MPX() .. "H3OPT_CREWHACKER", casino_hacker_preset)
+			stats.set_int(MPX() .. "H3OPT_MASKS", casino_masks_preset)
+			CasinoCompletePreps()
+		end
 	end)
 
 DDC:add_action(SPACE, null)
@@ -1621,7 +1648,7 @@ DDCNote = DDC:add_submenu(README)
 DDCNote:add_action("                    Save Heist Preset:", null)
 DDCNote:add_action("    Use to save your heist planning screen", null)
 DDCNote:add_action(SPACE, null)
-DDCNote:add_action("                  Replay Heist Again:", null)
+DDCNote:add_action("                  Apply Saved Preset:", null)
 DDCNote:add_action("   Use to make your heist planning screen", null)
 DDCNote:add_action("   the same as it was before saving preset", null)
 
@@ -2000,7 +2027,7 @@ SYVS:add_bare_item("",
 		else
 			status = "Off"
 		end
-		return "Claim For Free | 〔" .. status .. "〕"
+		return "Claim for Free | 〔" .. status .. "〕"
 	end,
 	function()
 		claim_price = globals.get_int(SYCPg)
@@ -2033,7 +2060,7 @@ for i = 1, 3 do
 			end
 		end)
 
-	SVVV:add_int_range("Vehicle " .. i .. " Sell Value", 100000, 0, INT_MAX,
+	SVVV:add_int_range("Vehicle " .. i .. " Sell Value", 100000, 0, 1000000,
 		function()
 			return globals.get_int(SYVVg + i)
 		end,
@@ -2230,7 +2257,7 @@ SalvageYard:add_bare_item("",
 		else
 			status = "Off"
 		end
-		return "Setup For Free | 〔" .. status .. "〕"
+		return "Setup for Free | 〔" .. status .. "〕"
 	end,
 	function()
 		setup_price = globals.get_int(SYSPg)
@@ -2252,11 +2279,12 @@ SalvageYard:add_action("Complete Preps", function() YardPrepsSetter(-1) end)
 
 SalvageYard:add_action("Reset Preps", function() YardPrepsSetter(0) end)
 
-SalvageYard:add_action("Cooldown Killer",
+SalvageYard:add_action("Cooldown Killer", function() globals_set_ints(SYCg1, SYCg2, 1, 0) end)
+
+SalvageYard:add_action("Skip Weekly Cooldown",
 	function()
 		current_week = stats.get_int(MPX() .. "SALV23_WEEK_SYNC")
 		globals.set_int(SYWCg, current_week + 1)
-		globals_set_ints(SYCg1, SYCg2, 1, 0)
 	end)
 
 SalvageYard:add_action(SPACE, null)
@@ -2294,10 +2322,6 @@ SalvageYardNote:add_action(SPACE, null)
 SalvageYardNote:add_action("                       Reset Preps:", null)
 SalvageYardNote:add_action("          Computer bugged? unbrick it;", null)
 SalvageYardNote:add_action("   do this outside salvage yard for results", null)
-SalvageYardNote:add_action(SPACE, null)
-SalvageYardNote:add_action("                    Cooldown Killer:", null)
-SalvageYardNote:add_action("                 Skips all cooldowns;", null)
-SalvageYardNote:add_action("   do this outside salvage yard for results", null)
 
 ---Money Tool---
 
@@ -2316,12 +2340,13 @@ BunkerCrash:add_action("Teleport to Laptop (use inside bunker)",
 		menu.send_key_press(13)
 	end)
 
-BunkerCrash:add_action("Get Supplies", function() globals.set_int(GSIg6, 1) end)
+BunkerCrash:add_action("Get Supplies", function() globals.set_int(GSIg + 6, 1) end)
 
 		a50 = false
 	local function BunkerTurkishSupplierToggler()
 		if localplayer ~= nil then
 			while a50 do
+				globals.set_int(GSIg + 6, 1)
 				menu.trigger_bunker_production()
 				sleep(1)
 			end
@@ -2523,8 +2548,8 @@ LuckyWheel:add_array_item("Select Prize (before «S»)", wheel_name,
 	end,
 	function(prize)
 		if localplayer ~= nil then
-			prize_status = CLW:get_int(117 + 1 + (PlayerID() * 5))
-			if prize_status ~= nil and prize_status ~= -1 then
+			prize_status = 117 + 1 + (PlayerID() * 5)
+			if CLW:get_int(prize_status) ~= -1 then
 				CLW:set_int(prize_status, wheel_id[prize])
 				a53 = prize
 			end
@@ -2674,12 +2699,6 @@ HangarCargoVIP:add_action("Get Some Cargo", function() HangarCargoGetter() end)
 		end
 	end
 HangarCargoVIP:add_toggle("Cargo Loop", function() return b13 end, function() b13 = not b13 HangarCargoLoopToggler() end)
-
---[[HangarCargoVIP:add_action("Cooldown Killer",
-	function()
-		globals.set_int(HCVSCg2, 0)
-		globals_set_ints(HCVSCg1, HCVACg, 1, 0)
-	end)]]--
 
 PricePerPiece = HangarCargoVIP:add_submenu("⚠ Price per Piece (max 4mil)")
 
@@ -6387,9 +6406,9 @@ ArenaWar = FacilitiesUnlocks:add_submenu("Arena War")
 
 ArenaWar:add_action("Unlock All Vehicles (Temp.)", function() stats_set_packed_bools(24992, 24999, true) end)
 
-ArenaWar:add_action("Unlock Trade Prices For Headlights", function() stats_set_packed_bools(24980, 24991, true) end)
+ArenaWar:add_action("Unlock Trade Prices for Headlights", function() stats_set_packed_bools(24980, 24991, true) end)
 
-ArenaWar:add_action("Unlock Trade Prices For Vehicles", function() stats_set_packed_bools(24963, 25109, true) end)
+ArenaWar:add_action("Unlock Trade Prices for Vehicles", function() stats_set_packed_bools(24963, 25109, true) end)
 
 		b2 = 1
 	local function ArenaStatsSetter(tier, points)
@@ -6490,7 +6509,7 @@ Bunker = FacilitiesUnlocks:add_submenu("Bunker")
 			BunkerResearchSetter(60, 300000, 45000, 2, 1)
 		end
 		while b4 do
-			globals.set_int(GSIg6, 1)
+			globals.set_int(GSIg + 6, 1)
 			sleep(11)
 		end
 	end
@@ -6524,7 +6543,7 @@ LSCarMeet = FacilitiesUnlocks:add_submenu("LS Car Meet")
 
 LSCarMeet:add_action("Unlock All", function() globals_set_ints(LSCMMg1, LSCMMg2, 1, 100000) end)
 
-LSCarMeet:add_action("Unlock Trade Prices For Headlights", function() stats_set_packed_bools(24980, 24991, true) end)
+LSCarMeet:add_action("Unlock Trade Prices for Headlights", function() stats_set_packed_bools(24980, 24991, true) end)
 
 LSCarMeet:add_action("Unlock Podium Prize",
 	function()
@@ -7288,7 +7307,7 @@ Misc:add_action("Unlock Flight School Gold Medals",
 		stats.set_int("MPPLY_NUM_CAPTURES_CREATED", 100)
 	end)
 
-Misc:add_action("Unlock Trade Prices For Cop Cars",
+Misc:add_action("Unlock Trade Prices for Cop Cars",
 	function()
 		stats.set_int(MPX() .. "SALV23_GEN_BS", -1)
 		stats.set_int(MPX() .. "SALV23_INST_PROG", -1)
