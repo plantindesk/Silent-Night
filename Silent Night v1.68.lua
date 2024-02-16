@@ -1,4 +1,4 @@
----[[ Developer: Silent, Last Changes: January 31 2024 ]]---
+---[[ Developer: Silent, Last Changes: February 16 2024 ]]---
 
 --Game Version & Submenu Start--
 
@@ -168,6 +168,9 @@ SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 --Globals & Locals & Variables--
 
 		FMg = 262145 -- free mode global ("CASH_MULTIPLIER")
+		XMg = FMg + 1 -- xp multiplier global ("XP_MULTIPLIER")
+		FMCSHl = 3234 -- fm_mission_controller script host local ("MP_Reduce_Score_For_Emitters_Scene")
+		FMC20SHl = 18943 -- fm_mission_controller_2020 script host local (flag = NETWORK::NETWORK_IS_HOST_OF_THIS_SCRIPT())
 		APg = FMg + 32071 -- agency payout global ("FIXER_FINALE_LEADER_CASH_REWARD")
 		AIFl1 = 38397 -- agency instant finish local 1 (outdated)
 		AIFl2 = 39772 -- agency instant finish local 2 (outdated)
@@ -413,11 +416,28 @@ Agency:add_action("Cooldown Killer", function() globals.set_int(ACKg, 0) end)
 
 Agency:add_action("Skip Cutscene", function() menu.end_cutscene() end)
 
-Agency:add_action("Instant Finish (solo only) [Outdated]",
+	local function HeistScriptHostGetter(script_local)
+		if FMC20:get_int(script_local) == 1 or FMC:get_int(script_local) == 1 then
+			return "Available"
+		else
+			return "Unavaliable"
+		end
+	end
+
+Agency:add_bare_item("",
 	function()
-		FMC20:set_int(AIFl1, 51338752)
-		FMC20:set_int(AIFl2, 50)
-	end)
+		if FMC20:is_active() then
+			return "Instant Finish [Outdated] | 〔" .. HeistScriptHostGetter(FMC20SHl) .. "〕"
+		else
+			return "Instant Finish [Outdated]: Waiting..."
+		end
+	end,
+	function()
+		if FMC20:is_active() then
+			FMC20:set_int(AIFl1, 51338752)
+			FMC20:set_int(AIFl2, 50)
+		end
+	end, null, null)
 
 Agency:add_action(SPACE, null)
 
@@ -467,11 +487,20 @@ AutoShop:add_action("Cooldown Killer",
 		globals.set_int(ASCKg, 0)
 	end)
 
-AutoShop:add_action("Instant Finish (solo only)",
+AutoShop:add_bare_item("",
 	function()
-		FMC20:set_int(ASIFl1, 51338977)
-		FMC20:set_int(ASIFl2, 101)
-	end)
+		if FMC20:is_active() then
+			return "Instant Finish | 〔" .. HeistScriptHostGetter(FMC20SHl) .. "〕"
+		else
+			return "Instant Finish: Waiting for Heist..."
+		end
+	end,
+	function()
+		if FMC20:is_active() then
+			FMC20:set_int(ASIFl1, 51338977)
+			FMC20:set_int(ASIFl2, 101)
+		end
+	end, null, null)
 
 AutoShop:add_action(SPACE, null)
 
@@ -684,12 +713,21 @@ AENote = AE:add_submenu(README)
 AENote:add_action("                     Unlock All Jobs:", null)
 AENote:add_action("  Activate the option and restart the game", null)
 
-Apartment:add_action("Instant Finish (self only)",
+Apartment:add_bare_item("",
 	function()
-		FMC:set_int(AIFl3, 12)
-		FMC:set_int(AIFl4, 99999)
-		FMC:set_int(AIFl5, 99999)
-	end)
+		if FMC:is_active() then
+			return "Instant Finish | 〔" .. HeistScriptHostGetter(FMCSHl) .. "〕"
+		else
+			return "Instant Finish: Waiting for Heist..."
+		end
+	end,
+	function()
+		if FMC:is_active() then
+			FMC:set_int(AIFl3, 12)
+			FMC:set_int(AIFl4, 99999)
+			FMC:set_int(AIFl5, 99999)
+		end
+	end, null, null)
 
 Apartment:add_action(SPACE, null)
 
@@ -1518,11 +1556,20 @@ CPSO:add_array_item("Supply Trucks", {"Select", "#1", "#2", "#3", "#4"},
 		a36 = truck
 	end)
 
-CayoPerico:add_action("Instant Finish (solo only)",
+CayoPerico:add_bare_item("",
 	function()
-		FMC20:set_int(CPIFl1, 9)
-		FMC20:set_int(CPIFl2, 50)
-	end)
+		if FMC20:is_active() then
+			return "Instant Finish | 〔" .. HeistScriptHostGetter(FMC20SHl) .. "〕"
+		else
+			return "Instant Finish: Waiting for Heist..."
+		end
+	end,
+	function()
+		if FMC20:is_active() then
+			FMC20:set_int(CPIFl1, 9)
+			FMC20:set_int(CPIFl2, 50)
+		end
+	end, null, null)
 
 --Diamond Сasino--
 
@@ -1876,7 +1923,7 @@ DCTP:add_array_item("Staff Room", {"Select", "Outside", "Inside"},
 	end,
 	function(room)
 		if room ~= 1 then
-			TP(cayo_rooms[room - 2][1], cayo_rooms[room - 2][2], cayo_rooms[room - 2][3], 0, 0, 0)
+			TP(casino_rooms[room - 2][1], casino_rooms[room - 2][2], casino_rooms[room - 2][3], 0, 0, 0)
 		end
 		a45 = room
 	end)
@@ -1887,7 +1934,7 @@ DCTP:add_array_item("Staff Room", {"Select", "Outside", "Inside"},
 			[2] = {2521.761719, -287.359192, -60.022976}
 		}
 		a46 = 1
-DCTP:add_array_item("Vaults", {"Outside Main", "Inside Main", "Daily"},
+DCTP:add_array_item("Vaults", {"Select", "Outside Main", "Inside Main", "Daily"},
 	function()
 		return a46
 	end,
@@ -1907,7 +1954,7 @@ DCTP:add_array_item("Vaults", {"Outside Main", "Inside Main", "Daily"},
 			[5] = {2509.844238, -250.968552, -72.037170}
 		}
 		a47 = 1
-DCTP:add_array_item("Mini-Vaults", {"#1", "#2", "#3", "#4", "#5", "#6"},
+DCTP:add_array_item("Mini-Vaults", {"Select", "#1", "#2", "#3", "#4", "#5", "#6"},
 	function()
 		return a47
 	end,
@@ -1987,13 +2034,22 @@ DE:add_action("Bypass Data Breaches Hack [Outdated]", function() FMC:set_int(DDB
 
 DE:add_action("Bypass Doomsday Scenario Hack", function() FMC:set_int(DDSHl, 3) end)
 
-Doomsday:add_action("Instant Finish (self only)",
+Doomsday:add_bare_item("",
 	function()
-		FMC:set_int(DIFl1, 12)
-		FMC:set_int(DIFl2, 10000000)
-		FMC:set_int(DIFl3, 99999)
-		FMC:set_int(DIFl4, 99999)
-	end)
+		if FMC:is_active() then
+			return "Instant Finish | 〔" .. HeistScriptHostGetter(FMCSHl) .. "〕"
+		else
+			return "Instant Finish: Waiting for Heist..."
+		end
+	end,
+	function()
+		if FMC:is_active() then
+			FMC:set_int(DIFl1, 12)
+			FMC:set_int(DIFl2, 10000000)
+			FMC:set_int(DIFl3, 99999)
+			FMC:set_int(DIFl4, 99999)
+		end
+	end, null, null)
 
 --Salvage Yard--
 
@@ -2685,16 +2741,12 @@ HangarCargoVIP = MoneyTool:add_submenu("Hangar Cargo VIP | Safe")
 
 HangarCargoVIP:add_action("Start Solo Session", function() SessionChanger(8) end)
 
-	local function HangarCargoGetter()
-		stats.set_bool_masked(MPX() .. "DLC22022PSTAT_BOOL3", true, 9)
-	end
-
-HangarCargoVIP:add_action("Get Some Cargo", function() HangarCargoGetter() end)
+HangarCargoVIP:add_action("Get Some Cargo", function() stats_set_packed_bool(36828, true) end)
 
 		b13 = false
 	local function HangarCargoLoopToggler()
 		while b13 do
-			HangarCargoGetter()
+			stats_set_packed_bool(36828, true)
 			sleep(1)
 		end
 	end
@@ -3508,11 +3560,8 @@ AFKMode:add_toggle("Infinity $$$", function() return inf_mode end, function() in
 	local function CargoAfkMode(part, option1, option2)
 		if part == 1 then
 			globals.set_int(SCVPg, 6000000)
-			globals.set_int(SCVCKg1, 0)
-			globals.set_int(SCVCKg2, 0)
-			globals.set_int(BTEg1, 0)
-			globals.set_int(BTEg2, 0)
-			globals.set_int(BTEg3, 0)
+			globals_set_ints(SCVCKg1, SCVCKg2, 1, 0)
+			globals_set_ints(BTEg1, BTEg3, 1, 0)
 		elseif part == 2 then
 			ASS:set_int(SCVAl1, 1)
 			sleep(0.2)
@@ -3521,9 +3570,9 @@ AFKMode:add_toggle("Infinity $$$", function() return inf_mode end, function() in
 			ASS:set_int(SCVAl3, 3012)
 		elseif part == 3 then
 			if option2 == false then
-				globals.set_float(1, 1)
+				globals.set_float(XMg, 1)
 			else
-				globals.set_float(1, 0)
+				globals.set_float(XMg, 0)
 			end
 			GCS:set_int(SCVAl4, 1)
 			GCS:set_int(SCVAl5, 1)
@@ -3532,7 +3581,7 @@ AFKMode:add_toggle("Infinity $$$", function() return inf_mode end, function() in
 			sleep(def_delay)
 			GCS:set_int(SCVISl, 99999)
 			if option1 == false then
-				CargoCratesGetter()
+				stats_set_packed_bools(32359, 32363, true)
 			end
 			sleep(2)
 		elseif part == 4 then
@@ -3698,18 +3747,12 @@ Settings:add_toggle("Disable RP Gain", function() return no_rp end, function() n
 
 GetCrates = Settings:add_submenu("Get Crates")
 
-	local function CargoCratesGetter()
-		for i = 12, 16 do
-			stats.set_bool_masked(MPX() .. "FIXERPSTAT_BOOL1", true, i, MPX())
-		end
-	end
-
-GetCrates:add_action("1-3 per Press", function() CargoCratesGetter() end)
+GetCrates:add_action("1-3 per Press", function() stats_set_packed_bools(32359, 32363, true) end)
 
 		a71 = false
 	local function CargoCratesLoopToggler()
 		while a71 do
-			CargoCratesGetter()
+			stats_set_packed_bools(32359, 32363, true)
 			sleep(1)
 		end
 	end
@@ -3860,8 +3903,7 @@ ManualMode:add_array_item("Delay", {"Default", "Fast", "Medium", "Slow"},
 		a76 = false
 	local function CargoCooldownKiller(Enabled)
 		if Enabled then
-			globals.set_int(SCVCKg1, 0)
-			globals.set_int(SCVCKg2, 0)
+			globals_set_ints(SCVCKg1, SCVCKg2, 1, 0)
 		else
 			globals.set_int(SCVCKg1, 300000)
 			globals.set_int(SCVCKg2, 1800000)
@@ -3902,13 +3944,13 @@ ManualMode:add_bare_item("",
 ManualMode:add_action("Instant Sell",
 	function()
 		if no_rp == false then
-			globals.set_float(1, 1)
+			globals.set_float(XMg, 1)
 		else
-			globals.set_float(1, 0)
+			globals.set_float(XMg, 0)
 		end
 		if crate_back == false then
 			if GCS:is_active() then
-				CargoCratesGetter()
+				stats_set_packed_bools(32359, 32363, true)
 			end
 		end
 		GCS:set_int(SCVMTl, 7)
@@ -4135,9 +4177,7 @@ NightLoop:add_int_range("Required Cash (0 - inf)", 300000, 0, INT_MAX,
 				sleep(night_delay)
 				if globals.get_int(safe_value) ~= 0 then
 					if bypass_error == true then
-						globals.set_int(BTEg1, 0)
-						globals.set_int(BTEg2, 0)
-						globals.set_int(BTEg3, 0)
+						globals_set_ints(BTEg1, BTEg3, 1, 0)
 					end
 					if def_cash4 > 0 then
 						if money_count4 >= def_cash4 then
@@ -5698,34 +5738,13 @@ Characteristics:add_toggle("Fast Run n Reload", function() return a92 end, funct
 		return stat .. "/100 " .. status
 	end
 
-Characteristics:add_bare_item("",
-	function()
-		return "Stamina: " .. SkillsStatusGetter("STAMINA", "(lung cancer)", "(fat ass)", "(athlete)", "(pro)", "(Usain Bolt)")
-	end, null, null, null)
-Characteristics:add_bare_item("",
-	function()
-		return "Shooting: " .. SkillsStatusGetter("SHOOTING_ABILITY", "(cataract)", "(american)", "(policeman)", "(pvp kid)", "(John Wick)")
-	end, null, null, null)
-Characteristics:add_bare_item("",
-	function()
-		return "Strength: " .. SkillsStatusGetter("STRENGTH", "(anorexia)", "(weak af)", "(boxer)", "(builder)", "(Gym Rat)")
-	end, null, null, null)
-Characteristics:add_bare_item("",
-	function()
-		return "Stealth: " .. SkillsStatusGetter("STEALTH_ABILITY", "(gorlock the destroyer)", "(drunk teenager)", "(thief)", "(assassin)", "(Agent 47)")
-	end, null, null, null)
-Characteristics:add_bare_item("",
-	function()
-		return "Flying: " .. SkillsStatusGetter("FLYING_ABILITY", "(kamikaze)", "(german)", "(pilot)", "(war thunder enjoyer)", "(«Maverick» Mitchell)")
-	end, null, null, null)
-Characteristics:add_bare_item("",
-	function()
-		return "Driving: " .. SkillsStatusGetter("WHEELIE_ABILITY", "(grandma)", "(amateur)", "(taxi driver)", "(drifter)", "(Ken Block)")
-	end, null, null, null)
-Characteristics:add_bare_item("",
-	function()
-		return "Swimming: " .. SkillsStatusGetter("LUNG_CAPACITY", "(rock)", "(wood)", "(fisherman)", "(dolphine)", "(Poseidon)")
-	end, null, null, null)
+Characteristics:add_bare_item("", function() return "Stamina: " .. SkillsStatusGetter("STAMINA", "(lung cancer)", "(fat ass)", "(athlete)", "(pro)", "(Usain Bolt)") end, null, null, null)
+Characteristics:add_bare_item("", function() return "Shooting: " .. SkillsStatusGetter("SHOOTING_ABILITY", "(cataract)", "(american)", "(policeman)", "(pvp kid)", "(John Wick)") end, null, null, null)
+Characteristics:add_bare_item("", function() return "Strength: " .. SkillsStatusGetter("STRENGTH", "(anorexia)", "(weak af)", "(boxer)", "(builder)", "(Gym Rat)") end, null, null, null)
+Characteristics:add_bare_item("", function() return "Stealth: " .. SkillsStatusGetter("STEALTH_ABILITY", "(gorlock the destroyer)", "(drunk teenager)", "(thief)", "(assassin)", "(Agent 47)") end, null, null, null)
+Characteristics:add_bare_item("", function() return "Flying: " .. SkillsStatusGetter("FLYING_ABILITY", "(kamikaze)", "(german)", "(pilot)", "(war thunder enjoyer)", "(«Maverick» Mitchell)") end, null, null, null)
+Characteristics:add_bare_item("", function() return "Driving: " .. SkillsStatusGetter("WHEELIE_ABILITY", "(grandma)", "(amateur)", "(taxi driver)", "(drifter)", "(Ken Block)") end, null, null, null)
+Characteristics:add_bare_item("", function() return "Swimming: " .. SkillsStatusGetter("LUNG_CAPACITY", "(rock)", "(wood)", "(fisherman)", "(dolphine)", "(Poseidon)") end, null, null, null)
 
 Characteristics:add_float_range("Mental State", 0.1, 0, 100,
 	function()
@@ -5748,141 +5767,29 @@ Collectibles = CharactersStats:add_submenu("Collectibles")
 
 TCollectibles = Collectibles:add_submenu("Unlock All (Temp. + No Rewards)")
 
-TCollectibles:add_bare_item("",
-	function()
+	local function CollectibleGetter(collectible, global, offset, max_count)
 		if not localplayer then
-			return "Action Figures: In Menu"
+			return collectible .. ": In Menu"
 		else
-			return "Action Figures | 〔" .. globals.get_int(CUg + AFo) .. "/100〕"
+			return collectible .. " | 〔" .. globals.get_int(global + offset) .. "/" .. max_count .. "〕"
 		end
-	end,
-	function()
-		globals.set_int(CUg + AFo, 100)
-	end, null, null)
-TCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "LD Organics: In Menu"
-		else
-			return "LD Organics | 〔" .. globals.get_int(CUg + LDOo) .. "/100〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + LDOo, 100)
-	end, null, null)
-TCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Playing Cards: In Menu"
-		else
-			return "Playing Cards | 〔" .. globals.get_int(CUg + PCo) .. "/54〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + PCo, 54)
-	end, null, null)
-TCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Signal Jammers: In Menu"
-		else
-			return "Signal Jammers | 〔" .. globals.get_int(CUg + SJo) .. "/50〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + SJo, 50)
-	end, null, null)
-TCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Snowmen: In Menu"
-		else
-			return "Snowmen | 〔" .. globals.get_int(CUg + So) .. "/25〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + So, 25)
-	end, null, null)
-TCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Movie Props: In Menu"
-		else
-			return "Movie Props | 〔" .. globals.get_int(CUg + MPo) .. "/10〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + MPo, 10)
-	end, null, null)
+	end
+
+TCollectibles:add_bare_item("", function() return CollectibleGetter("Action Figures", CUg, AFo, 100) end, function() globals.set_int(CUg + AFo, 100) end, null, null)
+TCollectibles:add_bare_item("", function() return CollectibleGetter("LD Organics", CUg, LDOo, 100) end, function() globals.set_int(CUg + LDOo, 100) end, null, null)
+TCollectibles:add_bare_item("", function() return CollectibleGetter("Playing Cards", CUg, PCo, 54) end, function() globals.set_int(CUg + PCo, 54) end, null, null)
+TCollectibles:add_bare_item("", function() return CollectibleGetter("Signal Jammers", CUg, SJo, 50) end, function() globals.set_int(CUg + SJo, 50) end, null, null)
+TCollectibles:add_bare_item("", function() return CollectibleGetter("Snowmen", CUg, So, 25) end, function() globals.set_int(CUg + So, 25) end, null, null)
+TCollectibles:add_bare_item("", function() return CollectibleGetter("Movie Props", CUg, MPo, 10) end, function() globals.set_int(CUg + MPo, 10) end, null, null)
 
 PCollectibles = Collectibles:add_submenu("Unlock All (Temp. + Rewards)")
 
-PCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Action Figures: In Menu"
-		else
-			return "Action Figures | 〔" .. globals.get_int(CUg + AFo) .. "/100〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + AFo, 99)
-	end, null, null)
-PCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "LD Organics: In Menu"
-		else
-			return "LD Organics | 〔" .. globals.get_int(CUg + LDOo) .. "/100〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + LDOo, 99)
-	end, null, null)
-PCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Playing Cards: In Menu"
-		else
-			return "Playing Cards | 〔" .. globals.get_int(CUg + PCo) .. "/54〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + PCo, 53)
-	end, null, null)
-PCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Signal Jammers: In Menu"
-		else
-			return "Signal Jammers | 〔" .. globals.get_int(CUg + SJo) .. "/50〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + SJo, 49)
-	end, null, null)
-PCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Snowmen: In Menu"
-		else
-			return "Snowmen | 〔" .. globals.get_int(CUg + So) .. "/25〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + So, 24)
-	end, null, null)
-PCollectibles:add_bare_item("",
-	function()
-		if not localplayer then
-			return "Movie Props: In Menu"
-		else
-			return "Movie Props | 〔" .. globals.get_int(CUg + MPo) .. "/10〕"
-		end
-	end,
-	function()
-		globals.set_int(CUg + MPo, 9)
-	end, null, null)
+PCollectibles:add_bare_item("", function() return CollectibleGetter("Action Figures", CUg, AFo, 100) end, function() globals.set_int(CUg + AFo, 99) end, null, null)
+PCollectibles:add_bare_item("", function() return CollectibleGetter("LD Organics", CUg, LDOo, 100) end, function() globals.set_int(CUg + LDOo, 99) end, null, null)
+PCollectibles:add_bare_item("", function() return CollectibleGetter("Playing Cards", CUg, PCo, 54) end, function() globals.set_int(CUg + PCo, 53) end, null, null)
+PCollectibles:add_bare_item("", function() return CollectibleGetter("Signal Jammers", CUg, SJo, 50) end, function() globals.set_int(CUg + SJo, 49) end, null, null)
+PCollectibles:add_bare_item("", function() return CollectibleGetter("Snowmen", CUg, So, 25) end, function() globals.set_int(CUg + So, 24) end, null, null)
+PCollectibles:add_bare_item("", function() return CollectibleGetter("Movie Props", CUg, MPo, 10) end, function() globals.set_int(CUg + MPo, 9) end, null, null)
 
 PJackOLanterns = PCollectibles:add_submenu("Jack O' Lantern")
 
@@ -6660,7 +6567,7 @@ CustomWheels:add_toggle("F1 Wheels",
 	end)
 
 		bennys_mode = false
-		old_bennys_mode = 0
+		old_bennys_hash = 0
 CustomWheels:add_toggle("Benny's Wheels",
 	function()
 		return bennys_mode
@@ -6674,7 +6581,7 @@ CustomWheels:add_toggle("Benny's Wheels",
 			end
 		else
 			if localplayer ~= nil and localplayer:is_in_vehicle() then
-				localplayer:get_current_vehicle():set_model_hash(old_bennys_mode)
+				localplayer:get_current_vehicle():set_model_hash(old_bennys_hash)
 			end
 		end
 	end)
@@ -7266,19 +7173,19 @@ for i = 87, 93 do
 end
 
 		b11 = false
-	local function GunVanDiscountsSetter(value)
+	local function GunvanDiscountsSetter(value)
 		globals_set_ints(GVADg + 1, GVADg + 9, 1, value)
-		globals_set_int(GVTDg + 1, GVTDg + 3, 1, value)
-		globals.set_int(GVWDg + 1, GVWDg + 5, 1, value)
+		globals_set_ints(GVTDg + 1, GVTDg + 3, 1, value)
+		globals_set_ints(GVWDg + 1, GVWDg + 5, 1, value)
 	end
-	local function GunVanDiscountsToggler(Enabled)
+	local function GunvanDiscountsToggler(Enabled)
 		if Enabled then
 			GunVanDiscountsSetter(1036831744)
 		else
 			GunVanDiscountsSetter(0)
 		end
 	end
-GunVan:add_toggle("Jewish Trade Skills (-10%)", function() return b11 end, function() b11 = not b11 GunVanDiscountsToggler(b11) end)
+GunVan:add_toggle("Jewish Trade Skills (-10%)", function() return b11 end, function() b11 = not b11 GunvanDiscountsToggler(b11) end)
 
 Misc:add_action("Unlock All Parachutes",
 	function()
@@ -7336,7 +7243,7 @@ Credits:add_action("Helpers #5: ShinyWasabi, gir489returns", null)
 Credits:add_action("Helpers #6: Unkn0wnXit, Zeiger, Pewpew", null)
 Credits:add_action("Helpers #7: ObratniyVasya, CheatChris", null)
 Credits:add_action("Testers #1: BirbTickles, your_local_racist", null)
-Credits:add_action("Testers #2: Hvedemel", null)
+Credits:add_action("Testers #2: Hvedemel, fjiafbniae", null)
 Credits:add_action(SPACE, null)
 Credits:add_action("Discord: silentsalo", null)
 
