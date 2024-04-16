@@ -1,8 +1,8 @@
----[[ Developer: Silent, Last Changes: February 16 2024 ]]---
+---[[ Developer: Silent, Last Changes: April 16 2024 ]]---
 
 --Game Version & Submenu Start--
 
-require_game_build(3095) -- GTA Online v1.68 (build 3095)
+require_game_build(3179) -- GTA Online v1.68 (build 3179)
 
 SilentNight = menu.add_submenu("ツ Silent Night | v1.68")
 
@@ -5746,7 +5746,7 @@ Characteristics:add_bare_item("", function() return "Flying: " .. SkillsStatusGe
 Characteristics:add_bare_item("", function() return "Driving: " .. SkillsStatusGetter("WHEELIE_ABILITY", "(grandma)", "(amateur)", "(taxi driver)", "(drifter)", "(Ken Block)") end, null, null, null)
 Characteristics:add_bare_item("", function() return "Swimming: " .. SkillsStatusGetter("LUNG_CAPACITY", "(rock)", "(wood)", "(fisherman)", "(dolphine)", "(Poseidon)") end, null, null, null)
 
-Characteristics:add_float_range("Mental State", 0.1, 0, 100,
+Characteristics:add_float_range("Mental State", 5, 0, 100,
 	function()
 		return stats.get_float(MPX() .. "PLAYER_MENTAL_STATE")
 	end,
