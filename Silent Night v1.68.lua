@@ -1,4 +1,4 @@
----[[ Developer: Silent, Last Changes: June 13 2024 ]]---
+---[[ Developer: Silent, Last Changes: June 14 2024 ]]---
 
 --Game Version & Submenu Start--
 
@@ -153,7 +153,7 @@ local function null() end
 	AMW = script("am_mp_warehouse")
 	FMC = script("fm_mission_controller")
 	FMC20 = script("fm_mission_controller_2020")
-	TP = script("tuner_planning")
+	THP = script("tuner_planning")
 	VP = script("vehrob_planning")
 	HIP = script("heist_island_planning")
 	GCHP = script("gb_casino_heist_planning")
@@ -479,10 +479,10 @@ AutoShop:add_action("Complete Preps",
 			stats.set_int(MPX() .. "TUNER_GEN_BS", 12543)
 		end
 		sleep(1)
-		TP:set_int(ASRBl, 2)
+		THP:set_int(ASRBl, 2)
 	end)
 
-AutoShop:add_action("Reload Planning Board", function() TP:set_int(ASRBl, 2) end)
+AutoShop:add_action("Reload Planning Board", function() THP:set_int(ASRBl, 2) end)
 
 AutoShop:add_action("Max Payout (after start)",
 	function()
@@ -4283,15 +4283,15 @@ DeathLoop:add_int_range("Required Cash (0 = inf)", 100000, 0, INT_MAX,
 		a82 = cash
 	end)
 
-	local function TransactionSetter(hash, amount)
-		globals.set_int(TTg + 1, INT_MAX)
-		globals.set_int(TTg + 7, INT_MAX + 1)
-		globals.set_int(TTg + 6, 0)
-		globals.set_int(TTg + 5, 0)
-		globals.set_int(TTg + 3, hash)
-		globals.set_int(TTg + 2, amount)
-		globals.set_int(TTg, 1)
-	end
+local function TriggerTransaction(hash, amount)
+	globals.set_int(TTg + 1, INT_MAX)
+	globals.set_int(TTg + 7, INT_MAX + 1)
+	globals.set_int(TTg + 6, 0)
+	globals.set_int(TTg + 5, 0)
+	globals.set_int(TTg + 3, hash)
+	globals.set_int(TTg + 2, amount)
+	globals.set_int(TTg, 1)
+end
 
 	money_made3 = 0
 	a83 = false
@@ -4308,7 +4308,7 @@ local function DeathLoopToggler()
 			end
 			money_made3 = money_made3 + 5
 			money_count3 = money_count3 + 50000
-			TransactionSetter(0x610F9AB4, 50000)
+			TriggerTransaction(0x610F9AB4, 50000)
 			sleep(death_delay)
 		end
 	end
@@ -4474,7 +4474,7 @@ local function OPLoopToggler()
 			end
 			money_made5 = money_made5 + 1
 			money_count5 = money_count5 + 1000000
-			TransactionSetter(0x615762F1, 1000000)
+			TriggerTransaction(0x615762F1, 1000000)
 			sleep(op_delay)
 		end
 	end
