@@ -904,14 +904,14 @@ script.register_looped("autoGetBunkerCargo", function(script)
         if autoGetBunkerCargo then
             globals.set_int(1662873 + 1 + 5, 1)
             gui.show_message("Bunker", "Resupplying your bunker supplies every 5 seconds.")
-            sleep(5)
+            script:sleep(500)
         end
     end
 end)
 Bunker:add_text("Instant Finish Sell Missions")
 Bunker:add_button("Instant Sell Supplies",
 function ()
-	locals.set_int("fm_mission_controller", BCISl, 0)
+	locals.set_int("gb_gunrunning", BCISl, 0)
 end
 )
 -- MC Businesses
