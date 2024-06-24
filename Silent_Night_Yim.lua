@@ -1291,15 +1291,7 @@ function (script)
 	end
 end
 )
-
 VehUtils:add_separator()
-VehUtils:add_text("Gift Vehicle")
-VehUtils:add_text("To gift vehicles, Make sure all the players vehicles are repaired/returned and that they have a full garage!")
-VehUtils:add_text("HAVE THEM GO INTO THEIR GARAGE, DRIVE A CAR OUT AND BACK INTO THEIR GARAGE AND THEN COME OUT ON FOOT!")
-VehUtils:add_text("Spawn the vehicle using Gift Vehicle's Vehicle Spawner (UNCHECK THE NO POLLUTION BOX BEFORE PRESSING SPAWN!!)")
-VehUtils:add_text("Once you are done, have them get in, then Press the Gift Vehicle button, once it returns the success message they can drive it into their garage")
-VehUtils:add_text("NOTE: Gifted vehicles SHOULD come fully insured, MAKE SURE THEY CHECK IT IN LS CUSTOMS!")
-
 local unlocker = Miscellaneous:add_tab("Unlocker Menu")
 unlocker:add_text("Unlock All the Things you want")
 unlocker:add_button("Unlock All Parachutes",
