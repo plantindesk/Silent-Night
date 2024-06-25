@@ -61,3 +61,11 @@ The code is organized with global variables defining memory addresses and functi
 ## Disclaimer
 
 This script is provided for educational and entertainment purposes only. Use it at your own risk. The developers of this script are not responsible for any consequences resulting from its use.
+
+## Licensing
+
+-  This project is licensed under the **GNU General Public License v3 (GPLv3)**. You are free to copy, modify, and distribute this software as long as you comply with the terms of the license, which can be found in the [LICENSE](LICENSE) file.
+-  GPLv3 conditions include:
+   -  Freedom to use, modify, and distribute the software.
+   -  Source code must be made available when distributing modified versions.
+        Changes made to the software must be licensed under GPLv3.
