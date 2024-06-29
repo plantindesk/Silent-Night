@@ -87,7 +87,7 @@ EDVg1 = FMg + 35629 -- enable dripfeed vehicles global 1 ("ENABLE_VEHICLE_ENVISA
 EDVg2 = FMg + 35630 -- enable dripfeed vehicles global 2 ("ENABLE_VEHICLE_EUROSX32")
 EDVg3 = FMg + 35631 -- enable dripfeed vehicles global 3 ("ENABLE_VEHICLE_POLIMPALER5")
 EDVg4 = FMg + 35632 -- enable dripfeed vehicles global 4 ("ENABLE_VEHICLE_POLGREENWOOD")
-EDVg5 = FMg + 35633 -- enable dripfeed vehicles global 5 ("ENABLE_VEHICLE_PIPISTRELLO")
+EDVg5 = 2707347 -- enable dripfeed vehicles global 5 ("ENABLE_VEHICLE_PIPISTRELLO")
 EDVg6 = FMg + 35634 -- enable dripfeed vehicles global 6 ("ENABLE_VEHICLE_POLIMPALER6")
 EDVg7 = FMg + 35635 -- enable dripfeed vehicles global 7 ("ENABLE_VEHICLE_CASTIGATOR")
 EDVg8 = FMg + 35636 -- enable dripfeed vehicles global 8 ("ENABLE_VEHICLE_DOMINATOR10")
@@ -104,6 +104,8 @@ MCPcockV = FMg + 17321   --  price of cocaine ("BIKER_CRACK_PRODUCT_VALUE")
 MCPcashV = FMg + 17320   --  price of cash ("BIKER_COUNTERCASH_PRODUCT_VALUE")
 MCPfakeV = FMg + 17319   --  price of fake ID ("BIKER_FAKEIDS_PRODUCT_VALUE")
 MCPacidV = FMg + 17324   --  price of acid ("BIKER_ACID_PRODUCT_VALUE")
+CUg = 2708057 -- collectibles unlocker global ("cellphone_badger")
+SJo = 211 -- signal jammers offset
 -- Required Functions --
 
 local function MoneyFormatter(n)
@@ -452,6 +454,53 @@ Salvage:add_button("Reload Planning",
 function()
 	locals.set_int("vehrob_planning",512,2)
 end)
+-- Cluckin Bell --
+local Cluck = Heist_Editor:add_tab("Cluckin Bell Heist")
+Cluck:add_text("Complete Preps")
+Cluck:add_button("Slush Fund",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 0)
+end
+)
+Cluck:add_sameline()
+Cluck:add_button("Breaking and Entering",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 1)
+end
+)
+Cluck:add_sameline()
+Cluck:add_button("Concealed Weapons",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 3)
+end
+)
+Cluck:add_sameline()
+Cluck:add_button("Hit And Run",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 7)
+end
+)
+Cluck:add_sameline()
+Cluck:add_button("Disorganized Crime",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 15)
+end
+)
+Cluck:add_sameline()
+Cluck:add_button("Scene of the Crime",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 31)
+end
+)
+Cluck:add_separator()
+Cluck:add_text("Reset preps")
+Cluck:add_button("Reset Preps",
+function ()
+	stats.set_int(MPX() .. "SALV23_INST_PROG", 0)
+end
+)
+
+
 -- Cut Setter for Heist --
 
 local function CutsPresetter(global_start, global_finish, cut)
@@ -1324,69 +1373,23 @@ end
 )
 VehUtils:add_separator()
 VehUtils:add_text("Vehicle unlocker")
-local function DripfeedVehiclesToggler(Enabled)
-	if Enabled then
-		globals.set_int(EDVg1,  1)
-		globals.set_int(EDVg2,  1)
-		globals.set_int(EDVg3,  1)
-		globals.set_int(EDVg4,  1)
-		globals.set_int(EDVg5,  1)
-		globals.set_int(EDVg6,  1)
-		globals.set_int(EDVg7,  1)
-		globals.set_int(EDVg8,  1)
-		globals.set_int(EDVg9,  1)
-		globals.set_int(EDVg10, 1)
-		globals.set_int(EDVg11, 1)
-		globals.set_int(EDVg12, 1)
-		globals.set_int(EDVg13, 1)
-		globals.set_int(EDVg14, 1)
-		globals.set_int(EDVg15, 1)
-		
-	else
-		globals.set_int(EDVg1,  0)
-		globals.set_int(EDVg2,  0)
-		globals.set_int(EDVg3,  0)
-		globals.set_int(EDVg4,  0)
-		globals.set_int(EDVg5,  0)
-		globals.set_int(EDVg6,  0)
-		globals.set_int(EDVg7,  0)
-		globals.set_int(EDVg8,  0)
-		globals.set_int(EDVg9,  0)
-		globals.set_int(EDVg10, 0)
-		globals.set_int(EDVg11, 0)
-		globals.set_int(EDVg12, 0)
-		globals.set_int(EDVg13, 0)
-		globals.set_int(EDVg14, 0)
-		globals.set_int(EDVg15, 0)
-	end
+VehUtils:add_button("Unlock Dripfeed Vehicles",
+function ()
+	globals.set_int(EDVg5, 1)				-- pipistrello
+	globals.set_int(EDVg6, 1)				-- castigator
+	globals.set_int(FMg + 35588 + 6, 1)		-- castigator
+	globals.set_int(EDVg12, 1)				-- dominator fx interceptor
+	globals.set_int(FMg + 35588 + 13, 1)		-- dominator fx interceptor
+	globals.set_int(EDVg8, 1)				-- dominator fx
+	globals.set_int(FMg + 35588 + 12, 1)	-- dominator fx
+	globals.set_int(EDVg3, 1)				-- impaler lx cruiser
+	globals.set_int(FMg + 35588 + 4, 1)		-- impaler lx cruiser
+	globals.set_int(EDVg15, 1)				-- pizzaboy
+	globals.set_int(FMg + 35588 + 14, 1)	-- pizzaboy
+	globals.set_int(EDVg9, 1)				-- Vorschlaghammer
+	globals.set_int(FMg + 35588 + 0, 1)		-- Vorschlaghammer
 end
-local dripfeed = VehUtils:add_checkbox("Unlock DripFeed Vehicles")
-script.register_looped("dripfeedunlock", function(script)
-    script:yield()
-    if dripfeed:is_enabled() == true then
-		DripfeedVehiclesToggler(dripfeed:is_enabled())
-        gui.show_message("Dripfeed", "Time To Buy Dripfeed Vehicles")
-        
-        script:sleep(500)
-	else
-		DripfeedVehiclesToggler(dripfeed:is_enabled())
-		script:sleep(500)
-    end
-end)
-local removed = VehUtils:add_checkbox("Unlock Removed Vehicles")
-script.register_looped("removedunlock", function(script)
-	script:yield()
-	if removed:is_enabled() == true then
-		DripfeedVehiclesToggler(removed:is_enabled())
-		gui.show_message("Removed", "Time To Buy Removed Vehicles")
-		
-		script:sleep(500)
-	else
-		DripfeedVehiclesToggler(removed:is_enabled())
-		script:sleep(500)
-	end
-end)
-
+)
 local unlocker = Miscellaneous:add_tab("Unlocker Menu")
 unlocker:add_text("Unlock All the Things you want")
 unlocker:add_button("Unlock All Parachutes",
@@ -1461,6 +1464,37 @@ unlocker:add_button("Suede Bucks Finish | Carbine Rifle", function() stats_set_p
 unlocker:add_sameline()
 unlocker:add_button("Uncle T Finish | RPG", function() stats_set_packed_bool(41659, true) end)
 
+unlocker:add_separator()
+unlocker:add_text("Unlock All Collectables")
+function unlock_packed_bools(from, to)
+    for i = from, to do
+        stats.set_packed_stat_bool(i, true)
+    end
+end
+unlocker:add_button("Unlock Signal jammers",
+function ()
+	unlock_packed_bools(28099, 28148)
+end
+)
+
+unlocker:add_sameline()
+unlocker:add_button("LD Organics",
+function ()
+	unlock_packed_bools(34262, 34361)
+end
+)
+unlocker:add_sameline()
+unlocker:add_button("Playing Cards & Action Figures",
+function ()
+	unlock_packed_bools(26811, 26964)
+end
+)
+unlocker:add_sameline()
+unlocker:add_button("SnowMans",
+function ()
+	unlock_packed_bools(36630, 36654)
+end
+)
 -- LSCM ---
 
 LSCM = Miscellaneous:add_tab("LSCM Unlocker Menu")
