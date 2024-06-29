@@ -1466,7 +1466,7 @@ unlocker:add_button("Uncle T Finish | RPG", function() stats_set_packed_bool(416
 LSCM = Miscellaneous:add_tab("LSCM Unlocker Menu")
 
 LSCM:add_button("Unlock All Rep Lvl 1000", function()
-	for i = 262145 + 31944, 262145 + 31973 do
+	for i = 262145 + 30958, 262145 + 30987 do
 		globals.set_float(i, 100000)
 	end
 end)
