@@ -54,6 +54,39 @@ The code is organized with global variables defining memory addresses and functi
 
 * `Silent-data`: This appears to be a separate Lua file (not included here) that likely contains data structures and functions related to the "Silent Night" menu.
 
+## Credits
+
+- Developer: SilentSalo
+
+### Helpers
+
+- gaymer
+- Big Smoke
+- Slon
+- CasinoPacino
+- Bababoiiiii
+- Amnesia
+- jschaotic
+- Killa`B
+- Mr. Robot
+- L7NEG
+- LUKY6464
+- ShinyWasabi
+- gir489returns
+- Unkn0wnXit
+- Zeiger
+- Pewpew
+- ObratniyVasya
+- CheatChris
+- Rostal
+- VodisAreThere65715
+- Yimura
+- Loled69
+- Alestarov
+- TheKuter
+- RazorGamerX
+- USBMenus
+
 ## Notes
 
 * This Lua can only be used in Yim Menu
