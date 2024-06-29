@@ -1,5 +1,5 @@
 
-# Silent Night 1.68
+# Silent Night 1.69
 
 A Lua script for Grand Theft Auto V that provides various mod menus for manipulating heist payouts, managing businesses, unlocking content, and more.
 
