@@ -10,78 +10,100 @@ local function MPX()
     end
 end
 -- Global Variables
-ASIFl1 = 48513 + 1 -- auto shop instant finish local 1
-ASIFl2 = 48513 + 1765 + 1 -- auto shop finish local 2
-DDSHl = 1269 + 135 -- doomsday doomsday scenario hack local
-FMg = 262145 -- free mode global ("CASH_MULTIPLIER")
-APg = FMg + 32071 -- agency payout global ("FIXER_FINALE_LEADER_CASH_REWARD")
-ASRBl = 381 -- auto shop reload board local
-ASPg1 = FMg + 31323 + 1 -- auto shop payout global 1 ("TUNER_ROBBERY_LEADER_CASH_REWARD0")
-ASPg2 = FMg + 31323 + 8 -- auto shop payout global 2 ("TUNER_ROBBERY_LEADER_CASH_REWARD7")
-ASFg = FMg + 31319 -- auto shop fee global ("TUNER_ROBBERY_CONTACT_FEE")
-SYVVg = FMg + 34092 -- salvage yard vehicle value global ("SALV23_VEHICLE_ROBBERY_VALUE_0")
-ASCKg = FMg + 31342 -- auto shop cooldown global ("TUNER_ROBBERY_COOLDOWN_TIME")
+
+ASIFl1 = 50150 + 1 -- auto shop instant finish local 1 //correct
+ASIFl2 = 50150 + 1770 + 1 -- auto shop finish local 2 //correct
+DDSHl = 1271 + 135 -- doomsday doomsday scenario hack local
+FMg = 262145 -- free mode global ("CASH_MULTIPLIER") //correct
+APg = FMg + 31084 -- agency payout global ("FIXER_FINALE_LEADER_CASH_REWARD") //correct
+XMg = FMg + 1 -- xp multiplier global ("XP_MULTIPLIER")
+ASRBl = 383 -- auto shop reload board local //correct
+ASPg1 = FMg + 30338 + 1 -- auto shop payout global 1 ("TUNER_ROBBERY_LEADER_CASH_REWARD0") //correct
+ASPg2 = FMg + 30338 + 8 -- auto shop payout global 2 ("TUNER_ROBBERY_LEADER_CASH_REWARD7") //correct
+ASFg = FMg + 30334 -- auto shop fee global ("TUNER_ROBBERY_CONTACT_FEE") //correct
+SYVVg = FMg + 33035 -- salvage yard vehicle value global ("SALV23_VEHICLE_ROBBERY_VALUE_0") //correct
+ASCKg = FMg + 30357 -- auto shop cooldown global ("TUNER_ROBBERY_COOLDOWN_TIME") //correct
 DCg1 = 1959865 + 812 + 50 + 1 -- doomsday player 1 cut global
 DCg2 = 1959865 + 812 + 50 + 2 -- doomsday player 2 cut global
 DCg3 = 1959865 + 812 + 50 + 3 -- doomsday player 3 cut global
 DCg4 = 1959865 + 812 + 50 + 4 -- doomsday player 4 cut global
 GCg = 2685249 + 6615 -- global cut global (value2 = value2 * (num / 100f);)
-CPRSl = 1544 -- cayo perico reload screen local
+CPRSl = 1546 -- cayo perico reload screen local //correct
 CPCg1 = 1970744 + 831 + 56 + 1 -- cayo perico player 1 cut global
 CPCg2 = 1970744 + 831 + 56 + 2 -- cayo perico player 2 cut global
 CPCg3 = 1970744 + 831 + 56 + 3 -- cayo perico player 3 cut global
 CPCg4 = 1970744 + 831 + 56 + 4 -- cayo perico player 4 cut global
-GCg = 2685249 + 6615 -- global cut global (value2 = value2 * (num / 100f);)
-CPBg = FMg + 30009 -- cayo perico bag global (1859395035)
-CPFHl = 24333 -- cayo perico fingerprint hack local
-CPPCCl = 30357 + 3 -- cayo perico plasma cutter cut local ("DLC_H4_anims_glass_cutter_Sounds")
-CPSTCl = 29118 -- cayo perico drainage pipe cut local
+CPBg = FMg + 29211 -- cayo perico bag global (1859395035)
+CPFHl = 24090 -- cayo perico fingerprint hack local //testing
+CPPCCl = 30939 + 3 -- cayo perico plasma cutter cut local ("DLC_H4_anims_glass_cutter_Sounds") /testing
+CPSTCl = 29700 -- cayo perico drainage pipe cut local //testing
 ACg1 = 1928233 + 1 + 1 -- global apartment player 1 cut global
 ACg2 = 1928233 + 1 + 2 -- global apartment player 2 cut global
 ACg3 = 1928233 + 1 + 3 -- global apartment player 3 cut global
 ACg4 = 1928233 + 1 + 4 -- global apartment player 4 cut global
 ACg5 = 1930201 + 3008 + 1 -- local apartment player 1 cut global
-AUAJg1 = FMg + 9237 -- apartment unlock all jobs global 1 ("ROOT_ID_HASH_THE_FLECCA_JOB")
-AUAJg2 = FMg + 9242 -- apartment unlock all jobs global 2 ("ROOT_ID_HASH_THE_PRISON_BREAK")
-AUAJg3 = FMg + 9249 -- apartment unlock all jobs global 3 ("ROOT_ID_HASH_THE_HUMANE_LABS_RAID")
-AUAJg4 = FMg + 9255 -- apartment unlock all jobs global 4 ("ROOT_ID_HASH_SERIES_A_FUNDING")
-AUAJg5 = FMg + 9261 -- apartment unlock all jobs global 5 ("ROOT_ID_HASH_THE_PACIFIC_STANDARD_JOB")
+AUAJg1 = FMg + 9101 -- apartment unlock all jobs global 1 ("ROOT_ID_HASH_THE_FLECCA_JOB")
+AUAJg2 = FMg + 9106 -- apartment unlock all jobs global 2 ("ROOT_ID_HASH_THE_PRISON_BREAK")
+AUAJg3 = FMg + 9113 -- apartment unlock all jobs global 3 ("ROOT_ID_HASH_THE_HUMANE_LABS_RAID")
+AUAJg4 = FMg + 9119 -- apartment unlock all jobs global 4 ("ROOT_ID_HASH_SERIES_A_FUNDING")
+AUAJg5 = FMg + 9125 -- apartment unlock all jobs global 5 ("ROOT_ID_HASH_THE_PACIFIC_STANDARD_JOB")
 AIFl3 = 19728 -- apartment instant finish local 1
 AIFl4 = 28347 + 1 -- apartment instant finish local 2
 AIFl5 = 31603 + 69 -- apartment instant finish local 3
-AFHl = 11776 + 24 -- apartment fleeca hack local
-AFDl = 10067 + 11 -- apartment fleeca drill local
-BUCg1 = FMg + 21505 -- bunker unlocker cooldown global 1 (946764522)
-BUCg2 = FMg + 21757 -- bunker unlocker cooldown global 2 ("GR_RESEARCH_CAPACITY")
-BUCg3 = FMg + 21758 -- bunker unlocker cooldown global 3 ("GR_RESEARCH_PRODUCTION_TIME")
-BUCg4 = FMg + 21759 -- bunker unlocker cooldown global 4 ("GR_RESEARCH_UPGRADE_EQUIPMENT_REDUCTION_TIME")
-BUAg1 = FMg + 21761 -- bunker unlocker additional global 1 (1485279815)
-BUAg2 = FMg + 21762 -- bunker unlocker additional global 2 (2041812011)
-GSIg = 1662873 -- get supplies instantly global ("OR_PSUP_DEL)
-BCISl = 1983 -- bunker crash instant sell local
-HCVPg = FMg + 23020 -- hangar cargo vip payout global (-954321460)
-HCVRCg = FMg + 23003 -- hangar cargo vip ron's cut (1232447926)
-HCVISl1 = 1932 + 1078 -- hangar cargo vip instant sell local 1
-HCVISl2 = 2700 -- hangar cargo vip instant sell local 2
-NHCNSg = FMg + 24599 -- nightclub helper cargo n shipments global (1162393585)
-NHSGg = FMg + 24593 -- nightclub helper sporting goods global (-1523050891)
-NHSAIg = FMg + 24594 -- nightclub helper s.a. imports global (147773667)
+AFHl = 11778 + 24 -- apartment fleeca hack local 
+AFDl = 10069 + 11 -- apartment fleeca drill local
+BUCg1 = FMg + 21018 -- bunker unlocker cooldown global 1 (946764522)
+BUCg2 = FMg + 21264 -- bunker unlocker cooldown global 2 ("GR_RESEARCH_CAPACITY")
+BUCg3 = FMg + 21265 -- bunker unlocker cooldown global 3 ("GR_RESEARCH_PRODUCTION_TIME")
+BUCg4 = FMg + 21266 -- bunker unlocker cooldown global 4 ("GR_RESEARCH_UPGRADE_EQUIPMENT_REDUCTION_TIME")
+BUAg1 = FMg + 21268 -- bunker unlocker additional global 1 (1485279815)
+BUAg2 = FMg + 21269 -- bunker unlocker additional global 2 (2041812011)
+GSIg = 1663174 -- get supplies instantly global ("OR_PSUP_DEL)
+BCISl = 1211 + 774 -- bunker crash instant sell local
+HCVPg = FMg + 22492 -- hangar cargo vip payout global (-954321460)
+HCVRCg = FMg + 22475 -- hangar cargo vip ron's cut (1232447926)
+HCVISl1 = 1934 + 1078 -- hangar cargo vip instant sell local 1
+HCVISl2 = 1934 + 768 -- hangar cargo vip instant sell local 2
+NHCNSg = FMg + 23969 -- nightclub helper cargo n shipments global (1162393585)
+NHSGg = FMg + 23963 -- nightclub helper sporting goods global (-1523050891)
+NHSAIg = FMg + 23964 -- nightclub helper s.a. imports global (147773667)
 NHPRg = FMg + 24595 -- nightclub helper pharmaceutical reseacrh global (-1188700671)
-NHOPg = FMg + 24596 -- nightclub helper organic produce global (-1188963032)
-NHPNCg = FMg + 24597 -- nightclub helper printing n copying global (967514627)
-NHCCg = FMg + 24598 -- nightclub helper cash creation global (1983962738)
-NHCKg1 = FMg + 24659 -- nightclub helper cooldown killer global 1 (1763921019)
-NHCKg2 = FMg + 24701 -- nightclub helper cooldown killer global 2 (-1004589438)
-NHCKg3 = FMg + 24702 -- nightclub helper cooldown killer global 3 (464940095)
-NLSCg = FMg + 24257 -- night loop safe capacity global ("NIGHTCLUBMAXSAFEVALUE")
-NLISg = FMg + 24234 -- night loop income start global ("NIGHTCLUBINCOMEUPTOPOP5")
-NLIEg = FMg + 24253 -- night loop income end global ("NIGHTCLUBINCOMEUPTOPOP100")
-NLCl = 183 + 32 + 1 -- night loop collect local
-SCVPg = FMg + 15991 -- special cargo vip price global ("EXEC_CONTRABAND_SALE_VALUE_THRESHOLD1")
-SCVCKg1 = FMg + 15756 -- special cargo vip cooldown global 1 ("EXEC_BUY_COOLDOWN")
-SCVCKg2 = FMg + 15757 -- special cargo vip cooldown global 2 ("EXEC_SELL_COOLDOWN")
-SCVMTl = 543 + 7 -- special cargo vip mission type local
-SCVISl = 543 + 1 -- special cargo vip instant sell local
+NHOPg = FMg + 23965 -- nightclub helper organic produce global (-1188963032)
+NHPNCg = FMg + 23967 -- nightclub helper printing n copying global (967514627)
+NHCCg = FMg + 23968 -- nightclub helper cash creation global (1983962738)
+NHCKg1 = FMg + 24026 -- nightclub helper cooldown killer global 1 (1763921019)
+NHCKg2 = FMg + 24067 -- nightclub helper cooldown killer global 2 (-1004589438)
+NHCKg3 = FMg + 24068 -- nightclub helper cooldown killer global 3 (464940095)
+NLSCg = FMg + 23680 -- night loop safe capacity global ("NIGHTCLUBMAXSAFEVALUE")
+NLISg = FMg + 23657 -- night loop income start global ("NIGHTCLUBINCOMEUPTOPOP5")
+NLIEg = FMg + 23676 -- night loop income end global ("NIGHTCLUBINCOMEUPTOPOP100")
+NLCl = 181 + 32 + 1 -- night loop collect local
+SCVPg = FMg + 15732 -- special cargo vip price global ("EXEC_CONTRABAND_SALE_VALUE_THRESHOLD1")
+SCVCKg1 = FMg + 15499 -- special cargo vip cooldown global 1 ("EXEC_BUY_COOLDOWN")
+SCVCKg2 = FMg + 15500 -- special cargo vip cooldown global 2 ("EXEC_SELL_COOLDOWN")
+SCVMTl = 545 + 7 -- special cargo vip mission type local
+SCVISl = 545 + 1 -- special cargo vip instant sell local
+EDVg1 = FMg + 35629 -- enable dripfeed vehicles global 1 ("ENABLE_VEHICLE_ENVISAGE")
+EDVg2 = FMg + 35630 -- enable dripfeed vehicles global 2 ("ENABLE_VEHICLE_EUROSX32")
+EDVg3 = FMg + 35631 -- enable dripfeed vehicles global 3 ("ENABLE_VEHICLE_POLIMPALER5")
+EDVg4 = FMg + 35632 -- enable dripfeed vehicles global 4 ("ENABLE_VEHICLE_POLGREENWOOD")
+EDVg5 = FMg + 35633 -- enable dripfeed vehicles global 5 ("ENABLE_VEHICLE_PIPISTRELLO")
+EDVg6 = FMg + 35634 -- enable dripfeed vehicles global 6 ("ENABLE_VEHICLE_POLIMPALER6")
+EDVg7 = FMg + 35635 -- enable dripfeed vehicles global 7 ("ENABLE_VEHICLE_CASTIGATOR")
+EDVg8 = FMg + 35636 -- enable dripfeed vehicles global 8 ("ENABLE_VEHICLE_DOMINATOR10")
+EDVg9 = FMg + 35637 -- enable dripfeed vehicles global 9 ("ENABLE_VEHICLE_VORSCHLAGHAMMER")
+EDVg10 = FMg + 35638 -- enable dripfeed vehicles global 10 ("ENABLE_VEHICLE_PARAGON3")
+EDVg11 = FMg + 35639 -- enable dripfeed vehicles global 11 ("ENABLE_VEHICLE_POLDORADO")
+EDVg12 = FMg + 35640 -- enable dripfeed vehicles global 12 ("ENABLE_VEHICLE_POLDOMINATOR10")
+EDVg13 = FMg + 35641 -- enable dripfeed vehicles global 13 ("ENABLE_VEHICLE_NIOBE")
+EDVg14 = FMg + 35642 -- enable dripfeed vehicles global 14 ("ENABLE_VEHICLE_COQUETTE5")
+EDVg15 = FMg + 35643 -- enable dripfeed vehicles global 15 ("ENABLE_VEHICLE_PIZZABOY")
+MCPwv = FMg + 17323   --  price of weed ("BIKER_WEED_PRODUCT_VALUE")
+MCPmV = FMg + 17322   --  price of meth ("BIKER_METH_PRODUCT_VALUE")
+MCPcockV = FMg + 17321   --  price of cocaine ("BIKER_CRACK_PRODUCT_VALUE")
+MCPcashV = FMg + 17320   --  price of cash ("BIKER_COUNTERCASH_PRODUCT_VALUE")
+MCPfakeV = FMg + 17319   --  price of fake ID ("BIKER_FAKEIDS_PRODUCT_VALUE")
+MCPacidV = FMg + 17324   --  price of acid ("BIKER_ACID_PRODUCT_VALUE")
 -- Required Functions --
 
 local function MoneyFormatter(n)
@@ -199,8 +221,8 @@ local function null() end
 
 
 -- Silent Night Tab
-Silent = gui.get_tab("Silent Night 1.68")
-Silent:add_text("Silent Night 1.68 [V2.1]")
+Silent = gui.get_tab("Silent Night 1.69")
+Silent:add_text("Silent Night 1.69")
 
 -- Heist Editor tab
 Heist_Editor = Silent:add_tab("Heist Editor")
@@ -246,7 +268,7 @@ script.register_looped("agencyloop", function(script)
         gui.show_message("Business Manager", "Supplying Agency Safe with money")
         STATS.STAT_SET_INT(joaat(MPX() .. "FIXER_COUNT"), 500, true)
         STATS.STAT_SET_INT(joaat(MPX() .. "FIXER_PASSIVE_PAY_TIME_LEFT"), -1, true)
-        script:sleep(0.5)
+        script:sleep(500)
     end
 end)
 Agency:add_separator()
@@ -311,21 +333,25 @@ function()
 	stats.set_int(MPX() .. "TUNER_CURRENT", contractIndex - 1)
 end)
 Autoshop:add_button("Complete Preps",
-	function()
+script.run_in_fiber(
+function (script)
+	
 		current_mission = stats.get_int(MPX() .. "TUNER_CURRENT")
 		if current_mission == 1 then
 			stats.set_int(MPX() .. "TUNER_GEN_BS", 4351)
 		else
 			stats.set_int(MPX() .. "TUNER_GEN_BS", 12543)
 		end
-		sleep(1)
-		locals.set_int("tuner_planning", 381, 2)
-	end)
+		script:sleep(1000)
+		locals.set_int("tuner_planning", ASRBl, 2)
+end
+)
+)
 Autoshop:add_separator()
 Autoshop:add_text("Reload Planning")
 Autoshop:add_button("Reload Planning",
 function ()
-	locals.set_int("tuner_planning", 381, 2)
+	locals.set_int("tuner_planning", ASRBl, 2)
 end
 )
 Autoshop:add_separator()
@@ -414,12 +440,17 @@ Salvage:add_separator()
 Salvage:add_text("Reset preps")
 Salvage:add_button("Reset Preps", function() YardPrepsSetter(0) end)
 Salvage:add_separator()
-Salvage:add_text("Kill Cooldown")
+Salvage:add_text("Others")
 Salvage:add_button("Kill Cooldown",
 function()
 	for i = SYCg1, SYCg2 do
 		globals.set_int(i, 0)
 	end
+end)
+Salvage:add_sameline()
+Salvage:add_button("Reload Planning",
+function()
+	locals.set_int("vehrob_planning",512,2)
 end)
 -- Cut Setter for Heist --
 
@@ -882,16 +913,16 @@ Bunker:add_text("Unlock All Research temporarily")
 
 Bunker:add_button("Unlock All Research", function()
 	script.run_in_fiber(function(script)
-		globals.set_int(262145 + 22067, 1)
+		globals.set_int(262145 + 21564, 1)
 		gui.show_message("Bunker Research", "ALL Bunker research has been unlocked.")
 	end)
 end)
 Bunker:add_text("Supplies")
 Bunker:add_button("Fast Production", function()
 	script.run_in_fiber(function(script)
-		globals.set_int(262145 + 33385, 1)
-		globals.set_int(262145 + 21742, 1)
-		globals.set_int(262145 + 33392, 1)
+		globals.set_int(262145 + 32359, 1)
+		globals.set_int(262145 + 21249, 1)
+		globals.set_int(262145 + 32366, 1)
 		gui.show_message("Production", "Bunker production speed has been increased, make sure you loop your supplies!")
 	end)
 end)
@@ -902,7 +933,7 @@ script.register_looped("autoGetBunkerCargo", function(script)
     if bSupplies:is_enabled() == true then
         autoGetBunkerCargo = not autoGetBunkerCargo
         if autoGetBunkerCargo then
-            globals.set_int(1662873 + 1 + 5, 1)
+            globals.set_int(GSIg + 1 + 5, 1)
             gui.show_message("Bunker", "Resupplying your bunker supplies every 5 seconds.")
             script:sleep(500)
         end
@@ -920,29 +951,29 @@ local MB = MoneyT:add_tab("MC Businesses")
 MB:add_text("Resupply All Businesses")
 MB:add_button("Resupply All", function()
 	script.run_in_fiber(function(mcResupply)
-		globals.set_int(1662873 + 1 + 6, 1)
-		globals.set_int(1662873 + 1 + 6, 1)
-		globals.set_int(1662873 + 1 + 6, 1) -- Acid Lab Supplies
+		globals.set_int(1663174 + 1 + 6, 1)
+		globals.set_int(1662874 + 1 + 6, 1)
+		globals.set_int(1662874 + 1 + 6, 1) -- Acid Lab Supplies
 		gui.show_message("Acid Lab", "Resupplying your Acid Lab")
-		globals.set_int(1662873 + 1 + 5, 1)
-		globals.set_int(1662873 + 1 + 5, 1)
-		globals.set_int(1662873 + 1 + 5, 1) -- Bunker Supplies
+		globals.set_int(1662874 + 1 + 5, 1)
+		globals.set_int(1662874 + 1 + 5, 1)
+		globals.set_int(1662874 + 1 + 5, 1) -- Bunker Supplies
 		gui.show_message("Bunker", "Resupplying your Bunker")
-		globals.set_int(1662873 + 1 + 1, 1)
-		globals.set_int(1662873 + 1 + 1, 1)
-		globals.set_int(1662873 + 1 + 1, 1) -- Document Forge Supplies
+		globals.set_int(1662874 + 1 + 1, 1)
+		globals.set_int(1662874 + 1 + 1, 1)
+		globals.set_int(1662874 + 1 + 1, 1) -- Document Forge Supplies
 		gui.show_message("Document Forge", "Resupplying your Document Forge")
-		globals.set_int(1662873 + 1 + 2, 1)
-		globals.set_int(1662873 + 1 + 2, 1)
-		globals.set_int(1662873 + 1 + 2, 1) -- Weed Farm Supplies
+		globals.set_int(1662874 + 1 + 2, 1)
+		globals.set_int(1662874 + 1 + 2, 1)
+		globals.set_int(1662874 + 1 + 2, 1) -- Weed Farm Supplies
 		gui.show_message("Weed Farm", "Resupplying your Weed Farm")
-		globals.set_int(1662873 + 1 + 3, 1)
-		globals.set_int(1662873 + 1 + 3, 1)
-		globals.set_int(1662873 + 1 + 3, 1) -- Meth Lab Suplies
+		globals.set_int(1662874 + 1 + 3, 1)
+		globals.set_int(1662874 + 1 + 3, 1)
+		globals.set_int(1662874 + 1 + 3, 1) -- Meth Lab Suplies
 		gui.show_message("Meth Lab", "Resupplying your Meth Lab")
-		globals.set_int(1662873 + 1 + 4, 1)
-		globals.set_int(1662873 + 1 + 4, 1)
-		globals.set_int(1662873 + 1 + 4, 1) -- Cocaine Lockup Supplies
+		globals.set_int(1662874 + 1 + 4, 1)
+		globals.set_int(1662874 + 1 + 4, 1)
+		globals.set_int(1662874 + 1 + 4, 1) -- Cocaine Lockup Supplies
 		gui.show_message("Cocaine Lockup", "Resupplying your Cocaine Lockup")
 	end)
 end)
@@ -962,12 +993,12 @@ end)
 MB:add_separator()
 MB:add_text("Raise Value of Product of MC Business to $1,000,000 +")
 MB:add_button("Raise Sale Prices", function()
-    globals.set_int(262145 + 17632, 15000) -- price for weed
-    globals.set_int(262145 + 17631, 60000) -- price for meth
-    globals.set_int(262145 + 17630, 100000) -- price for cocaine
-    globals.set_int(262145 + 17628, 20000) -- price for document forge
-    globals.set_int(262145 + 17629, 30000) -- price for cash
-    --globals.set_int(262145 + 17632, 10000)
+    globals.set_int(MCPwv, 15000) -- price for weed
+    globals.set_int(MCPmV + 17631, 60000) -- price for meth
+    globals.set_int(MCPcockV, 100000) -- price for cocaine
+    globals.set_int(MCPfakeV, 20000) -- price for document forge
+    globals.set_int(MCPcashV, 30000) -- price for cash
+	globals.set_int(MCPacidV, 6000) --price for acid
     gui.show_message("Production Value", "Production sale value has been increased for all businesses")
 end)
 -- Hangar Cargo --
@@ -1186,7 +1217,7 @@ script.register_looped("arcadeloop", function(script)
         gui.show_message("Business Manager", "Supplying Arcade Safe with money")
         STATS.STAT_SET_INT(joaat(MPX() .. "ARCADE_SAFE_CASH_VALUE"), 2000, true)
         STATS.STAT_SET_INT(joaat(MPX() .. "ARCADE_PAY_TIME_LEFT"), -1, true)
-        script:sleep(500)
+        script:sleep(5000)
     end
 end)
 -- Special Cargo --
@@ -1292,6 +1323,70 @@ function (script)
 end
 )
 VehUtils:add_separator()
+VehUtils:add_text("Vehicle unlocker")
+local function DripfeedVehiclesToggler(Enabled)
+	if Enabled then
+		globals.set_int(EDVg1,  1)
+		globals.set_int(EDVg2,  1)
+		globals.set_int(EDVg3,  1)
+		globals.set_int(EDVg4,  1)
+		globals.set_int(EDVg5,  1)
+		globals.set_int(EDVg6,  1)
+		globals.set_int(EDVg7,  1)
+		globals.set_int(EDVg8,  1)
+		globals.set_int(EDVg9,  1)
+		globals.set_int(EDVg10, 1)
+		globals.set_int(EDVg11, 1)
+		globals.set_int(EDVg12, 1)
+		globals.set_int(EDVg13, 1)
+		globals.set_int(EDVg14, 1)
+		globals.set_int(EDVg15, 1)
+		
+	else
+		globals.set_int(EDVg1,  0)
+		globals.set_int(EDVg2,  0)
+		globals.set_int(EDVg3,  0)
+		globals.set_int(EDVg4,  0)
+		globals.set_int(EDVg5,  0)
+		globals.set_int(EDVg6,  0)
+		globals.set_int(EDVg7,  0)
+		globals.set_int(EDVg8,  0)
+		globals.set_int(EDVg9,  0)
+		globals.set_int(EDVg10, 0)
+		globals.set_int(EDVg11, 0)
+		globals.set_int(EDVg12, 0)
+		globals.set_int(EDVg13, 0)
+		globals.set_int(EDVg14, 0)
+		globals.set_int(EDVg15, 0)
+	end
+end
+local dripfeed = VehUtils:add_checkbox("Unlock DripFeed Vehicles")
+script.register_looped("dripfeedunlock", function(script)
+    script:yield()
+    if dripfeed:is_enabled() == true then
+		DripfeedVehiclesToggler(dripfeed:is_enabled())
+        gui.show_message("Dripfeed", "Time To Buy Dripfeed Vehicles")
+        
+        script:sleep(500)
+	else
+		DripfeedVehiclesToggler(dripfeed:is_enabled())
+		script:sleep(500)
+    end
+end)
+local removed = VehUtils:add_checkbox("Unlock Removed Vehicles")
+script.register_looped("removedunlock", function(script)
+	script:yield()
+	if removed:is_enabled() == true then
+		DripfeedVehiclesToggler(removed:is_enabled())
+		gui.show_message("Removed", "Time To Buy Removed Vehicles")
+		
+		script:sleep(500)
+	else
+		DripfeedVehiclesToggler(removed:is_enabled())
+		script:sleep(500)
+	end
+end)
+
 local unlocker = Miscellaneous:add_tab("Unlocker Menu")
 unlocker:add_text("Unlock All the Things you want")
 unlocker:add_button("Unlock All Parachutes",
@@ -1371,7 +1466,7 @@ unlocker:add_button("Uncle T Finish | RPG", function() stats_set_packed_bool(416
 LSCM = Miscellaneous:add_tab("LSCM Unlocker Menu")
 
 LSCM:add_button("Unlock All Rep Lvl 1000", function()
-	for i = 262145 + 31944, 262145 + 31973 do
+	for i = 262145 + 30958, 262145 + 30987 do
 		globals.set_float(i, 100000)
 	end
 end)
