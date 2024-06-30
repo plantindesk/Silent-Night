@@ -34,9 +34,9 @@ CPCg2 = 1971648 + 831 + 56 + 2 -- cayo perico player 2 cut global
 CPCg3 = 1971648 + 831 + 56 + 3 -- cayo perico player 3 cut global
 CPCg4 = 1971648 + 831 + 56 + 4 -- cayo perico player 4 cut global
 CPBg = FMg + 29211 -- cayo perico bag global (1859395035)
-CPFHl = 24090 -- cayo perico fingerprint hack local //testing
-CPPCCl = 30939 + 3 -- cayo perico plasma cutter cut local ("DLC_H4_anims_glass_cutter_Sounds") /testing
-CPSTCl = 29700 -- cayo perico drainage pipe cut local //testing
+CPFHl = 24880  -- cayo perico fingerprint hack local 
+CPPCCl = 30939 + 3 -- cayo perico plasma cutter cut local ("DLC_H4_anims_glass_cutter_Sounds") 
+CPSTCl = 29700 -- cayo perico drainage pipe cut local
 ACg1 = 1928958 + 1 + 1 -- global apartment player 1 cut global
 ACg2 = 1928958 + 1 + 2 -- global apartment player 2 cut global
 ACg3 = 1928958 + 1 + 3 -- global apartment player 3 cut global
@@ -52,6 +52,19 @@ AIFl4 = 28347 + 1 -- apartment instant finish local 2
 AIFl5 = 31603 + 69 -- apartment instant finish local 3
 AFHl = 11778 + 24 -- apartment fleeca hack local 
 AFDl = 10069 + 11 -- apartment fleeca drill local
+DCRBl = 185 -- diamond casino reload board local
+DCCg1 = 1964849 + 1497 + 736 + 92 + 1 -- diamond casino player 1 cut global
+DCCg2 = 1964849 + 1497 + 736 + 92 + 2 -- diamond casino player 2 cut global
+DCCg3 = 1964849 + 1497 + 736 + 92 + 3 -- diamond casino player 3 cut global
+DCCg4 = 1964849 + 1497 + 736 + 92 + 4 -- diamond casino player 4 cut global
+DCCl = FMg +28313  -- Casino_Cut_Lester_offset
+DCCh = FMg+28349-1 --Casino_Cut_Hacker_offset
+DCCd = FMg+28344-1 --Casino_Cut_Driver_offset
+DCCgun = FMg + 28339-1 --Casino_Cut_Gunman_offset
+DCFHl = 53019      -- diamond casino fingerprint hack local
+DCKHl = 54085      -- diamond casino keypad hack local
+DCDVDl1 = 10109 + 7 -- diamond casino drill vault door local 1
+DCDVDl2 = 10109 + 37 -- diamond casino drill vault door local 2
 BUCg1 = FMg + 21018 -- bunker unlocker cooldown global 1 (946764522)
 BUCg2 = FMg + 21264 -- bunker unlocker cooldown global 2 ("GR_RESEARCH_CAPACITY")
 BUCg3 = FMg + 21265 -- bunker unlocker cooldown global 3 ("GR_RESEARCH_PRODUCTION_TIME")
@@ -574,7 +587,278 @@ function ()
 	locals.set_int("fm_mission_controller", DDSHl, 3)
 end
 )
+-- Casino Heist --
+local CasinoHeist = Heist_Editor:add_tab("Diamond Casino Heist")
+CasinoHeist:add_text("Preps")
+CasinoHeist:add_text("")
+local function CasinoApproachSetter(last_approach, hard_approach, approach, selected_approach)
+	stats.set_int(MPX() .. "H3_LAST_APPROACH", last_approach)
+	stats.set_int(MPX() .. "H3_HARD_APPROACH", hard_approach)
+	stats.set_int(MPX() .. "H3_APPROACH", approach)
+	stats.set_int(MPX() .. "H3OPT_APPROACH", selected_approach)
+end
+local function CasinoCompletePreps()
+	stats.set_int(MPX() .. "H3OPT_DISRUPTSHIP", 3)
+	stats.set_int(MPX() .. "H3OPT_KEYLEVELS", 2)
+	stats.set_int(MPX() .. "H3OPT_BITSET0", -1)
+	stats.set_int(MPX() .. "H3OPT_BITSET1", -1)
+	stats.set_int(MPX() .. "H3OPT_COMPLETEDPOSIX", -1)
+end
+CasinoHeist:add_text("Primary Target")
+CasinoHeist:add_button("Diamond",
+function ()
+	stats.set_int(MPX() .. "H3OPT_TARGET", 3)
+end
+)
+CasinoHeist:add_sameline()
+CasinoHeist:add_button("Gold",
+function ()
+	stats.set_int(MPX() .. "H3OPT_TARGET", 1)
+end
+)
+CasinoHeist:add_sameline()
+CasinoHeist:add_button("Arts",
+function ()
+	stats.set_int(MPX() .. "H3OPT_TARGET", 2)
+end
+)
+CasinoHeist:add_sameline()
+CasinoHeist:add_button("Cash",
+function ()
+	stats.set_int(MPX() .. "H3OPT_TARGET", 0)
+end
+)
+CasinoHeist:add_separator()
+CasinoHeist:add_text("Select Apprach")
+CasinoHeist:add_button("Silent & Sneaky",
+function ()
+	CasinoApproachSetter(2, 1, 3, 1)
+	STATS.STAT_SET_INT(MPX() .. "H3OPT_BITSET1", 127)
+	stats.set_int(MPX() .. "H3OPT_WEAPS", 0)
+end)
+CasinoHeist:add_sameline()
+CasinoHeist:add_button("Big Con",
+function ()
+	CasinoApproachSetter(1, 2, 3, 2)
+	STATS.STAT_SET_INT(MPX() .. "H3OPT_BITSET1", 799)
+	stats.set_int(MPX() .. "H3OPT_WEAPS", 0)
+end)
+CasinoHeist:add_sameline()
+CasinoHeist:add_button("Aggressive",
+function ()
+	CasinoApproachSetter(2, 3, 1, 3)
+	STATS.STAT_SET_INT(MPX() .. "H3OPT_BITSET1", 799)
+	stats.set_int(MPX() .. "H3OPT_WEAPS", 0)
+end)
+CasinoHeist:add_separator()
+CasinoHeist:add_text("Gun Man")
+local gunman = 0
+local driver = 0
+local hacker = 0
+local mask = 0
+local casinoPc1 = 0
+local casinoPc2 = 0
+local casinoPc3 = 0
+local casinoPc4 = 0
+local GunManLoadoutSi = {
+	"Karl Abolaji/Micro SMG",
+	"Karl Abolaji/Machine Pistol",
+	"Charlie Reed/Assault SMG",
+	"Charlie Reed/Bullpup Shotgun",
+	"Patrick McReary/Combat PDW",
+	"Patrick McReary/Assault Rifle",
+	"Gustavo Mota/Carbine Rifle",
+	"Gustavo Mota/Assault Shotgun",
+	"Chester McCoy/Pump Shotgun Mk II",
+	"Chester McCoy/Carbine Rifle Mk II"
+}
+local GunManLoadoutBC = {
+	"Karl Abolaji/Micro SMG",
+	"Karl Abolaji/Double Barrel Shotgun",
+	"Charlie Reed/Machine Pistol",
+	"Charlie Reed/Sweeper Shotgun",
+	"Patrick McReary/Sawed-Off Shotgun",
+	"Patrick McReary/Compact Rifle",
+	"Gustavo Mota/Carbine Rifle",
+	"Gustavo Mota/Assault Shotgun",
+	"Chester McCoy/SMG Mk II",
+	"Chester McCoy/Bullpup Rifle Mk II"
+}
+local GunManLoadoutAg = {
+	"Karl Abolaji/Sawed-Off Shotgun",
+	"Karl Abolaji/Heavy Revolver",
+	"Charlie Reed/Assault SMG",
+	"Charlie Reed/Pump Shotgun",
+	"Patrick McReary/Heavy Shotgun",
+	"Patrick McReary/Combat MG",
+	"Gustavo Mota/Carbine Rifle",
+	"Gustavo Mota/Assault Shotgun",
+	"Chester McCoy/Pump Shotgun Mk II",
+	"Chester McCoy/Assault Rifle Mk II"
+}
+local DriverLoad = {
+	"Karim Denz/Issi Classic",
+	"Karim Denz/Asbo",
+	"Karim Denz/Blista Kanjo",
+	"Karim Denz/Sentinel Classic",
+	"Zach Nelson/Manchez",
+	"Zach Nelson/Stryder",
+	"Zach Nelson/Defiler",
+	"Zach Nelson/Lectro",
+	"Taliana Martinez/Retinue Mk II",
+	"Taliana Martinez/Drift Yosemite",
+	"Taliana Martinez/Sugoi",
+	"Taliana Martinez/Jugular",
+	"Eddie Toh/Sultan Classic",
+	"Eddie Toh/Gauntlet Classic",
+	"Eddie Toh/Ellie",
+	"Eddie Toh/Komoda",
+	"Chester McCoy/Zhaba",
+	"Chester McCoy/Vagrant",
+	"Chester McCoy/Outlaw",
+	"Chester McCoy/Everon"
 
+}
+local hackerLoad = {
+	"Select", "Rickie Lukens","Christian Feltz", "Yohan Blair", "Avi Schwartzman",  "Page Harris"
+}
+local maskLoad = {
+	"Select", "Geometic Set", "Hunter Set", "Oni Half Mask Set", "Emoji Set", "Ornate Skull Set", "Lucky Fruit Set", "Guerilla Set", "Clown Set", "Animal Set", "Riot Set", "Oni Full Mask Set", "Hockey Set"
+}
+CasinoHeist:add_imgui(
+	function ()
+		if stats.get_int(MPX() .. "H3OPT_APPROACH") == 1 then
+			ImGui.SetNextItemWidth(265)
+			gunman = ImGui.Combo("Loadout", gunman, GunManLoadoutSi, 10)
+			
+		elseif stats.get_int(MPX() .. "H3OPT_APPROACH") == 2 then
+			ImGui.SetNextItemWidth(265)
+			gunman = ImGui.Combo("Loadout", gunman, GunManLoadoutBC, 10)
+		elseif stats.get_int(MPX() .. "H3OPT_APPROACH") == 3 then
+			ImGui.SetNextItemWidth(265)
+			gunman = ImGui.Combo("Loadout", gunman, GunManLoadoutAg, 10)
+		end
+
+		if ImGui.Button("Set Loadout") then
+			ImGui.Text(gunman)
+			if gunman <= 1 then
+				stats.set_int(MPX() .. "H3OPT_CREWWEAP", 1)
+				stats.set_int(MPX() .. "H3OPT_WEAPS", gunman)
+			elseif gunman <= 4 then
+				stats.set_int(MPX() .. "H3OPT_CREWWEAP", 3)
+				stats.set_int(MPX() .. "H3OPT_WEAPS", gunman - 2)
+			elseif gunman <= 6 then
+				stats.set_int(MPX() .. "H3OPT_CREWWEAP", 5)
+				stats.set_int(MPX() .. "H3OPT_WEAPS", gunman - 4)
+			elseif gunman <= 8 then
+				stats.set_int(MPX() .. "H3OPT_CREWWEAP", 2)
+				stats.set_int(MPX() .. "H3OPT_WEAPS", gunman - 6)
+			elseif gunman <= 10 then
+				stats.set_int(MPX() .. "H3OPT_CREWWEAP", 4)
+				stats.set_int(MPX() .. "H3OPT_WEAPS", gunman - 8)
+			end
+		end
+		ImGui.Separator()
+		ImGui.Text("Getaway Vehicles")
+		ImGui.SetNextItemWidth(265)
+		driver = ImGui.Combo("", driver, DriverLoad, 20)
+		if ImGui.Button("Set Getaway Vehicle") then
+			ImGui.Text(driver)
+			if driver <= 3 then
+				stats.set_int(MPX() .. "H3OPT_CREWDRIVER",1)
+				stats.set_int(MPX() .. "H3OPT_VEHS", driver)
+			elseif driver <= 7 then
+				stats.set_int(MPX() .. "H3OPT_CREWDRIVER",4)
+				stats.set_int(MPX() .. "H3OPT_VEHS", driver- 4)
+			elseif driver <= 11 then
+				stats.set_int(MPX() .. "H3OPT_CREWDRIVER",2)
+				stats.set_int(MPX() .. "H3OPT_VEHS", driver - 8)
+			elseif driver <= 15 then
+				stats.set_int(MPX() .. "H3OPT_CREWDRIVER",3)
+				stats.set_int(MPX() .. "H3OPT_VEHS", driver - 12)
+			elseif driver <= 19 then
+				stats.set_int(MPX() .. "H3OPT_CREWDRIVER",5)
+				stats.set_int(MPX() .. "H3OPT_VEHS", driver - 16)
+			end
+		end
+		ImGui.Separator()
+		ImGui.Text("Hacker")
+		ImGui.SetNextItemWidth(265)
+		hacker = ImGui.Combo("Hacker", hacker, hackerLoad, 6)
+		if ImGui.Button("Set Hacker") then
+			ImGui.Text(hacker)
+			stats.set_int(MPX() .. "H3OPT_CREWHACKER", hacker)
+		end
+		ImGui.Separator()
+		ImGui.Text("Mask")
+		ImGui.SetNextItemWidth(265)
+		ImGui.SetNextItemWidth(265)
+		mask = ImGui.Combo("Masks", mask, maskLoad, 13)
+		if ImGui.Button("Set Mask") then
+			ImGui.Text(mask)
+			stats.set_int(MPX() .. "H3OPT_MASKS", mask)
+		end
+		ImGui.Separator()
+		if ImGui.Button("Complete preps") then
+			CasinoCompletePreps()
+		end
+		ImGui.Separator()
+		ImGui.Text("Cuts")
+		ImGui.Text("Preset Cut")
+		if ImGui.Button("Set Cut to 100") then
+			CutsPresetter(DCCg1, DCCg4, 100)
+		end
+		casinoPc1 = ImGui.InputInt("Player Cut 1", casinoPc1)
+		casinoPc2 = ImGui.InputInt("Player Cut 2", casinoPc2)
+		casinoPc3 = ImGui.InputInt("Player Cut 3", casinoPc3)
+		casinoPc4 = ImGui.InputInt("Player Cut 4", casinoPc4)
+		if ImGui.Button("Set Player Cuts") then
+			globals.set_int(DCCg1, casinoPc1)
+			globals.set_int(DCCg2, casinoPc2)
+			globals.set_int(DCCg3, casinoPc3)
+			globals.set_int(DCCg4, casinoPc4)
+		end
+	end
+	
+)
+CasinoHeist:add_separator()
+CasinoHeist:add_button("Reload Planning Screen",
+function ()
+	locals.set_int("gb_casino_heist_planning", DCRBl, 2)
+end
+)
+local CasinoHeistExtra = CasinoHeist:add_tab("Extras")
+CasinoHeistExtra:add_text("Make Lester, Driver, Hacker, and Gunman cut to 0%")
+CasinoHeistExtra:add_button("Make Fees to 0",
+function ()
+	globals.set_int(DCCgun, 0)
+	globals.set_int(DCCh, 0)
+	globals.set_int(DCCl, 0)
+	globals.set_int(DCCd, 0)
+end
+)
+CasinoHeistExtra:add_text("Hacks")
+CasinoHeistExtra:add_button("Bypass Casino Fingerprint Hack",
+function ()
+	if locals.get_int("fm_mission_controller",DCFHl) == 4 then
+		locals.set_int("fm_mission_controller",DCFHl, 5)
+	end
+end
+)
+CasinoHeistExtra:add_sameline()
+CasinoHeistExtra:add_button("Bypass Keypad Hack",
+function ()
+	if locals.get_int("fm_mission_controller",DCKHl) ~= 4 then
+		locals.set_int("fm_mission_controller",DCKHl, 5)
+	end
+end
+)
+CasinoHeistExtra:add_sameline()
+CasinoHeistExtra:add_button("Bypass Drill Vault Door",
+function ()
+	locals.set_int("fm_mission_controller",DCDVDl1, locals.get_int("fm_mission_controller",DCDVDl2))
+end
+)
 -- Cayo Heist --
 
 local Cayo = Heist_Editor:add_tab("Cayo Perico Heist")
@@ -781,6 +1065,7 @@ Cayo:add_button("Complete Preps",
 function ()
 	CayoPaintingsToggler(addPaintings:is_enabled())
 	CayoCompletePreps()
+	locals.set_int("heist_island_planning", CPRSl, 2)
 end
 )
 Cayo:add_separator()
@@ -1181,6 +1466,16 @@ function ()
 	locals.set_int("am_mp_nightclub", NLCl, 1)
 end
 )
+local nightCollect = Nightclub:add_checkbox("Collect Loop")
+script.register_looped("nightcollectloop", function(script)
+	if nightCollect:is_enabled() then
+		script:yield()
+		locals.set_int("am_mp_nightclub", NLCl, 1)
+		script:sleep(5000)
+	end
+end
+)
+
 Nightclub:add_separator()
 Nightclub:add_text("Set Cargo value to $2,00,000")
 Nightclub:add_button("Cargo and shipments",
