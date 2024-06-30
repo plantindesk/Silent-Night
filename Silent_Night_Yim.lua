@@ -47,9 +47,9 @@ AUAJg2 = FMg + 9106 -- apartment unlock all jobs global 2 ("ROOT_ID_HASH_THE_PRI
 AUAJg3 = FMg + 9113 -- apartment unlock all jobs global 3 ("ROOT_ID_HASH_THE_HUMANE_LABS_RAID")
 AUAJg4 = FMg + 9119 -- apartment unlock all jobs global 4 ("ROOT_ID_HASH_SERIES_A_FUNDING")
 AUAJg5 = FMg + 9125 -- apartment unlock all jobs global 5 ("ROOT_ID_HASH_THE_PACIFIC_STANDARD_JOB")
-AIFl3 = 19728 -- apartment instant finish local 1
-AIFl4 = 28347 + 1 -- apartment instant finish local 2
-AIFl5 = 31603 + 69 -- apartment instant finish local 3
+AIFl3 = 19746 -- apartment instant finish local 1
+AIFl4 = 28365 + 1 -- apartment instant finish local 2
+AIFl5 = 31621 + 69 -- apartment instant finish local 3
 AFHl = 11778 + 24 -- apartment fleeca hack local 
 AFDl = 10069 + 11 -- apartment fleeca drill local
 DCRBl = 185 -- diamond casino reload board local
@@ -1224,6 +1224,14 @@ function ()
 	stats.set_int(MPX() .. "HEIST_SAVED_STRAND_3_L", 5)
 	stats.set_int(MPX() .. "HEIST_SAVED_STRAND_4", globals.get_int(AUAJg5))
 	stats.set_int(MPX() .. "HEIST_SAVED_STRAND_4_L", 5)
+end
+)
+Apartment:add_sameline()
+Apartment:add_button("Instant Finish",
+function()
+	locals.set_int("fm_mission_controller", AIFl3, 12)
+	locals.set_int("fm_mission_controller", AIFl4, 99999)
+	locals.set_int("fm_mission_controller", AIFl5, 99999)
 end
 )
 Apartment:add_text("Note: After Clicking Unlock All jobs, restart the game")
