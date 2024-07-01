@@ -22,6 +22,7 @@ ASPg1 = FMg + 30338 + 1 -- auto shop payout global 1 ("TUNER_ROBBERY_LEADER_CASH
 ASPg2 = FMg + 30338 + 8 -- auto shop payout global 2 ("TUNER_ROBBERY_LEADER_CASH_REWARD7") //correct
 ASFg = FMg + 30334 -- auto shop fee global ("TUNER_ROBBERY_CONTACT_FEE") //correct
 SYVVg = FMg + 33035 -- salvage yard vehicle value global ("SALV23_VEHICLE_ROBBERY_VALUE_0") //correct
+SYCKg = FMg + 33027 -- salvage yard can keep global ("SALV23_VEHICLE_ROBBERY_CAN_KEEP_0")
 ASCKg = FMg + 30357 -- auto shop cooldown global ("TUNER_ROBBERY_COOLDOWN_TIME") //correct
 DCg1 = 1960755 + 812 + 50 + 1 -- doomsday player 1 cut global
 DCg2 = 1960755 + 812 + 50 + 2 -- doomsday player 2 cut global
@@ -100,7 +101,8 @@ EDVg1 = FMg + 35629 -- enable dripfeed vehicles global 1 ("ENABLE_VEHICLE_ENVISA
 EDVg2 = FMg + 35630 -- enable dripfeed vehicles global 2 ("ENABLE_VEHICLE_EUROSX32")
 EDVg3 = FMg + 35631 -- enable dripfeed vehicles global 3 ("ENABLE_VEHICLE_POLIMPALER5")
 EDVg4 = FMg + 35632 -- enable dripfeed vehicles global 4 ("ENABLE_VEHICLE_POLGREENWOOD")
-EDVg5 = 2707347 -- enable dripfeed vehicles global 5 ("ENABLE_VEHICLE_PIPISTRELLO")
+BEDVg5 = 2707347 -- enable dripfeed vehicles global 5 ("Bypass")
+EDVg5 = FMg + 35633 -- enable dripfeed vehicles global 6 ("ENABLE_VEHICLE_PIPISTRELLO")
 EDVg6 = FMg + 35634 -- enable dripfeed vehicles global 6 ("ENABLE_VEHICLE_POLIMPALER6")
 EDVg7 = FMg + 35635 -- enable dripfeed vehicles global 7 ("ENABLE_VEHICLE_CASTIGATOR")
 EDVg8 = FMg + 35636 -- enable dripfeed vehicles global 8 ("ENABLE_VEHICLE_DOMINATOR10")
@@ -111,6 +113,7 @@ EDVg12 = FMg + 35640 -- enable dripfeed vehicles global 12 ("ENABLE_VEHICLE_POLD
 EDVg13 = FMg + 35641 -- enable dripfeed vehicles global 13 ("ENABLE_VEHICLE_NIOBE")
 EDVg14 = FMg + 35642 -- enable dripfeed vehicles global 14 ("ENABLE_VEHICLE_COQUETTE5")
 EDVg15 = FMg + 35643 -- enable dripfeed vehicles global 15 ("ENABLE_VEHICLE_PIZZABOY")
+EVg1 = FMg + 34323 -- enables dripfeed vehicles ("ENABLE_VEHICLE_EXEMPLAR")
 MCPwv = FMg + 17323   --  price of weed ("BIKER_WEED_PRODUCT_VALUE")
 MCPmV = FMg + 17322   --  price of meth ("BIKER_METH_PRODUCT_VALUE")
 MCPcockV = FMg + 17321   --  price of cocaine ("BIKER_CRACK_PRODUCT_VALUE")
@@ -445,7 +448,48 @@ Salvage:add_button("Third Vehicle",
 function ()
 	globals.set_int(SYVVg + 3, salvehPrice:get_value())
 end)
-
+local availablity1 = 0
+local availablity2 = 0
+local availablity3 = 0
+local claims = {
+	"Unclaimable",
+	"Claimable"
+}
+Salvage:add_imgui(
+	function ()
+		ImGui.SetNextItemWidth(160)
+		availablity1 = ImGui.Combo("", availablity1, claims, 2)
+		ImGui.SameLine()
+		ImGui.SetNextItemWidth(160)
+		ImGui.SameLine()
+		availablity2 = ImGui.Combo("  ", availablity2, claims, 2)
+		ImGui.SameLine()
+		ImGui.SetNextItemWidth(160)
+		availablity3 = ImGui.Combo("   ", availablity3, claims, 2)
+		if ImGui.Button("Set Claimability") then
+			globals.set_int(SYCKg + 1, availablity1)
+			globals.set_int(SYCKg + 2, availablity2)
+			globals.set_int(SYCKg + 3, availablity3)
+		end
+	end
+)
+Salvage:add_separator()
+Salvage:add_text("Set Vehicle Claimmable")
+Salvage:add_button("Vehicle 1",
+function ()
+	globals.set_int(SYCKg + 1, 1)
+end
+)
+Salvage:add_button("Vehicle 2",
+function ()
+	globals.set_int(SYCKg + 2, 1)
+end
+)
+Salvage:add_button("Vehicle 3",
+function ()
+	globals.set_int(SYCKg + 3, 1)
+end
+)
 Salvage:add_separator()
 Salvage:add_text("Set All vehicles as available")
 Salvage:add_button("Set all vehicles as available", function() set_all_vehicles_available() end)
@@ -1678,9 +1722,9 @@ VehUtils:add_separator()
 VehUtils:add_text("Vehicle unlocker")
 VehUtils:add_button("Unlock Dripfeed Vehicles",
 function ()
+	globals.set_int(BEDVg5, 1)				-- bypass
 	globals.set_int(EDVg5, 1)				-- pipistrello
-	globals.set_int(EDVg6, 1)				-- castigator
-	globals.set_int(FMg + 35588 + 6, 1)		-- castigator
+	globals.set_int(FMg + 35588 - 8, 1)		--pipistrello
 	globals.set_int(EDVg12, 1)				-- dominator fx interceptor
 	globals.set_int(FMg + 35588 + 13, 1)		-- dominator fx interceptor
 	globals.set_int(EDVg8, 1)				-- dominator fx
@@ -1691,6 +1735,10 @@ function ()
 	globals.set_int(FMg + 35588 + 14, 1)	-- pizzaboy
 	globals.set_int(EDVg9, 1)				-- Vorschlaghammer
 	globals.set_int(FMg + 35588 + 0, 1)		-- Vorschlaghammer
+	globals.set_int(EDVg7, 1)				--catisgator
+	globals.set_int(FMg + 35588 +6, 1)		--catisgator
+	globals.set_int(EDVg6, 1)				-- polimpalor
+	globals.set_int(FMg + 35588 + 19, 1)	-- polimpalor
 end
 )
 local unlocker = Miscellaneous:add_tab("Unlocker Menu")
@@ -1800,7 +1848,7 @@ end
 )
 -- LSCM ---
 
-LSCM = Miscellaneous:add_tab("LSCM Unlocker Menu")
+local LSCM = Miscellaneous:add_tab("LSCM Unlocker Menu")
 
 LSCM:add_button("Unlock All Rep Lvl 1000", function()
 	for i = 262145 + 30958, 262145 + 30987 do
@@ -1813,8 +1861,8 @@ LSCM:add_button("Unlock Prize Ride",
 	function()
 		stats.set_bool(MPX() .. "CARMEET_PV_CHLLGE_CMPLT", true)
 		stats.set_bool(MPX() .. "CARMEET_PV_CLMED", false)
-	end)
-
+	end
+)
 -- Gun Van
 
 
