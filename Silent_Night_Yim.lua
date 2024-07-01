@@ -122,6 +122,8 @@ MCPfakeV = FMg + 17319   --  price of fake ID ("BIKER_FAKEIDS_PRODUCT_VALUE")
 MCPacidV = FMg + 17324   --  price of acid ("BIKER_ACID_PRODUCT_VALUE")
 CUg = 2708057 -- collectibles unlocker global ("cellphone_badger")
 SJo = 211 -- signal jammers offset
+SYCg1 = FMg + 33064 --  salvage yard cooldown global ("SALV23_VEH_ROB_COOLDOWN_TIME")
+SYCg2 = FMg + 3306 --  salvage yard cooldown global ("SALV23_CFR_COOLDOWN_TIME")
 -- Required Functions --
 
 local function MoneyFormatter(n)
@@ -431,23 +433,6 @@ Salvage:add_button("Third Vehicle",
 function ()
 	globals.set_int(SYVVg + 3, 600000)
 end)
-Salvage:add_text("")
-Salvage:add_text("Custom Vehicle Value")
-local salvehPrice = Salvage:add_input_int("Price")
-Salvage:add_button("First Vehicle",
-function ()
-	globals.set_int(SYVVg + 1, salvehPrice:get_value())
-end)
-Salvage:add_sameline()
-Salvage:add_button("Second Vehicle",
-function ()
-	globals.set_int(SYVVg + 2, salvehPrice:get_value())
-end)
-Salvage:add_sameline()
-Salvage:add_button("Third Vehicle",
-function ()
-	globals.set_int(SYVVg + 3, salvehPrice:get_value())
-end)
 local availablity1 = 0
 local availablity2 = 0
 local availablity3 = 0
@@ -455,8 +440,22 @@ local claims = {
 	"Unclaimable",
 	"Claimable"
 }
+local vehicles = {
+	"First Vehicle",
+	"Second Vehicle",
+	"Third Vehicle"
+}
+local salPrice = 0
+local vehicle = 0
 Salvage:add_imgui(
 	function ()
+		ImGui.Text("Custom Vehicle Value")
+		salPrice = ImGui.InputInt("Price", salPrice)
+		vehicle = ImGui.Combo("Vehicle", vehicle, vehicles, 3)
+		if ImGui.Button("Set Vehicle Value") then
+			globals.set_int(SYVVg + vehicle + 1, salPrice)
+		end
+		ImGui.Text("Set Availibility Status")
 		ImGui.SetNextItemWidth(160)
 		availablity1 = ImGui.Combo("", availablity1, claims, 2)
 		ImGui.SameLine()
@@ -1216,31 +1215,40 @@ function ()
 	globals.set_int(ACg4, 100)
 end
 )
-Apartment:add_text("Custom Cuts:")
-local apartCut = Apartment:add_input_int("Cut 1")
-local apartCut2 = Apartment:add_input_int("Cut 2")
-local apartCut3 = Apartment:add_input_int("Cut 3")
-local apartCut4 = Apartment:add_input_int("Cut 4")
-Apartment:add_text("For Fleeca Heist:")
-Apartment:add_button("Set Cuts",
-function ()
-	globals.set_int(ACg1, 100 - (apartCut:get_value() * 2))
-	globals.set_int(ACg2, apartCut2:get_value())
-end
-)
-Apartment:add_text("For Other Heists:")
-Apartment:add_button("Set Cuts",
-function ()
-	globals.set_int(ACg1, 100 - (apartCut:get_value() * 4))
-	globals.set_int(ACg2, apartCut2:get_value())
-	globals.set_int(ACg3, apartCut3:get_value())
-	globals.set_int(ACg4, apartCut4:get_value())
-end
-)
-Apartment:add_button("Set Negative to Positive (own)",
-function ()
-	globals.set_int(ACg5, -1 * (-100 + globals.get_int(ACg1)) / 2)
-end
+
+local apartCut1 = 0
+local apartCut2 = 0
+local apartCut3 = 0
+local apartCut4 = 0
+Apartment:add_imgui(
+	function ()
+		ImGui.Text("Custom Cuts:")
+		ImGui.SetNextItemWidth(150)
+		apartCut1 = ImGui.InputInt("Cut 1", apartCut1)
+		ImGui.SameLine()
+		ImGui.SetNextItemWidth(150)
+		apartCut2 = ImGui.InputInt("Cut 2", apartCut2)
+		ImGui.SetNextItemWidth(150)
+		apartCut3 = ImGui.InputInt("Cut 3", apartCut3)
+		ImGui.SameLine()
+		ImGui.SetNextItemWidth(150)
+		apartCut4 = ImGui.InputInt("Cut 4", apartCut4)
+		ImGui.Text("For Fleeca Heist")
+		if ImGui.Button("Set Cuts") then
+			globals.set_int(ACg1, 100 - (apartCut1 * 2))
+			globals.set_int(ACg2, apartCut2)
+		end
+		ImGui.Text("For Other Heists")
+		if ImGui.Button("Set Cuts") then
+			globals.set_int(ACg1, 100 - (apartCut1 * 4))
+			globals.set_int(ACg2, apartCut2)
+			globals.set_int(ACg3, apartCut3)
+			globals.set_int(ACg4, apartCut4)
+		end
+		if ImGui.Button("Set Negative to Positive (own)") then
+			globals.set_int(ACg5, -1 * (-100 + globals.get_int(ACg1)) / 2)
+		end
+	end
 )
 Apartment:add_separator()
 Apartment:add_text("Extras")
@@ -1741,6 +1749,12 @@ function ()
 	globals.set_int(FMg + 35588 + 19, 1)	-- polimpalor
 end
 )
+VehUtils:add_button("Unlock Removed Vehicles",
+function ()
+	globals.set_int(EDVg5, 1)				-- bypass
+	globals.set_int(EVg1, 1)				-- examplar
+end
+)
 local unlocker = Miscellaneous:add_tab("Unlocker Menu")
 unlocker:add_text("Unlock All the Things you want")
 unlocker:add_button("Unlock All Parachutes",
@@ -2239,7 +2253,27 @@ LSCM:add_button("Unlock Prize Ride",
 		end
 	end)
 
-
+-- No Needs --
+local NoNeed = Silent:add_tab("No Need")
+NoNeed:add_text("This Script are generally not worth")
+NoNeed:add_separator()
+NoNeed:add_text("Bottom Dollars")
+NoNeed:add_text("Standard Bounty Targets")
+NoNeed:add_button("All to Max Payout",
+function ()
+	stats.set_int(MPX() .. "BOUNTY24_STD_TARG_RWD_0", 90000)
+	stats.set_int(MPX() .. "BOUNTY24_STD_TARG_RWD_1", 90000)
+	stats.set_int(MPX() .. "BOUNTY24_STD_TARG_RWD_2", 90000)
+end
+)
+NoNeed:add_button("Set All Prisoner Out",
+function ()
+	stats.set_int(MPX() .. "BAIL_PRISONER_POSIX0", 0)
+	stats.set_int(MPX() .. "BAIL_PRISONER_POSIX1", 0)
+	stats.set_int(MPX() .. "BAIL_PRISONER_POSIX2", 0)
+end
+)
+NoNeed:add_text("Note: Do that outside Bail Office")
 -- Credits --
 local Credits = Silent:add_tab("Credits")
 Credits:add_text("Developer: SilentSalo", null)
